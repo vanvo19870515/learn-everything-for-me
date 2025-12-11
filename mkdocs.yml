@@ -1,0 +1,56 @@
+site_name: Learn Everything For Me
+site_description: Knowledge base for SDET, Playwright, Selenium, API, and QA strategy
+site_url: https://vanvo19870515.github.io/learn-everything-for-me
+repo_url: https://github.com/vanvo19870515/learn-everything-for-me
+repo_name: vanvo19870515/learn-everything-for-me
+docs_dir: .
+use_directory_urls: true
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.expand
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+    - search.highlight
+    - search.suggest
+  palette:
+    - scheme: default
+      primary: blue
+      accent: light blue
+    - scheme: slate
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.emoji
+
+nav:
+  - Home: README.md
+  - Guides:
+      - Playwright Guide: Playwright_Guide_Reorganized.md
+      - Test Automation Pyramid: Test_Automation_Pyramid_Guide.md
+      - Flaky Test Guide: Flaky_Test_Guide.md
+  - SDET Prep:
+      - SDET Interview Preparation: SDET_Interview_Preparation_Guide.md
+      - Experienced Automation Tester Q&A: Experienced_Automation_Tester_QA.md
+  - Assets:
+      - HTML Guide: Playwright_Complete_Guide.html
+
+
