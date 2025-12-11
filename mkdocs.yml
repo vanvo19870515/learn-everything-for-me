@@ -8,6 +8,8 @@ use_directory_urls: true
 
 theme:
   name: material
+  logo: assets/avatar.png
+  favicon: assets/avatar-32.png
   language: en
   features:
     - navigation.expand
