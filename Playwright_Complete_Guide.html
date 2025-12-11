@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Playwright_Guide_Reorganized</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <link href="data:text/css; charset=utf-8;charset=utf-8,%40media%20%28prefers%2Dcolor%2Dscheme%3Adark%29%7B%2Emarkdown%2Dbody%7Bcolor%2Dscheme%3Adark%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcomment%3A%238b949e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dconstant%3A%2379c0ff%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dentity%3A%23d2a8ff%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstorage%2Dmodifier%2Dimport%3A%23c9d1d9%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dentity%2Dtag%3A%237ee787%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dkeyword%3A%23ff7b72%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstring%3A%23a5d6ff%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dvariable%3A%23ffa657%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dbrackethighlighter%2Dunmatched%3A%23f85149%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dinvalid%2Dillegal%2Dtext%3A%23f0f6fc%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dinvalid%2Dillegal%2Dbg%3A%238e1519%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcarriage%2Dreturn%2Dtext%3A%23f0f6fc%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcarriage%2Dreturn%2Dbg%3A%23b62324%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstring%2Dregexp%3A%237ee787%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dlist%3A%23f2cc60%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dheading%3A%231f6feb%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ditalic%3A%23c9d1d9%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dbold%3A%23c9d1d9%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ddeleted%2Dtext%3A%23ffdcd7%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ddeleted%2Dbg%3A%2367060c%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dinserted%2Dtext%3A%23aff5b4%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dinserted%2Dbg%3A%23033a16%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dchanged%2Dtext%3A%23ffdfb6%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dchanged%2Dbg%3A%235a1e02%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dignored%2Dtext%3A%23c9d1d9%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dignored%2Dbg%3A%231158c7%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmeta%2Ddiff%2Drange%3A%23d2a8ff%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dbrackethighlighter%2Dangle%3A%238b949e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dsublimelinter%2Dgutter%2Dmark%3A%23484f58%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dconstant%2Dother%2Dreference%2Dlink%3A%23a5d6ff%3B%2D%2Dcolor%2Dfg%2Ddefault%3A%23c9d1d9%3B%2D%2Dcolor%2Dfg%2Dmuted%3A%238b949e%3B%2D%2Dcolor%2Dfg%2Dsubtle%3A%236e7681%3B%2D%2Dcolor%2Dcanvas%2Ddefault%3A%230d1117%3B%2D%2Dcolor%2Dcanvas%2Dsubtle%3A%23161b22%3B%2D%2Dcolor%2Dborder%2Ddefault%3A%2330363d%3B%2D%2Dcolor%2Dborder%2Dmuted%3A%2321262d%3B%2D%2Dcolor%2Dneutral%2Dmuted%3Argba%28110%2C118%2C129%2C0%2E4%29%3B%2D%2Dcolor%2Daccent%2Dfg%3A%2358a6ff%3B%2D%2Dcolor%2Daccent%2Demphasis%3A%231f6feb%3B%2D%2Dcolor%2Dattention%2Dsubtle%3Argba%28187%2C128%2C9%2C0%2E15%29%3B%2D%2Dcolor%2Ddanger%2Dfg%3A%23f85149%7D%7D%40media%20%28prefers%2Dcolor%2Dscheme%3Alight%29%7B%2Emarkdown%2Dbody%7Bcolor%2Dscheme%3Alight%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcomment%3A%236e7781%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dconstant%3A%230550ae%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dentity%3A%238250df%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstorage%2Dmodifier%2Dimport%3A%2324292f%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dentity%2Dtag%3A%23116329%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dkeyword%3A%23cf222e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstring%3A%230a3069%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dvariable%3A%23953800%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dbrackethighlighter%2Dunmatched%3A%2382071e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dinvalid%2Dillegal%2Dtext%3A%23f6f8fa%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dinvalid%2Dillegal%2Dbg%3A%2382071e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcarriage%2Dreturn%2Dtext%3A%23f6f8fa%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcarriage%2Dreturn%2Dbg%3A%23cf222e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstring%2Dregexp%3A%23116329%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dlist%3A%233b2300%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dheading%3A%230550ae%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ditalic%3A%2324292f%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dbold%3A%2324292f%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ddeleted%2Dtext%3A%2382071e%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ddeleted%2Dbg%3A%23ffebe9%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dinserted%2Dtext%3A%23116329%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dinserted%2Dbg%3A%23dafbe1%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dchanged%2Dtext%3A%23953800%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dchanged%2Dbg%3A%23ffd8b5%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dignored%2Dtext%3A%23eaeef2%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dignored%2Dbg%3A%230550ae%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmeta%2Ddiff%2Drange%3A%238250df%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dbrackethighlighter%2Dangle%3A%2357606a%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dsublimelinter%2Dgutter%2Dmark%3A%238c959f%3B%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dconstant%2Dother%2Dreference%2Dlink%3A%230a3069%3B%2D%2Dcolor%2Dfg%2Ddefault%3A%2324292f%3B%2D%2Dcolor%2Dfg%2Dmuted%3A%2357606a%3B%2D%2Dcolor%2Dfg%2Dsubtle%3A%236e7781%3B%2D%2Dcolor%2Dcanvas%2Ddefault%3A%23ffffff%3B%2D%2Dcolor%2Dcanvas%2Dsubtle%3A%23f6f8fa%3B%2D%2Dcolor%2Dborder%2Ddefault%3A%23d0d7de%3B%2D%2Dcolor%2Dborder%2Dmuted%3Ahsla%28210%2C18%25%2C87%25%2C1%29%3B%2D%2Dcolor%2Dneutral%2Dmuted%3Argba%28175%2C184%2C193%2C0%2E2%29%3B%2D%2Dcolor%2Daccent%2Dfg%3A%230969da%3B%2D%2Dcolor%2Daccent%2Demphasis%3A%230969da%3B%2D%2Dcolor%2Dattention%2Dsubtle%3A%23fff8c5%3B%2D%2Dcolor%2Ddanger%2Dfg%3A%23cf222e%7D%7D%2Emarkdown%2Dbody%7B%2Dms%2Dtext%2Dsize%2Dadjust%3A100%25%3B%2Dwebkit%2Dtext%2Dsize%2Dadjust%3A100%25%3Bmargin%3A0%3Bcolor%3Avar%28%2D%2Dcolor%2Dfg%2Ddefault%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dcanvas%2Ddefault%29%3Bfont%2Dfamily%3A%2Dapple%2Dsystem%2CBlinkMacSystemFont%2C%22Segoe%20UI%22%2C%22Noto%20Sans%22%2CHelvetica%2CArial%2Csans%2Dserif%2C%22Apple%20Color%20Emoji%22%2C%22Segoe%20UI%20Emoji%22%3Bfont%2Dsize%3A16px%3Bline%2Dheight%3A1%2E5%3Bword%2Dwrap%3Abreak%2Dword%7D%2Emarkdown%2Dbody%20%2Eocticon%7Bdisplay%3Ainline%2Dblock%3Bfill%3AcurrentColor%3Bvertical%2Dalign%3Atext%2Dbottom%7D%2Emarkdown%2Dbody%20h1%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%3Abefore%2C%2Emarkdown%2Dbody%20h2%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%3Abefore%2C%2Emarkdown%2Dbody%20h3%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%3Abefore%2C%2Emarkdown%2Dbody%20h4%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%3Abefore%2C%2Emarkdown%2Dbody%20h5%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%3Abefore%2C%2Emarkdown%2Dbody%20h6%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%3Abefore%7Bwidth%3A16px%3Bheight%3A16px%3Bcontent%3A%27%20%27%3Bdisplay%3Ainline%2Dblock%3Bbackground%2Dcolor%3AcurrentColor%3B%2Dwebkit%2Dmask%2Dimage%3Aurl%28%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww%2Ew3%2Eorg%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%20version%3D%271%2E1%27%20aria%2Dhidden%3D%27true%27%3E%3Cpath%20fill%2Drule%3D%27evenodd%27%20d%3D%27M7%2E775%203%2E275a%2E75%2E75%200%20001%2E06%201%2E06l1%2E25%2D1%2E25a2%202%200%20112%2E83%202%2E83l%2D2%2E5%202%2E5a2%202%200%2001%2D2%2E83%200%20%2E75%2E75%200%2000%2D1%2E06%201%2E06%203%2E5%203%2E5%200%20004%2E95%200l2%2E5%2D2%2E5a3%2E5%203%2E5%200%2000%2D4%2E95%2D4%2E95l%2D1%2E25%201%2E25zm%2D4%2E69%209%2E64a2%202%200%20010%2D2%2E83l2%2E5%2D2%2E5a2%202%200%20012%2E83%200%20%2E75%2E75%200%20001%2E06%2D1%2E06%203%2E5%203%2E5%200%2000%2D4%2E95%200l%2D2%2E5%202%2E5a3%2E5%203%2E5%200%20004%2E95%204%2E95l1%2E25%2D1%2E25a%2E75%2E75%200%2000%2D1%2E06%2D1%2E06l%2D1%2E25%201%2E25a2%202%200%2001%2D2%2E83%200z%27%3E%3C%2Fpath%3E%3C%2Fsvg%3E%22%29%3Bmask%2Dimage%3Aurl%28%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww%2Ew3%2Eorg%2F2000%2Fsvg%27%20viewBox%3D%270%200%2016%2016%27%20version%3D%271%2E1%27%20aria%2Dhidden%3D%27true%27%3E%3Cpath%20fill%2Drule%3D%27evenodd%27%20d%3D%27M7%2E775%203%2E275a%2E75%2E75%200%20001%2E06%201%2E06l1%2E25%2D1%2E25a2%202%200%20112%2E83%202%2E83l%2D2%2E5%202%2E5a2%202%200%2001%2D2%2E83%200%20%2E75%2E75%200%2000%2D1%2E06%201%2E06%203%2E5%203%2E5%200%20004%2E95%200l2%2E5%2D2%2E5a3%2E5%203%2E5%200%2000%2D4%2E95%2D4%2E95l%2D1%2E25%201%2E25zm%2D4%2E69%209%2E64a2%202%200%20010%2D2%2E83l2%2E5%2D2%2E5a2%202%200%20012%2E83%200%20%2E75%2E75%200%20001%2E06%2D1%2E06%203%2E5%203%2E5%200%2000%2D4%2E95%200l%2D2%2E5%202%2E5a3%2E5%203%2E5%200%20004%2E95%204%2E95l1%2E25%2D1%2E25a%2E75%2E75%200%2000%2D1%2E06%2D1%2E06l%2D1%2E25%201%2E25a2%202%200%2001%2D2%2E83%200z%27%3E%3C%2Fpath%3E%3C%2Fsvg%3E%22%29%7D%2Emarkdown%2Dbody%20details%2C%2Emarkdown%2Dbody%20figcaption%2C%2Emarkdown%2Dbody%20figure%7Bdisplay%3Ablock%7D%2Emarkdown%2Dbody%20summary%7Bdisplay%3Alist%2Ditem%7D%2Emarkdown%2Dbody%20%5Bhidden%5D%7Bdisplay%3Anone%21important%7D%2Emarkdown%2Dbody%20a%7Bbackground%2Dcolor%3Atransparent%3Bcolor%3Avar%28%2D%2Dcolor%2Daccent%2Dfg%29%3Btext%2Ddecoration%3Anone%7D%2Emarkdown%2Dbody%20abbr%5Btitle%5D%7Bborder%2Dbottom%3Anone%3Btext%2Ddecoration%3Aunderline%20dotted%7D%2Emarkdown%2Dbody%20b%2C%2Emarkdown%2Dbody%20strong%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%7D%2Emarkdown%2Dbody%20dfn%7Bfont%2Dstyle%3Aitalic%7D%2Emarkdown%2Dbody%20h1%7Bmargin%3A%2E67em%200%3Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bpadding%2Dbottom%3A%2E3em%3Bfont%2Dsize%3A2em%3Bborder%2Dbottom%3A1px%20solid%20var%28%2D%2Dcolor%2Dborder%2Dmuted%29%7D%2Emarkdown%2Dbody%20mark%7Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dattention%2Dsubtle%29%3Bcolor%3Avar%28%2D%2Dcolor%2Dfg%2Ddefault%29%7D%2Emarkdown%2Dbody%20small%7Bfont%2Dsize%3A90%25%7D%2Emarkdown%2Dbody%20sub%2C%2Emarkdown%2Dbody%20sup%7Bfont%2Dsize%3A75%25%3Bline%2Dheight%3A0%3Bposition%3Arelative%3Bvertical%2Dalign%3Abaseline%7D%2Emarkdown%2Dbody%20sub%7Bbottom%3A%2D%2E25em%7D%2Emarkdown%2Dbody%20sup%7Btop%3A%2D%2E5em%7D%2Emarkdown%2Dbody%20img%7Bborder%2Dstyle%3Anone%3Bmax%2Dwidth%3A100%25%3Bbox%2Dsizing%3Acontent%2Dbox%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dcanvas%2Ddefault%29%7D%2Emarkdown%2Dbody%20code%2C%2Emarkdown%2Dbody%20kbd%2C%2Emarkdown%2Dbody%20pre%2C%2Emarkdown%2Dbody%20samp%7Bfont%2Dfamily%3Amonospace%3Bfont%2Dsize%3A1em%7D%2Emarkdown%2Dbody%20figure%7Bmargin%3A1em%2040px%7D%2Emarkdown%2Dbody%20hr%7Bbox%2Dsizing%3Acontent%2Dbox%3Boverflow%3Ahidden%3Bbackground%3A0%200%3Bborder%2Dbottom%3A1px%20solid%20var%28%2D%2Dcolor%2Dborder%2Dmuted%29%3Bheight%3A%2E25em%3Bpadding%3A0%3Bmargin%3A24px%200%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dborder%2Ddefault%29%3Bborder%3A0%7D%2Emarkdown%2Dbody%20input%7Bfont%3Ainherit%3Bmargin%3A0%3Boverflow%3Avisible%3Bfont%2Dfamily%3Ainherit%3Bfont%2Dsize%3Ainherit%3Bline%2Dheight%3Ainherit%7D%2Emarkdown%2Dbody%20%5Btype%3Dbutton%5D%2C%2Emarkdown%2Dbody%20%5Btype%3Dreset%5D%2C%2Emarkdown%2Dbody%20%5Btype%3Dsubmit%5D%7B%2Dwebkit%2Dappearance%3Abutton%7D%2Emarkdown%2Dbody%20%5Btype%3Dcheckbox%5D%2C%2Emarkdown%2Dbody%20%5Btype%3Dradio%5D%7Bbox%2Dsizing%3Aborder%2Dbox%3Bpadding%3A0%7D%2Emarkdown%2Dbody%20%5Btype%3Dnumber%5D%3A%3A%2Dwebkit%2Dinner%2Dspin%2Dbutton%2C%2Emarkdown%2Dbody%20%5Btype%3Dnumber%5D%3A%3A%2Dwebkit%2Douter%2Dspin%2Dbutton%7Bheight%3Aauto%7D%2Emarkdown%2Dbody%20%5Btype%3Dsearch%5D%3A%3A%2Dwebkit%2Dsearch%2Dcancel%2Dbutton%2C%2Emarkdown%2Dbody%20%5Btype%3Dsearch%5D%3A%3A%2Dwebkit%2Dsearch%2Ddecoration%7B%2Dwebkit%2Dappearance%3Anone%7D%2Emarkdown%2Dbody%20%3A%3A%2Dwebkit%2Dinput%2Dplaceholder%7Bcolor%3Ainherit%3Bopacity%3A%2E54%7D%2Emarkdown%2Dbody%20%3A%3A%2Dwebkit%2Dfile%2Dupload%2Dbutton%7B%2Dwebkit%2Dappearance%3Abutton%3Bfont%3Ainherit%7D%2Emarkdown%2Dbody%20a%3Ahover%7Btext%2Ddecoration%3Aunderline%7D%2Emarkdown%2Dbody%20%3A%3Aplaceholder%7Bcolor%3Avar%28%2D%2Dcolor%2Dfg%2Dsubtle%29%3Bopacity%3A1%7D%2Emarkdown%2Dbody%20hr%3A%3Abefore%7Bdisplay%3Atable%3Bcontent%3A%22%22%7D%2Emarkdown%2Dbody%20hr%3A%3Aafter%7Bdisplay%3Atable%3Bclear%3Aboth%3Bcontent%3A%22%22%7D%2Emarkdown%2Dbody%20table%7Bborder%2Dspacing%3A0%3Bborder%2Dcollapse%3Acollapse%3Bdisplay%3Ablock%3Bwidth%3Amax%2Dcontent%3Bmax%2Dwidth%3A100%25%3Boverflow%3Aauto%7D%2Emarkdown%2Dbody%20td%2C%2Emarkdown%2Dbody%20th%7Bpadding%3A0%7D%2Emarkdown%2Dbody%20details%20summary%7Bcursor%3Apointer%7D%2Emarkdown%2Dbody%20details%3Anot%28%5Bopen%5D%29%3E%3Anot%28summary%29%7Bdisplay%3Anone%21important%7D%2Emarkdown%2Dbody%20%5Brole%3Dbutton%5D%3Afocus%2C%2Emarkdown%2Dbody%20a%3Afocus%2C%2Emarkdown%2Dbody%20input%5Btype%3Dcheckbox%5D%3Afocus%2C%2Emarkdown%2Dbody%20input%5Btype%3Dradio%5D%3Afocus%7Boutline%3A2px%20solid%20var%28%2D%2Dcolor%2Daccent%2Dfg%29%3Boutline%2Doffset%3A%2D2px%3Bbox%2Dshadow%3Anone%7D%2Emarkdown%2Dbody%20%5Brole%3Dbutton%5D%3Afocus%3Anot%28%3Afocus%2Dvisible%29%2C%2Emarkdown%2Dbody%20a%3Afocus%3Anot%28%3Afocus%2Dvisible%29%2C%2Emarkdown%2Dbody%20input%5Btype%3Dcheckbox%5D%3Afocus%3Anot%28%3Afocus%2Dvisible%29%2C%2Emarkdown%2Dbody%20input%5Btype%3Dradio%5D%3Afocus%3Anot%28%3Afocus%2Dvisible%29%7Boutline%3Asolid%201px%20transparent%7D%2Emarkdown%2Dbody%20%5Brole%3Dbutton%5D%3Afocus%2Dvisible%2C%2Emarkdown%2Dbody%20a%3Afocus%2Dvisible%2C%2Emarkdown%2Dbody%20input%5Btype%3Dcheckbox%5D%3Afocus%2Dvisible%2C%2Emarkdown%2Dbody%20input%5Btype%3Dradio%5D%3Afocus%2Dvisible%7Boutline%3A2px%20solid%20var%28%2D%2Dcolor%2Daccent%2Dfg%29%3Boutline%2Doffset%3A%2D2px%3Bbox%2Dshadow%3Anone%7D%2Emarkdown%2Dbody%20a%3Anot%28%5Bclass%5D%29%3Afocus%2C%2Emarkdown%2Dbody%20a%3Anot%28%5Bclass%5D%29%3Afocus%2Dvisible%2C%2Emarkdown%2Dbody%20input%5Btype%3Dcheckbox%5D%3Afocus%2C%2Emarkdown%2Dbody%20input%5Btype%3Dcheckbox%5D%3Afocus%2Dvisible%2C%2Emarkdown%2Dbody%20input%5Btype%3Dradio%5D%3Afocus%2C%2Emarkdown%2Dbody%20input%5Btype%3Dradio%5D%3Afocus%2Dvisible%7Boutline%2Doffset%3A0%7D%2Emarkdown%2Dbody%20kbd%7Bdisplay%3Ainline%2Dblock%3Bpadding%3A3px%205px%3Bfont%3A11px%20ui%2Dmonospace%2CSFMono%2DRegular%2CSF%20Mono%2CMenlo%2CConsolas%2CLiberation%20Mono%2Cmonospace%3Bline%2Dheight%3A10px%3Bcolor%3Avar%28%2D%2Dcolor%2Dfg%2Ddefault%29%3Bvertical%2Dalign%3Amiddle%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dcanvas%2Dsubtle%29%3Bborder%3Asolid%201px%20var%28%2D%2Dcolor%2Dneutral%2Dmuted%29%3Bborder%2Dbottom%2Dcolor%3Avar%28%2D%2Dcolor%2Dneutral%2Dmuted%29%3Bborder%2Dradius%3A6px%3Bbox%2Dshadow%3Ainset%200%20%2D1px%200%20var%28%2D%2Dcolor%2Dneutral%2Dmuted%29%7D%2Emarkdown%2Dbody%20h1%2C%2Emarkdown%2Dbody%20h2%2C%2Emarkdown%2Dbody%20h3%2C%2Emarkdown%2Dbody%20h4%2C%2Emarkdown%2Dbody%20h5%2C%2Emarkdown%2Dbody%20h6%7Bmargin%2Dtop%3A24px%3Bmargin%2Dbottom%3A16px%3Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bline%2Dheight%3A1%2E25%7D%2Emarkdown%2Dbody%20h2%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bpadding%2Dbottom%3A%2E3em%3Bfont%2Dsize%3A1%2E5em%3Bborder%2Dbottom%3A1px%20solid%20var%28%2D%2Dcolor%2Dborder%2Dmuted%29%7D%2Emarkdown%2Dbody%20h3%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bfont%2Dsize%3A1%2E25em%7D%2Emarkdown%2Dbody%20h4%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bfont%2Dsize%3A1em%7D%2Emarkdown%2Dbody%20h5%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bfont%2Dsize%3A%2E875em%7D%2Emarkdown%2Dbody%20h6%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bfont%2Dsize%3A%2E85em%3Bcolor%3Avar%28%2D%2Dcolor%2Dfg%2Dmuted%29%7D%2Emarkdown%2Dbody%20p%7Bmargin%2Dtop%3A0%3Bmargin%2Dbottom%3A10px%7D%2Emarkdown%2Dbody%20blockquote%7Bmargin%3A0%3Bpadding%3A0%201em%3Bcolor%3Avar%28%2D%2Dcolor%2Dfg%2Dmuted%29%3Bborder%2Dleft%3A%2E25em%20solid%20var%28%2D%2Dcolor%2Dborder%2Ddefault%29%7D%2Emarkdown%2Dbody%20ol%2C%2Emarkdown%2Dbody%20ul%7Bmargin%2Dtop%3A0%3Bmargin%2Dbottom%3A0%3Bpadding%2Dleft%3A2em%7D%2Emarkdown%2Dbody%20ol%20ol%2C%2Emarkdown%2Dbody%20ul%20ol%7Blist%2Dstyle%2Dtype%3Alower%2Droman%7D%2Emarkdown%2Dbody%20ol%20ol%20ol%2C%2Emarkdown%2Dbody%20ol%20ul%20ol%2C%2Emarkdown%2Dbody%20ul%20ol%20ol%2C%2Emarkdown%2Dbody%20ul%20ul%20ol%7Blist%2Dstyle%2Dtype%3Alower%2Dalpha%7D%2Emarkdown%2Dbody%20dd%7Bmargin%2Dleft%3A0%7D%2Emarkdown%2Dbody%20code%2C%2Emarkdown%2Dbody%20samp%2C%2Emarkdown%2Dbody%20tt%7Bfont%2Dfamily%3Aui%2Dmonospace%2CSFMono%2DRegular%2CSF%20Mono%2CMenlo%2CConsolas%2CLiberation%20Mono%2Cmonospace%3Bfont%2Dsize%3A12px%7D%2Emarkdown%2Dbody%20pre%7Bmargin%2Dtop%3A0%3Bmargin%2Dbottom%3A0%3Bfont%2Dfamily%3Aui%2Dmonospace%2CSFMono%2DRegular%2CSF%20Mono%2CMenlo%2CConsolas%2CLiberation%20Mono%2Cmonospace%3Bfont%2Dsize%3A12px%3Bword%2Dwrap%3Anormal%7D%2Emarkdown%2Dbody%20%2Eocticon%7Bdisplay%3Ainline%2Dblock%3Boverflow%3Avisible%21important%3Bvertical%2Dalign%3Atext%2Dbottom%3Bfill%3AcurrentColor%7D%2Emarkdown%2Dbody%20input%3A%3A%2Dwebkit%2Dinner%2Dspin%2Dbutton%2C%2Emarkdown%2Dbody%20input%3A%3A%2Dwebkit%2Douter%2Dspin%2Dbutton%7Bmargin%3A0%3B%2Dwebkit%2Dappearance%3Anone%3Bappearance%3Anone%7D%2Emarkdown%2Dbody%3A%3Abefore%7Bdisplay%3Atable%3Bcontent%3A%22%22%7D%2Emarkdown%2Dbody%3A%3Aafter%7Bdisplay%3Atable%3Bclear%3Aboth%3Bcontent%3A%22%22%7D%2Emarkdown%2Dbody%3E%3Afirst%2Dchild%7Bmargin%2Dtop%3A0%21important%7D%2Emarkdown%2Dbody%3E%3Alast%2Dchild%7Bmargin%2Dbottom%3A0%21important%7D%2Emarkdown%2Dbody%20a%3Anot%28%5Bhref%5D%29%7Bcolor%3Ainherit%3Btext%2Ddecoration%3Anone%7D%2Emarkdown%2Dbody%20%2Eabsent%7Bcolor%3Avar%28%2D%2Dcolor%2Ddanger%2Dfg%29%7D%2Emarkdown%2Dbody%20%2Eanchor%7Bfloat%3Aleft%3Bpadding%2Dright%3A4px%3Bmargin%2Dleft%3A%2D20px%3Bline%2Dheight%3A1%7D%2Emarkdown%2Dbody%20%2Eanchor%3Afocus%7Boutline%3A0%7D%2Emarkdown%2Dbody%20blockquote%2C%2Emarkdown%2Dbody%20details%2C%2Emarkdown%2Dbody%20dl%2C%2Emarkdown%2Dbody%20ol%2C%2Emarkdown%2Dbody%20p%2C%2Emarkdown%2Dbody%20pre%2C%2Emarkdown%2Dbody%20table%2C%2Emarkdown%2Dbody%20ul%7Bmargin%2Dtop%3A0%3Bmargin%2Dbottom%3A16px%7D%2Emarkdown%2Dbody%20blockquote%3E%3Afirst%2Dchild%7Bmargin%2Dtop%3A0%7D%2Emarkdown%2Dbody%20blockquote%3E%3Alast%2Dchild%7Bmargin%2Dbottom%3A0%7D%2Emarkdown%2Dbody%20h1%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h2%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h3%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h4%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h5%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h6%20%2Eocticon%2Dlink%7Bcolor%3Avar%28%2D%2Dcolor%2Dfg%2Ddefault%29%3Bvertical%2Dalign%3Amiddle%3Bvisibility%3Ahidden%7D%2Emarkdown%2Dbody%20h1%3Ahover%20%2Eanchor%2C%2Emarkdown%2Dbody%20h2%3Ahover%20%2Eanchor%2C%2Emarkdown%2Dbody%20h3%3Ahover%20%2Eanchor%2C%2Emarkdown%2Dbody%20h4%3Ahover%20%2Eanchor%2C%2Emarkdown%2Dbody%20h5%3Ahover%20%2Eanchor%2C%2Emarkdown%2Dbody%20h6%3Ahover%20%2Eanchor%7Btext%2Ddecoration%3Anone%7D%2Emarkdown%2Dbody%20h1%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h2%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h3%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h4%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h5%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%2Emarkdown%2Dbody%20h6%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%7Bvisibility%3Avisible%7D%2Emarkdown%2Dbody%20h1%20code%2C%2Emarkdown%2Dbody%20h1%20tt%2C%2Emarkdown%2Dbody%20h2%20code%2C%2Emarkdown%2Dbody%20h2%20tt%2C%2Emarkdown%2Dbody%20h3%20code%2C%2Emarkdown%2Dbody%20h3%20tt%2C%2Emarkdown%2Dbody%20h4%20code%2C%2Emarkdown%2Dbody%20h4%20tt%2C%2Emarkdown%2Dbody%20h5%20code%2C%2Emarkdown%2Dbody%20h5%20tt%2C%2Emarkdown%2Dbody%20h6%20code%2C%2Emarkdown%2Dbody%20h6%20tt%7Bpadding%3A0%20%2E2em%3Bfont%2Dsize%3Ainherit%7D%2Emarkdown%2Dbody%20summary%20h1%2C%2Emarkdown%2Dbody%20summary%20h2%2C%2Emarkdown%2Dbody%20summary%20h3%2C%2Emarkdown%2Dbody%20summary%20h4%2C%2Emarkdown%2Dbody%20summary%20h5%2C%2Emarkdown%2Dbody%20summary%20h6%7Bdisplay%3Ainline%2Dblock%7D%2Emarkdown%2Dbody%20summary%20h1%20%2Eanchor%2C%2Emarkdown%2Dbody%20summary%20h2%20%2Eanchor%2C%2Emarkdown%2Dbody%20summary%20h3%20%2Eanchor%2C%2Emarkdown%2Dbody%20summary%20h4%20%2Eanchor%2C%2Emarkdown%2Dbody%20summary%20h5%20%2Eanchor%2C%2Emarkdown%2Dbody%20summary%20h6%20%2Eanchor%7Bmargin%2Dleft%3A%2D40px%7D%2Emarkdown%2Dbody%20summary%20h1%2C%2Emarkdown%2Dbody%20summary%20h2%7Bpadding%2Dbottom%3A0%3Bborder%2Dbottom%3A0%7D%2Emarkdown%2Dbody%20ol%2Eno%2Dlist%2C%2Emarkdown%2Dbody%20ul%2Eno%2Dlist%7Bpadding%3A0%3Blist%2Dstyle%2Dtype%3Anone%7D%2Emarkdown%2Dbody%20ol%5Btype%3Da%5D%7Blist%2Dstyle%2Dtype%3Alower%2Dalpha%7D%2Emarkdown%2Dbody%20ol%5Btype%3DA%5D%7Blist%2Dstyle%2Dtype%3Aupper%2Dalpha%7D%2Emarkdown%2Dbody%20ol%5Btype%3Di%5D%7Blist%2Dstyle%2Dtype%3Alower%2Droman%7D%2Emarkdown%2Dbody%20ol%5Btype%3DI%5D%7Blist%2Dstyle%2Dtype%3Aupper%2Droman%7D%2Emarkdown%2Dbody%20ol%5Btype%3D%221%22%5D%7Blist%2Dstyle%2Dtype%3Adecimal%7D%2Emarkdown%2Dbody%20div%3Eol%3Anot%28%5Btype%5D%29%7Blist%2Dstyle%2Dtype%3Adecimal%7D%2Emarkdown%2Dbody%20ol%20ol%2C%2Emarkdown%2Dbody%20ol%20ul%2C%2Emarkdown%2Dbody%20ul%20ol%2C%2Emarkdown%2Dbody%20ul%20ul%7Bmargin%2Dtop%3A0%3Bmargin%2Dbottom%3A0%7D%2Emarkdown%2Dbody%20li%3Ep%7Bmargin%2Dtop%3A16px%7D%2Emarkdown%2Dbody%20li%2Bli%7Bmargin%2Dtop%3A%2E25em%7D%2Emarkdown%2Dbody%20dl%7Bpadding%3A0%7D%2Emarkdown%2Dbody%20dl%20dt%7Bpadding%3A0%3Bmargin%2Dtop%3A16px%3Bfont%2Dsize%3A1em%3Bfont%2Dstyle%3Aitalic%3Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%7D%2Emarkdown%2Dbody%20dl%20dd%7Bpadding%3A0%2016px%3Bmargin%2Dbottom%3A16px%7D%2Emarkdown%2Dbody%20table%20th%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%7D%2Emarkdown%2Dbody%20table%20td%2C%2Emarkdown%2Dbody%20table%20th%7Bpadding%3A6px%2013px%3Bborder%3A1px%20solid%20var%28%2D%2Dcolor%2Dborder%2Ddefault%29%7D%2Emarkdown%2Dbody%20table%20tr%7Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dcanvas%2Ddefault%29%3Bborder%2Dtop%3A1px%20solid%20var%28%2D%2Dcolor%2Dborder%2Dmuted%29%7D%2Emarkdown%2Dbody%20table%20tr%3Anth%2Dchild%282n%29%7Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dcanvas%2Dsubtle%29%7D%2Emarkdown%2Dbody%20table%20img%7Bbackground%2Dcolor%3Atransparent%7D%2Emarkdown%2Dbody%20img%5Balign%3Dright%5D%7Bpadding%2Dleft%3A20px%7D%2Emarkdown%2Dbody%20img%5Balign%3Dleft%5D%7Bpadding%2Dright%3A20px%7D%2Emarkdown%2Dbody%20%2Eemoji%7Bmax%2Dwidth%3Anone%3Bvertical%2Dalign%3Atext%2Dtop%3Bbackground%2Dcolor%3Atransparent%7D%2Emarkdown%2Dbody%20span%2Eframe%7Bdisplay%3Ablock%3Boverflow%3Ahidden%7D%2Emarkdown%2Dbody%20span%2Eframe%3Espan%7Bdisplay%3Ablock%3Bfloat%3Aleft%3Bwidth%3Aauto%3Bpadding%3A7px%3Bmargin%3A13px%200%200%3Boverflow%3Ahidden%3Bborder%3A1px%20solid%20var%28%2D%2Dcolor%2Dborder%2Ddefault%29%7D%2Emarkdown%2Dbody%20span%2Eframe%20span%20img%7Bdisplay%3Ablock%3Bfloat%3Aleft%7D%2Emarkdown%2Dbody%20span%2Eframe%20span%20span%7Bdisplay%3Ablock%3Bpadding%3A5px%200%200%3Bclear%3Aboth%3Bcolor%3Avar%28%2D%2Dcolor%2Dfg%2Ddefault%29%7D%2Emarkdown%2Dbody%20span%2Ealign%2Dcenter%7Bdisplay%3Ablock%3Boverflow%3Ahidden%3Bclear%3Aboth%7D%2Emarkdown%2Dbody%20span%2Ealign%2Dcenter%3Espan%7Bdisplay%3Ablock%3Bmargin%3A13px%20auto%200%3Boverflow%3Ahidden%3Btext%2Dalign%3Acenter%7D%2Emarkdown%2Dbody%20span%2Ealign%2Dcenter%20span%20img%7Bmargin%3A0%20auto%3Btext%2Dalign%3Acenter%7D%2Emarkdown%2Dbody%20span%2Ealign%2Dright%7Bdisplay%3Ablock%3Boverflow%3Ahidden%3Bclear%3Aboth%7D%2Emarkdown%2Dbody%20span%2Ealign%2Dright%3Espan%7Bdisplay%3Ablock%3Bmargin%3A13px%200%200%3Boverflow%3Ahidden%3Btext%2Dalign%3Aright%7D%2Emarkdown%2Dbody%20span%2Ealign%2Dright%20span%20img%7Bmargin%3A0%3Btext%2Dalign%3Aright%7D%2Emarkdown%2Dbody%20span%2Efloat%2Dleft%7Bdisplay%3Ablock%3Bfloat%3Aleft%3Bmargin%2Dright%3A13px%3Boverflow%3Ahidden%7D%2Emarkdown%2Dbody%20span%2Efloat%2Dleft%20span%7Bmargin%3A13px%200%200%7D%2Emarkdown%2Dbody%20span%2Efloat%2Dright%7Bdisplay%3Ablock%3Bfloat%3Aright%3Bmargin%2Dleft%3A13px%3Boverflow%3Ahidden%7D%2Emarkdown%2Dbody%20span%2Efloat%2Dright%3Espan%7Bdisplay%3Ablock%3Bmargin%3A13px%20auto%200%3Boverflow%3Ahidden%3Btext%2Dalign%3Aright%7D%2Emarkdown%2Dbody%20code%2C%2Emarkdown%2Dbody%20tt%7Bpadding%3A%2E2em%20%2E4em%3Bmargin%3A0%3Bfont%2Dsize%3A85%25%3Bwhite%2Dspace%3Abreak%2Dspaces%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dneutral%2Dmuted%29%3Bborder%2Dradius%3A6px%7D%2Emarkdown%2Dbody%20code%20br%2C%2Emarkdown%2Dbody%20tt%20br%7Bdisplay%3Anone%7D%2Emarkdown%2Dbody%20del%20code%7Btext%2Ddecoration%3Ainherit%7D%2Emarkdown%2Dbody%20samp%7Bfont%2Dsize%3A85%25%7D%2Emarkdown%2Dbody%20pre%20code%7Bfont%2Dsize%3A100%25%7D%2Emarkdown%2Dbody%20pre%3Ecode%7Bpadding%3A0%3Bmargin%3A0%3Bword%2Dbreak%3Anormal%3Bwhite%2Dspace%3Apre%3Bbackground%3A0%200%3Bborder%3A0%7D%2Emarkdown%2Dbody%20%2Ehighlight%7Bmargin%2Dbottom%3A16px%7D%2Emarkdown%2Dbody%20%2Ehighlight%20pre%7Bmargin%2Dbottom%3A0%3Bword%2Dbreak%3Anormal%7D%2Emarkdown%2Dbody%20%2Ehighlight%20pre%2C%2Emarkdown%2Dbody%20pre%7Bpadding%3A16px%3Boverflow%3Aauto%3Bfont%2Dsize%3A85%25%3Bline%2Dheight%3A1%2E45%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dcanvas%2Dsubtle%29%3Bborder%2Dradius%3A6px%7D%2Emarkdown%2Dbody%20pre%20code%2C%2Emarkdown%2Dbody%20pre%20tt%7Bdisplay%3Ainline%3Bmax%2Dwidth%3Aauto%3Bpadding%3A0%3Bmargin%3A0%3Boverflow%3Avisible%3Bline%2Dheight%3Ainherit%3Bword%2Dwrap%3Anormal%3Bbackground%2Dcolor%3Atransparent%3Bborder%3A0%7D%2Emarkdown%2Dbody%20%2Ecsv%2Ddata%20td%2C%2Emarkdown%2Dbody%20%2Ecsv%2Ddata%20th%7Bpadding%3A5px%3Boverflow%3Ahidden%3Bfont%2Dsize%3A12px%3Bline%2Dheight%3A1%3Btext%2Dalign%3Aleft%3Bwhite%2Dspace%3Anowrap%7D%2Emarkdown%2Dbody%20%2Ecsv%2Ddata%20%2Eblob%2Dnum%7Bpadding%3A10px%208px%209px%3Btext%2Dalign%3Aright%3Bbackground%3Avar%28%2D%2Dcolor%2Dcanvas%2Ddefault%29%3Bborder%3A0%7D%2Emarkdown%2Dbody%20%2Ecsv%2Ddata%20tr%7Bborder%2Dtop%3A0%7D%2Emarkdown%2Dbody%20%2Ecsv%2Ddata%20th%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dsemibold%2C600%29%3Bbackground%3Avar%28%2D%2Dcolor%2Dcanvas%2Dsubtle%29%3Bborder%2Dtop%3A0%7D%2Emarkdown%2Dbody%20%5Bdata%2Dfootnote%2Dref%5D%3A%3Abefore%7Bcontent%3A%22%5B%22%7D%2Emarkdown%2Dbody%20%5Bdata%2Dfootnote%2Dref%5D%3A%3Aafter%7Bcontent%3A%22%5D%22%7D%2Emarkdown%2Dbody%20%2Efootnotes%7Bfont%2Dsize%3A12px%3Bcolor%3Avar%28%2D%2Dcolor%2Dfg%2Dmuted%29%3Bborder%2Dtop%3A1px%20solid%20var%28%2D%2Dcolor%2Dborder%2Ddefault%29%7D%2Emarkdown%2Dbody%20%2Efootnotes%20ol%7Bpadding%2Dleft%3A16px%7D%2Emarkdown%2Dbody%20%2Efootnotes%20ol%20ul%7Bdisplay%3Ainline%2Dblock%3Bpadding%2Dleft%3A16px%3Bmargin%2Dtop%3A16px%7D%2Emarkdown%2Dbody%20%2Efootnotes%20li%7Bposition%3Arelative%7D%2Emarkdown%2Dbody%20%2Efootnotes%20li%3Atarget%3A%3Abefore%7Bposition%3Aabsolute%3Btop%3A%2D8px%3Bright%3A%2D8px%3Bbottom%3A%2D8px%3Bleft%3A%2D24px%3Bpointer%2Devents%3Anone%3Bcontent%3A%22%22%3Bborder%3A2px%20solid%20var%28%2D%2Dcolor%2Daccent%2Demphasis%29%3Bborder%2Dradius%3A6px%7D%2Emarkdown%2Dbody%20%2Efootnotes%20li%3Atarget%7Bcolor%3Avar%28%2D%2Dcolor%2Dfg%2Ddefault%29%7D%2Emarkdown%2Dbody%20%2Efootnotes%20%2Edata%2Dfootnote%2Dbackref%20g%2Demoji%7Bfont%2Dfamily%3Amonospace%7D%2Emarkdown%2Dbody%20%2Epl%2Dc%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcomment%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dc1%2C%2Emarkdown%2Dbody%20%2Epl%2Ds%20%2Epl%2Dv%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dconstant%29%7D%2Emarkdown%2Dbody%20%2Epl%2De%2C%2Emarkdown%2Dbody%20%2Epl%2Den%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dentity%29%7D%2Emarkdown%2Dbody%20%2Epl%2Ds%20%2Epl%2Ds1%2C%2Emarkdown%2Dbody%20%2Epl%2Dsmi%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstorage%2Dmodifier%2Dimport%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dent%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dentity%2Dtag%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dk%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dkeyword%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dpds%2C%2Emarkdown%2Dbody%20%2Epl%2Ds%2C%2Emarkdown%2Dbody%20%2Epl%2Ds%20%2Epl%2Dpse%20%2Epl%2Ds1%2C%2Emarkdown%2Dbody%20%2Epl%2Dsr%2C%2Emarkdown%2Dbody%20%2Epl%2Dsr%20%2Epl%2Dcce%2C%2Emarkdown%2Dbody%20%2Epl%2Dsr%20%2Epl%2Dsra%2C%2Emarkdown%2Dbody%20%2Epl%2Dsr%20%2Epl%2Dsre%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstring%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dsmw%2C%2Emarkdown%2Dbody%20%2Epl%2Dv%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dvariable%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dbu%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dbrackethighlighter%2Dunmatched%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dii%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dinvalid%2Dillegal%2Dtext%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dinvalid%2Dillegal%2Dbg%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dc2%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcarriage%2Dreturn%2Dtext%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dcarriage%2Dreturn%2Dbg%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dsr%20%2Epl%2Dcce%7Bfont%2Dweight%3A700%3Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dstring%2Dregexp%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dml%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dlist%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmh%2C%2Emarkdown%2Dbody%20%2Epl%2Dmh%20%2Epl%2Den%2C%2Emarkdown%2Dbody%20%2Epl%2Dms%7Bfont%2Dweight%3A700%3Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dheading%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmi%7Bfont%2Dstyle%3Aitalic%3Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ditalic%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmb%7Bfont%2Dweight%3A700%3Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dbold%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmd%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ddeleted%2Dtext%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Ddeleted%2Dbg%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmi1%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dinserted%2Dtext%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dinserted%2Dbg%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmc%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dchanged%2Dtext%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dchanged%2Dbg%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmi2%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dignored%2Dtext%29%3Bbackground%2Dcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmarkup%2Dignored%2Dbg%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dmdr%7Bfont%2Dweight%3A700%3Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dmeta%2Ddiff%2Drange%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dba%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dbrackethighlighter%2Dangle%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dsg%7Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dsublimelinter%2Dgutter%2Dmark%29%7D%2Emarkdown%2Dbody%20%2Epl%2Dcorl%7Btext%2Ddecoration%3Aunderline%3Bcolor%3Avar%28%2D%2Dcolor%2Dprettylights%2Dsyntax%2Dconstant%2Dother%2Dreference%2Dlink%29%7D%2Emarkdown%2Dbody%20g%2Demoji%7Bdisplay%3Ainline%2Dblock%3Bmin%2Dwidth%3A1ch%3Bfont%2Dfamily%3A%22Apple%20Color%20Emoji%22%2C%22Segoe%20UI%20Emoji%22%2C%22Segoe%20UI%20Symbol%22%3Bfont%2Dsize%3A1em%3Bfont%2Dstyle%3Anormal%21important%3Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dnormal%2C400%29%3Bline%2Dheight%3A1%3Bvertical%2Dalign%3A%2D%2E075em%7D%2Emarkdown%2Dbody%20g%2Demoji%20img%7Bwidth%3A1em%3Bheight%3A1em%7D%2Emarkdown%2Dbody%20%2Etask%2Dlist%2Ditem%7Blist%2Dstyle%2Dtype%3Anone%7D%2Emarkdown%2Dbody%20%2Etask%2Dlist%2Ditem%20label%7Bfont%2Dweight%3Avar%28%2D%2Dbase%2Dtext%2Dweight%2Dnormal%2C400%29%7D%2Emarkdown%2Dbody%20%2Etask%2Dlist%2Ditem%2Eenabled%20label%7Bcursor%3Apointer%7D%2Emarkdown%2Dbody%20%2Etask%2Dlist%2Ditem%2B%2Etask%2Dlist%2Ditem%7Bmargin%2Dtop%3A4px%7D%2Emarkdown%2Dbody%20%2Etask%2Dlist%2Ditem%20%2Ehandle%7Bdisplay%3Anone%7D%2Emarkdown%2Dbody%20%2Etask%2Dlist%2Ditem%2Dcheckbox%7Bmargin%3A0%20%2E2em%20%2E25em%20%2D1%2E4em%3Bvertical%2Dalign%3Amiddle%7D%2Emarkdown%2Dbody%20%2Econtains%2Dtask%2Dlist%3Adir%28rtl%29%20%2Etask%2Dlist%2Ditem%2Dcheckbox%7Bmargin%3A0%20%2D1%2E6em%20%2E25em%20%2E2em%7D%2Emarkdown%2Dbody%20%2Econtains%2Dtask%2Dlist%7Bposition%3Arelative%7D%2Emarkdown%2Dbody%20%2Econtains%2Dtask%2Dlist%3Afocus%2Dwithin%20%2Etask%2Dlist%2Ditem%2Dconvert%2Dcontainer%2C%2Emarkdown%2Dbody%20%2Econtains%2Dtask%2Dlist%3Ahover%20%2Etask%2Dlist%2Ditem%2Dconvert%2Dcontainer%7Bdisplay%3Ablock%3Bwidth%3Aauto%3Bheight%3A24px%3Boverflow%3Avisible%3Bclip%3Aauto%7D%2Emarkdown%2Dbody%20%3A%3A%2Dwebkit%2Dcalendar%2Dpicker%2Dindicator%7Bfilter%3Ainvert%2850%25%29%7D" rel="stylesheet" />
+</head>
+<body>
+<h1 id="playwright-test-framework---complete-guide">Playwright Test
+Framework - Complete Guide</h1>
+<h2 id="introduction">📖 Introduction</h2>
+<p>Playwright Test is a modern end-to-end testing framework that bundles
+test runner, assertions, isolation, parallelization, and rich tooling.
+It supports Chromium, Firefox, and WebKit browsers on Windows, Linux,
+and macOS, with native mobile emulation.</p>
+<p><strong>Key Features:</strong> - Cross-browser testing (Chrome,
+Firefox, Safari) - Headless and headed modes - Parallel test execution -
+Auto-waiting and resilient assertions - Rich debugging tools - Mobile
+emulation - CI/CD integration</p>
+<hr />
+<h2 id="installation-setup">🚀 Installation &amp; Setup</h2>
+<h3 id="system-requirements">System Requirements</h3>
+<ul>
+<li><strong>Node.js</strong>: Latest 20.x, 22.x, or 24.x</li>
+<li><strong>OS</strong>: Windows 11+, macOS 14+, Debian 12/13, Ubuntu
+22.04/24.04</li>
+</ul>
+<h3 id="quick-installation">Quick Installation</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize new project or add to existing</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> init playwright@latest</span></code></pre></div>
+<p><strong>Configuration Options:</strong> - ✅ TypeScript or JavaScript
+- ✅ Tests folder name (default: <code>tests</code> or <code>e2e</code>)
+- ✅ GitHub Actions workflow (recommended for CI) - ✅ Install browser
+binaries</p>
+<h3 id="alternative-installation-methods">Alternative Installation
+Methods</h3>
+<p><strong>Using VS Code Extension:</strong> 1. Install “Playwright Test
+for VS Code” extension 2. Run <code>Test: Install Playwright</code> from
+Command Palette 3. Select browsers and configuration</p>
+<p><strong>Manual Installation:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install <span class="at">-D</span> @playwright/test</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright install <span class="at">--with-deps</span></span></code></pre></div>
+<h3 id="whats-installed">What’s Installed</h3>
+<pre><code>playwright.config.ts    # Test configuration
+package.json           # Dependencies
+tests/                 # Test files
+  example.spec.ts      # Sample test</code></pre>
+<hr />
+<h2 id="writing-your-first-tests">✍️ Writing Your First Tests</h2>
+<h3 id="basic-test-structure">Basic Test Structure</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { test<span class="op">,</span> expect } <span class="im">from</span> <span class="st">&#39;@playwright/test&#39;</span><span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">test</span>(<span class="st">&#39;has title&#39;</span><span class="op">,</span> <span class="kw">async</span> ({ page }) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> page<span class="op">.</span><span class="fu">goto</span>(<span class="st">&#39;https://playwright.dev/&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> <span class="fu">expect</span>(page)<span class="op">.</span><span class="fu">toHaveTitle</span>(<span class="ss">/Playwright/</span>)<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">test</span>(<span class="st">&#39;get started link&#39;</span><span class="op">,</span> <span class="kw">async</span> ({ page }) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> page<span class="op">.</span><span class="fu">goto</span>(<span class="st">&#39;https://playwright.dev/&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> page<span class="op">.</span><span class="fu">getByRole</span>(<span class="st">&#39;link&#39;</span><span class="op">,</span> { name<span class="op">:</span> <span class="st">&#39;Get started&#39;</span> })<span class="op">.</span><span class="fu">click</span>()<span class="op">;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> <span class="fu">expect</span>(page<span class="op">.</span><span class="fu">getByRole</span>(<span class="st">&#39;heading&#39;</span><span class="op">,</span> { name<span class="op">:</span> <span class="st">&#39;Installation&#39;</span> }))<span class="op">.</span><span class="fu">toBeVisible</span>()<span class="op">;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h3 id="core-concepts">Core Concepts</h3>
+<h4 id="actions">🔍 Actions</h4>
+<p>Playwright automatically waits for elements to be actionable:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Navigation</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> page<span class="op">.</span><span class="fu">goto</span>(<span class="st">&#39;https://example.com&#39;</span>)<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Interactions</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> page<span class="op">.</span><span class="fu">getByRole</span>(<span class="st">&#39;link&#39;</span><span class="op">,</span> { name<span class="op">:</span> <span class="st">&#39;Get started&#39;</span> })<span class="op">.</span><span class="fu">click</span>()<span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> page<span class="op">.</span><span class="fu">locator</span>(<span class="st">&#39;#username&#39;</span>)<span class="op">.</span><span class="fu">fill</span>(<span class="st">&#39;user@example.com&#39;</span>)<span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> page<span class="op">.</span><span class="fu">locator</span>(<span class="st">&#39;#password&#39;</span>)<span class="op">.</span><span class="fu">fill</span>(<span class="st">&#39;password&#39;</span>)<span class="op">;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> page<span class="op">.</span><span class="fu">locator</span>(<span class="st">&#39;#submit&#39;</span>)<span class="op">.</span><span class="fu">click</span>()<span class="op">;</span></span></code></pre></div>
+<p><strong>Common Actions:</strong> - <code>locator.click()</code> -
+Click element - <code>locator.fill(text)</code> - Fill input field -
+<code>locator.check()</code> / <code>locator.uncheck()</code> -
+Checkboxes - <code>locator.selectOption(value)</code> - Dropdown
+selection - <code>locator.hover()</code> - Mouse hover -
+<code>locator.press(key)</code> - Keyboard input</p>
+<h4 id="assertions">✅ Assertions</h4>
+<p>Playwright includes async matchers that wait for conditions:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Page assertions</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">expect</span>(page)<span class="op">.</span><span class="fu">toHaveTitle</span>(<span class="ss">/Playwright/</span>)<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">expect</span>(page)<span class="op">.</span><span class="fu">toHaveURL</span>(<span class="st">&#39;https://playwright.dev/&#39;</span>)<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Element assertions</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">expect</span>(locator)<span class="op">.</span><span class="fu">toBeVisible</span>()<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">expect</span>(locator)<span class="op">.</span><span class="fu">toContainText</span>(<span class="st">&#39;Welcome&#39;</span>)<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">expect</span>(locator)<span class="op">.</span><span class="fu">toHaveValue</span>(<span class="st">&#39;expected value&#39;</span>)<span class="op">;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">expect</span>(locator)<span class="op">.</span><span class="fu">toBeChecked</span>()<span class="op">;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">expect</span>(locator)<span class="op">.</span><span class="fu">toHaveCount</span>(<span class="dv">3</span>)<span class="op">;</span></span></code></pre></div>
+<h4 id="test-isolation">🧩 Test Isolation</h4>
+<p>Each test runs in its own browser context (isolated profile):</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test</span>(<span class="st">&#39;test 1&#39;</span><span class="op">,</span> <span class="kw">async</span> ({ page }) <span class="kw">=&gt;</span> {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Fresh browser context</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">test</span>(<span class="st">&#39;test 2&#39;</span><span class="op">,</span> <span class="kw">async</span> ({ page }) <span class="kw">=&gt;</span> {</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Completely isolated from test 1</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h4 id="test-hooks">🎣 Test Hooks</h4>
+<p>Organize tests with hooks:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>test<span class="op">.</span><span class="fu">describe</span>(<span class="st">&#39;User Authentication&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  test<span class="op">.</span><span class="fu">beforeEach</span>(<span class="kw">async</span> ({ page }) <span class="kw">=&gt;</span> {</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">await</span> page<span class="op">.</span><span class="fu">goto</span>(<span class="st">&#39;https://example.com/login&#39;</span>)<span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">test</span>(<span class="st">&#39;login with valid credentials&#39;</span><span class="op">,</span> <span class="kw">async</span> ({ page }) <span class="kw">=&gt;</span> {</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Test implementation</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">test</span>(<span class="st">&#39;login with invalid credentials&#39;</span><span class="op">,</span> <span class="kw">async</span> ({ page }) <span class="kw">=&gt;</span> {</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Test implementation</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<hr />
+<h2 id="running-debugging-tests">▶️ Running &amp; Debugging Tests</h2>
+<h3 id="basic-commands">Basic Commands</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run all tests</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run specific test file</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test tests/example.spec.ts</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run tests matching pattern</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">-g</span> <span class="st">&quot;login test&quot;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Run on specific browser</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">--project</span> chromium</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Run in headed mode (visible browser)</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">--headed</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Run failed tests only</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">--last-failed</span></span></code></pre></div>
+<h3 id="ui-mode-recommended-for-development">UI Mode (Recommended for
+Development)</h3>
+<p>Interactive testing interface with step-by-step debugging:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">--ui</span></span></code></pre></div>
+<p><strong>Features:</strong> - Step-by-step test execution - Live
+locator picker - Watch mode - Visual debugging - Time travel
+debugging</p>
+<h3 id="debugging-options">Debugging Options</h3>
+<h4 id="playwright-inspector">Playwright Inspector</h4>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Debug all tests</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">--debug</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Debug specific test</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test tests/example.spec.ts <span class="at">--debug</span></span></code></pre></div>
+<h4 id="vs-code-debugging">VS Code Debugging</h4>
+<ol type="1">
+<li>Set breakpoint in test</li>
+<li>Right-click test → “Debug Test”</li>
+<li>Use live debugging features</li>
+</ol>
+<h3 id="html-test-reports">HTML Test Reports</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show latest report</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright show-report</span></code></pre></div>
+<p><strong>Features:</strong> - Filter by browser, status, duration -
+Detailed error information - Test execution timeline - Export and
+sharing options</p>
+<hr />
+<h2 id="advanced-features">🛠️ Advanced Features</h2>
+<h3 id="test-generation-with-codegen">Test Generation with Codegen</h3>
+<p>Record tests by interacting with your application:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright codegen demo.playwright.dev/todomvc</span></code></pre></div>
+<p><strong>Features:</strong> - Automatic locator generation - Assertion
+recording - Mobile emulation - Authentication state preservation</p>
+<h3 id="trace-viewer">Trace Viewer</h3>
+<p>Visual debugging with execution traces:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">// playwright.config.ts</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> <span class="fu">defineConfig</span>({</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  use<span class="op">:</span> {</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    trace<span class="op">:</span> <span class="st">&#39;on-first-retry&#39;</span><span class="op">,</span> <span class="co">// Record on failure</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Force trace recording</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">--trace</span> on</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View traces in HTML report</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright show-report</span></code></pre></div>
+<p><strong>Trace Features:</strong> - Step-by-step execution timeline -
+DOM snapshots at each step - Network request monitoring - Console logs
+and errors - Browser DevTools integration</p>
+<h3 id="cicd-setup">CI/CD Setup</h3>
+<h4 id="github-actions-example">GitHub Actions Example</h4>
+<div class="sourceCode" id="cb16"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .github/workflows/playwright.yml</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Playwright Tests</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> main</span><span class="kw">,</span><span class="at"> master </span><span class="kw">]</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at"> main</span><span class="kw">,</span><span class="at"> master </span><span class="kw">]</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">test</span><span class="kw">:</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v5</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/setup-node@v5</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">node-version</span><span class="kw">:</span><span class="at"> lts/*</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install dependencies</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npm ci</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install Playwright Browsers</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npx playwright install --with-deps</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Run Playwright tests</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npx playwright test</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/upload-artifact@v4</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">if</span><span class="kw">:</span><span class="at"> ${{ !cancelled() }}</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">name</span><span class="kw">:</span><span class="at"> playwright-report</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">path</span><span class="kw">:</span><span class="at"> playwright-report/</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">retention-days</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span></code></pre></div>
+<h4 id="publishing-reports-to-azure-storage">Publishing Reports to Azure
+Storage</h4>
+<div class="sourceCode" id="cb17"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Upload HTML report to Azure</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> bash</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">  run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    REPORT_DIR=&#39;run-${{ github.run_id }}-${{ github.run_attempt }}&#39;</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    azcopy cp --recursive &quot;./playwright-report/*&quot; &quot;https://YOUR_STORAGE.blob.core.windows.net/\$web/$REPORT_DIR&quot;</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    echo &quot;::notice title=HTML report url::https://YOUR_STORAGE.z1.web.core.windows.net/$REPORT_DIR/index.html&quot;</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">env</span><span class="kw">:</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">AZCOPY_AUTO_LOGIN_TYPE</span><span class="kw">:</span><span class="at"> SPN</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">AZCOPY_SPA_APPLICATION_ID</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;${{ secrets.AZCOPY_SPA_APPLICATION_ID }}&#39;</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">AZCOPY_SPA_CLIENT_SECRET</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;${{ secrets.AZCOPY_SPA_CLIENT_SECRET }}&#39;</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">AZCOPY_TENANT_ID</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;${{ secrets.AZCOPY_TENANT_ID }}&#39;</span></span></code></pre></div>
+<hr />
+<h2 id="vs-code-integration">💻 VS Code Integration</h2>
+<h3 id="getting-started">Getting Started</h3>
+<ol type="1">
+<li>Install “Playwright Test for VS Code” extension</li>
+<li>Run <code>Test: Install Playwright</code> command</li>
+<li>Select browsers and configuration</li>
+</ol>
+<h3 id="core-features">Core Features</h3>
+<h4 id="test-execution">Test Execution</h4>
+<ul>
+<li>Click ▶️ next to any test to run it</li>
+<li>View results in Test Explorer sidebar</li>
+<li>Run all tests or specific test files</li>
+<li>Multi-browser project selection</li>
+</ul>
+<h4 id="debugging">Debugging</h4>
+<ul>
+<li>Set breakpoints directly in test code</li>
+<li>Live element highlighting</li>
+<li>AI-powered error suggestions (Copilot)</li>
+<li>Trace viewer integration</li>
+</ul>
+<h4 id="test-generation">Test Generation</h4>
+<ul>
+<li><strong>Record New Test</strong>: Click “Record new” in sidebar</li>
+<li><strong>Record at Cursor</strong>: Add actions to existing
+tests</li>
+<li><strong>Pick Locator</strong>: Generate optimal locators</li>
+</ul>
+<h4 id="advanced-vs-code-features">Advanced VS Code Features</h4>
+<ul>
+<li>Project dependencies for setup tests</li>
+<li>Global setup/teardown management</li>
+<li>Multiple configuration file support</li>
+<li>Real-time test status updates</li>
+</ul>
+<hr />
+<h2 id="quick-reference">📋 Quick Reference</h2>
+<h3 id="cli-commands">CLI Commands</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installation</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> init playwright@latest</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright install <span class="at">--with-deps</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Running Tests</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test                           <span class="co"># All tests</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">--ui</span>                      <span class="co"># UI mode</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">--headed</span>                  <span class="co"># Headed mode</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">--project</span> chromium        <span class="co"># Specific browser</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">-g</span> <span class="st">&quot;test name&quot;</span>            <span class="co"># Match test name</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test tests/file.spec.ts        <span class="co"># Specific file</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Debugging</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">--debug</span>                   <span class="co"># Inspector mode</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright test <span class="at">--trace</span> on                <span class="co"># Force tracing</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Reports</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright show-report                    <span class="co"># HTML report</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Code Generation</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright codegen <span class="pp">[</span><span class="ss">url</span><span class="pp">]</span>                  <span class="co"># Record tests</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilities</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> playwright <span class="at">--version</span>                      <span class="co"># Version info</span></span></code></pre></div>
+<h3 id="configuration-options">Configuration Options</h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">// playwright.config.ts</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { defineConfig } <span class="im">from</span> <span class="st">&#39;@playwright/test&#39;</span><span class="op">;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> <span class="fu">defineConfig</span>({</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Test directory</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  testDir<span class="op">:</span> <span class="st">&#39;./tests&#39;</span><span class="op">,</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Timeout settings</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  timeout<span class="op">:</span> <span class="dv">30</span> <span class="op">*</span> <span class="dv">1000</span><span class="op">,</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  expect<span class="op">:</span> { timeout<span class="op">:</span> <span class="dv">5000</span> }<span class="op">,</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Browser projects</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  projects<span class="op">:</span> [</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    { name<span class="op">:</span> <span class="st">&#39;chromium&#39;</span><span class="op">,</span> use<span class="op">:</span> { <span class="op">...</span>devices[<span class="st">&#39;Desktop Chrome&#39;</span>] } }<span class="op">,</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    { name<span class="op">:</span> <span class="st">&#39;firefox&#39;</span><span class="op">,</span> use<span class="op">:</span> { <span class="op">...</span>devices[<span class="st">&#39;Desktop Firefox&#39;</span>] } }<span class="op">,</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    { name<span class="op">:</span> <span class="st">&#39;webkit&#39;</span><span class="op">,</span> use<span class="op">:</span> { <span class="op">...</span>devices[<span class="st">&#39;Desktop Safari&#39;</span>] } }<span class="op">,</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Retry and tracing</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  retries<span class="op">:</span> <span class="bu">process</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">CI</span> <span class="op">?</span> <span class="dv">2</span> <span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  use<span class="op">:</span> {</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    trace<span class="op">:</span> <span class="st">&#39;on-first-retry&#39;</span><span class="op">,</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    screenshot<span class="op">:</span> <span class="st">&#39;only-on-failure&#39;</span><span class="op">,</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Reporters</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>  reporter<span class="op">:</span> [</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>    [<span class="st">&#39;html&#39;</span>]<span class="op">,</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>    [<span class="st">&#39;junit&#39;</span><span class="op">,</span> { outputFile<span class="op">:</span> <span class="st">&#39;results.xml&#39;</span> }]</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h3 id="best-practices">Best Practices</h3>
+<ul>
+<li>Use semantic locators (<code>getByRole</code>,
+<code>getByLabel</code>)</li>
+<li>Leverage auto-waiting capabilities</li>
+<li>Keep tests isolated and independent</li>
+<li>Use descriptive test names</li>
+<li>Configure retries for CI environments</li>
+<li>Enable tracing for debugging</li>
+<li>Use page objects for complex applications</li>
+<li>Run tests in parallel when possible</li>
+</ul>
+<hr />
+<h2 id="additional-resources">🔗 Additional Resources</h2>
+<ul>
+<li><a href="https://playwright.dev/docs/intro">Official
+Documentation</a></li>
+<li><a href="https://playwright.dev/docs/api/class-playwright">API
+Reference</a></li>
+<li><a href="https://github.com/microsoft/playwright-examples">Example
+Projects</a></li>
+<li><a href="https://aka.ms/playwright/discord">Community
+Discord</a></li>
+<li><a href="https://github.com/microsoft/playwright">GitHub
+Repository</a></li>
+</ul>
+<hr />
+<p><em>This guide was reorganized from the official Playwright
+documentation for better readability and logical flow.</em></p>
+</body>
+</html>
