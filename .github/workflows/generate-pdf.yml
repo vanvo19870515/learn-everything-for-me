@@ -2,11 +2,11 @@ name: Generate PDF from Markdown
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
     paths:
       - 'Playwright_Guide_Reorganized.md'
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
     paths:
       - 'Playwright_Guide_Reorganized.md'
   workflow_dispatch:
