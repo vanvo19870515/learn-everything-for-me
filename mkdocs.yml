@@ -35,7 +35,6 @@ plugins:
 
 markdown_extensions:
   - admonition
-  - codehilite
   - toc:
       permalink: true
   - pymdownx.details
