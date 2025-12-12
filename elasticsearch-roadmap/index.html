@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://vanvo19870515.github.io/learn-everything-for-me/playwright-reporter/">
+        <link rel="canonical" href="https://vanvo19870515.github.io/learn-everything-for-me/elasticsearch-roadmap/">
       
       
-        <link rel="prev" href="../playwright-assertions/">
+        <link rel="prev" href="../qa-roadmap/">
       
       
-        <link rel="next" href="../playwright-library/">
+        <link rel="next" href="../http-caching/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Playwright Reporter API - Learn Everything For Me</title>
+        <title>Elasticsearch Roadmap - Learn Everything For Me</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#playwright-reporter-api" class="md-skip">
+        <a href="#elasticsearch-roadmap" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Playwright Reporter API
+              Elasticsearch Roadmap
             
           </span>
         </div>
@@ -280,8 +280,6 @@
       
   
   
-    
-  
   
   
     
@@ -294,11 +292,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
@@ -319,7 +319,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -446,35 +446,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Reporter API
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../playwright-reporter/" class="md-nav__link">
         
   
   
@@ -490,96 +465,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#playwright-reporter-api" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Playwright Reporter API
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Playwright Reporter API">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create-a-reporter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Create a reporter
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lifecycle-hooks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lifecycle hooks
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reporting-data-model" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reporting data model
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#additional-tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Additional tips
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick links
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -830,8 +715,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -842,13 +729,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
@@ -869,7 +754,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -884,10 +769,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../elasticsearch-roadmap/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elasticsearch Roadmap
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -903,6 +815,125 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#related-data-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related data tracks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#foundations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modeling-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modeling &amp; ingestion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-languages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query languages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aggregations-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aggregations &amp; analytics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scaling-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling &amp; monitoring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-relevance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security &amp; relevance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learn-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learn more
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-exploration-jumps-data-engineer-mongodb-devops-backend-full-stack-roadmaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        - Exploration jumps: Data Engineer → MongoDB → DevOps → Backend → Full-stack roadmaps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1222,6 +1253,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1230,74 +1263,101 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#playwright-reporter-api" class="md-nav__link">
+  <a href="#related-data-tracks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Playwright Reporter API
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Playwright Reporter API">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create-a-reporter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Create a reporter
+        Related data tracks
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#lifecycle-hooks" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#foundations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Lifecycle hooks
+        Foundations
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#reporting-data-model" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#modeling-ingestion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reporting data model
+        Modeling &amp; ingestion
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#additional-tips" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#query-languages" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Additional tips
+        Query languages
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#aggregations-analytics" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick links
+        Aggregations &amp; analytics
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#scaling-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scaling &amp; monitoring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-relevance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security &amp; relevance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learn-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learn more
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-exploration-jumps-data-engineer-mongodb-devops-backend-full-stack-roadmaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        - Exploration jumps: Data Engineer → MongoDB → DevOps → Backend → Full-stack roadmaps
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1321,121 +1381,176 @@
   
 
 
-  <h1>Reporter API</h1>
+<!-- markdownlint-disable MD025 MD003 MD022 MD026 MD024 MD032 MD012 -->
 
-<h2 id="playwright-reporter-api">Playwright Reporter API<a class="headerlink" href="#playwright-reporter-api" title="Permanent link">&para;</a></h2>
-<p>Playwright notifies reporters about test execution events, giving you a chance to log, collect artifacts, or publish custom dashboards. This guide covers the lifecycle, the key hooks you can implement, and how the main data structures (<code>FullConfig</code>, <code>Suite</code>, <code>TestCase</code>, <code>TestResult</code>, <code>TestStep</code>) flow through a run.</p>
-<h3 id="create-a-reporter">Create a reporter<a class="headerlink" href="#create-a-reporter" title="Permanent link">&para;</a></h3>
-<p>Implement a class that satisfies <code>Reporter</code>. Export it as the default and configure your <code>playwright.config.ts</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Reporter</span><span class="p">,</span><span class="w"> </span><span class="nx">FullConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">Suite</span><span class="p">,</span><span class="w"> </span><span class="nx">TestCase</span><span class="p">,</span><span class="w"> </span><span class="nx">TestResult</span><span class="p">,</span><span class="w"> </span><span class="nx">FullResult</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@playwright/test/reporter&#39;</span><span class="p">;</span>
-
-<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">MyReporter</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">Reporter</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">customOption?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Reporter ready&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">.</span><span class="nx">customOption</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span>
-
-<span class="w">  </span><span class="nx">onBegin</span><span class="p">(</span><span class="nx">config</span><span class="o">:</span><span class="w"> </span><span class="kt">FullConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">suite</span><span class="o">:</span><span class="w"> </span><span class="kt">Suite</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Running </span><span class="si">${</span><span class="nx">suite</span><span class="p">.</span><span class="nx">allTests</span><span class="p">().</span><span class="nx">length</span><span class="si">}</span><span class="sb"> tests`</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span>
-
-<span class="w">  </span><span class="nx">onTestBegin</span><span class="p">(</span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="kt">TestCase</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Starting&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">test</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span>
-
-<span class="w">  </span><span class="nx">onTestEnd</span><span class="p">(</span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="kt">TestCase</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="o">:</span><span class="w"> </span><span class="kt">TestResult</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Finished&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">test</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span>
-
-<span class="w">  </span><span class="nx">onEnd</span><span class="p">(</span><span class="nx">result</span><span class="o">:</span><span class="w"> </span><span class="kt">FullResult</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Run finished with&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="c1">// playwright.config.ts</span>
-<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">defineConfig</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@playwright/test&#39;</span><span class="p">;</span>
-
-<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">defineConfig</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">reporter</span><span class="o">:</span><span class="w"> </span><span class="p">[[</span><span class="s1">&#39;./my-awesome-reporter.ts&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">customOption</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;value&#39;</span><span class="w"> </span><span class="p">}]],</span>
-<span class="p">});</span>
-</code></pre></div>
-<p>Set <code>printsToStdio()</code> to <code>false</code> if your reporter emits no terminal output; Playwright will add a default reporter for CLI feedback.</p>
-<h3 id="lifecycle-hooks">Lifecycle hooks<a class="headerlink" href="#lifecycle-hooks" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Hook</th>
-<th>When it fires</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>onBegin(config, suite)</code></td>
-<td>After discovery, before running tests</td>
-<td>Inspect <code>suite</code> hierarchy and config metadata.</td>
-</tr>
-<tr>
-<td><code>onTestBegin(testCase)</code></td>
-<td>When each test run starts</td>
-<td>Log/test instrumentation.</td>
-</tr>
-<tr>
-<td><code>onStepBegin(testCase, result, step)</code></td>
-<td>Each <code>test.step()</code> begins</td>
-<td>Highlight nested step info.</td>
-</tr>
-<tr>
-<td><code>onStdOut(chunk, testCase?, result?)</code></td>
-<td>Worker writes to stdout</td>
-<td>Capture console output per test.</td>
-</tr>
-<tr>
-<td><code>onStdErr(...)</code></td>
-<td>Worker writes to stderr</td>
-<td>Same for stderr.</td>
-</tr>
-<tr>
-<td><code>onTestEnd(testCase, result)</code></td>
-<td>After a test finishes</td>
-<td>Access final status, errors, attachments.</td>
-</tr>
-<tr>
-<td><code>onEnd(fullResult)</code></td>
-<td>Once suites finished</td>
-<td>Optionally override <code>result.status</code>/exit code.</td>
-</tr>
-<tr>
-<td><code>onExit()</code></td>
-<td>Just before process exit</td>
-<td>Upload collected reports, clean up.</td>
-</tr>
-<tr>
-<td><code>onError(error)</code></td>
-<td>When global error occurs</td>
-<td>Surface issues outside tests.</td>
-</tr>
-</tbody>
-</table>
-<p><code>result</code> is gradually populated (stdout, steps, attachments), so read it after <code>onTestEnd</code>.</p>
-<h3 id="reporting-data-model">Reporting data model<a class="headerlink" href="#reporting-data-model" title="Permanent link">&para;</a></h3>
+<h1 id="elasticsearch-roadmap">Elasticsearch Roadmap<a class="headerlink" href="#elasticsearch-roadmap" title="Permanent link">&para;</a></h1>
+<h2 id="related-data-tracks">Related data tracks<a class="headerlink" href="#related-data-tracks" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>Suite</code> – hierarchical container (root → project → file → describe). Use <code>suite.allTests()</code> to iterate every <code>TestCase</code>.</li>
-<li><code>TestCase</code> – representation of a <code>.test()</code> call per project/shard. Inspect <code>testCase.title</code>, <code>location</code>, <code>retry</code>, <code>tags</code>, and <code>results</code>.</li>
-<li><code>TestResult</code> – concrete run of a test. Contains <code>status</code>, <code>error</code>, <code>steps</code>, <code>stdout</code>, <code>stderr</code>, <code>attachments</code>, and timing (<code>duration</code>, <code>startTime</code>, <code>workerIndex</code>).</li>
-<li><code>TestStep</code> – steps inside assertions/hooks. Each step has <code>titlePath</code>, <code>category</code>, <code>duration</code>, <code>error</code>, and optional attachments.</li>
-<li><code>FullConfig</code> / <code>FullProject</code> – resolved config details available in <code>onBegin</code> and via <code>testInfo</code>.</li>
+<li>MongoDB, PostgreSQL, Redis, and the broader Data Engineer roadmap</li>
+<li>Learn the entire data stack on <a href="https://roadmap.sh">roadmap.sh</a></li>
 </ul>
-<h3 id="additional-tips">Additional tips<a class="headerlink" href="#additional-tips" title="Permanent link">&para;</a></h3>
+<h2 id="foundations">Foundations<a class="headerlink" href="#foundations" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Wrap reporter logic in <code>try/catch</code>; Playwright swallows exceptions, so you must rethrow/wrap if you want the run to fail on reporter issues.</li>
-<li>The <code>merge-reports</code> CLI replays the Reporter API, but each shard becomes its own <code>FullProject</code>. Treat them as separate entries when aggregating.</li>
-<li>Use <code>printsToStdio()</code> to advertise whether your reporter writes to the terminal. Return <code>false</code> for purely machine-readable outputs so Playwright adds a default CLI reporter.</li>
+<li>Understand search engines vs relational databases and the ELK stack</li>
+<li>Install Elasticsearch (Docker, Elastic Cloud, Kibana Console)</li>
+<li>Key concepts: cluster/system, node/instance, index/database, document/row, ID/primary key</li>
+<li>Architecture overview: master-eligible, data, and coordinating nodes</li>
 </ul>
-<h3 id="quick-links">Quick links<a class="headerlink" href="#quick-links" title="Permanent link">&para;</a></h3>
+<h2 id="modeling-ingestion">Modeling &amp; ingestion<a class="headerlink" href="#modeling-ingestion" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../Playwright_Guide_Reorganized/">Playwright Guide</a></li>
-<li><a href="../playwright-fixtures/">Playwright Fixtures &amp; Config</a></li>
-<li><a href="../playwright-assertions/">Playwright Assertions</a></li>
+<li>Data modeling with mappings: <code>text</code>, <code>keyword</code>, <code>numeric</code>, <code>boolean</code>, <code>object</code>, <code>nested</code>, <code>flattened</code></li>
+<li>Handle explicit dynamic mappings and mapping explosion</li>
+<li>Manage CRUD operations, bulk indexing, and data ingestion for dates/geo/advanced types</li>
+<li>Support data tiers, ILM, and rollover policies</li>
+</ul>
+<h2 id="query-languages">Query languages<a class="headerlink" href="#query-languages" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Query DSL, Elasticsearch SQL/EQL, KQL, Lucene syntax</li>
+<li>Leaf queries (<code>match</code>, <code>term</code>, <code>range</code>, <code>exists</code>, <code>prefix</code>, <code>wildcard</code>) and compound (<code>bool</code>) with <code>must</code>, <code>should</code>, <code>filter</code>, <code>must_not</code></li>
+<li>Pagination, filtering, source filtering, highlighting, query contexts</li>
+<li>Bulk updates/deletes via <code>update_by_query</code>, <code>delete_by_query</code></li>
+</ul>
+<h2 id="aggregations-analytics">Aggregations &amp; analytics<a class="headerlink" href="#aggregations-analytics" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Metric aggregations: <code>value_count</code>, <code>avg</code>, <code>sum</code>, <code>min</code>, <code>max</code>, <code>cardinality</code>, <code>stats</code></li>
+<li>Bucket aggs: <code>terms</code>, <code>range</code>, <code>date_range</code>, <code>histogram</code></li>
+<li>Pipeline/transform aggs (<code>pivot</code>, <code>latest</code>, nested/pipeline)</li>
+<li>Search analysis: analyzers (standard/custom), analyze API, inverted index, fielddata</li>
+</ul>
+<h2 id="scaling-monitoring">Scaling &amp; monitoring<a class="headerlink" href="#scaling-monitoring" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Sharding: primary vs replica, autoscaling, split-brain mitigation</li>
+<li>CAT API, segment merging, monitoring, cross-cluster replication</li>
+<li>ILM, snapshots/SLM, data tiers, and data safety practices</li>
+</ul>
+<h2 id="security-relevance">Security &amp; relevance<a class="headerlink" href="#security-relevance" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Authentication, roles/users, API keys</li>
+<li>Relevance tuning: BM25, scoring, boosting, function score, synonyms, match phrase</li>
+<li>Production features: vector search, semantic search, hybrid/AI-powered search</li>
+</ul>
+<h2 id="learn-more">Learn more<a class="headerlink" href="#learn-more" title="Permanent link">&para;</a></h2>
+<h2 id="-exploration-jumps-data-engineer-mongodb-devops-backend-full-stack-roadmaps">- Exploration jumps: Data Engineer → MongoDB → DevOps → Backend → Full-stack roadmaps<a class="headerlink" href="#-exploration-jumps-data-engineer-mongodb-devops-backend-full-stack-roadmaps" title="Permanent link">&para;</a></h2>
+<p>title: Elasticsearch Roadmap
+summary: From core concepts to advanced features, covering architecture, queries, analytics, scaling, and relevance tuning.</p>
+<hr />
+<!-- markdownlint-disable MD025 MD003 MD022 MD026 MD024 -->
+
+<h1 id="elasticsearch-roadmap_1">Elasticsearch Roadmap<a class="headerlink" href="#elasticsearch-roadmap_1" title="Permanent link">&para;</a></h1>
+<h2 id="related-data-tracks_1">Related data tracks<a class="headerlink" href="#related-data-tracks_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>MongoDB, PostgreSQL, Redis, and the broader Data Engineer roadmap</li>
+<li>Learn the entire data stack on <a href="https://roadmap.sh">roadmap.sh</a></li>
+</ul>
+<h2 id="foundations_1">Foundations<a class="headerlink" href="#foundations_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Understand search engines vs relational databases and the ELK stack</li>
+<li>Install Elasticsearch (Docker, Elastic Cloud, Kibana Console)</li>
+<li>Key concepts: cluster/system, node/instance, index/database, document/row, ID/primary key</li>
+<li>Architecture overview: master-eligible, data, and coordinating nodes</li>
+</ul>
+<h2 id="modeling-ingestion_1">Modeling &amp; ingestion<a class="headerlink" href="#modeling-ingestion_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Data modeling with mappings, including <code>text</code>, <code>keyword</code>, <code>numeric</code>, <code>boolean</code>, <code>object</code>, <code>nested</code>, <code>flattened</code></li>
+<li>Explicit dynamic mappings and mapping explosion mitigation</li>
+<li>CRUD operations: create/delete indices, index/update/delete documents, bulk operations, optimizing bulk indexing</li>
+<li>Data ingestion types: dates, geo points, advanced data types, data tiers, IPO/ILM, rollover policies</li>
+</ul>
+<h2 id="query-languages_1">Query languages<a class="headerlink" href="#query-languages_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Query DSL, Elasticsearch SQL/EQL, KQL, Lucene</li>
+<li>Leaf queries: <code>match</code>, <code>term</code>, <code>range</code>, <code>exists</code>, <code>prefix</code>, <code>wildcard</code>, compound <code>bool</code> with <code>must</code>, <code>should</code>, <code>must_not</code></li>
+<li>Pagination, filtering, source filtering, sorting, highlighting, search contexts</li>
+<li>Bulk updates/deletes with <code>update_by_query</code>, <code>delete_by_query</code></li>
+</ul>
+<h2 id="aggregations-analytics_1">Aggregations &amp; analytics<a class="headerlink" href="#aggregations-analytics_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Metric aggregations: <code>value_count</code>, <code>avg</code>, <code>sum</code>, <code>min</code>, <code>max</code>, <code>cardinality</code>, <code>stats</code></li>
+<li>Doc values, <code>pivot</code>, <code>transform API</code>, <code>latest</code></li>
+<li>Advanced aggregations: nested, pipeline, bucket selectors</li>
+<li>Text analysis: analyzers (standard/custom), <code>fielddata</code>, <code>terms</code>, <code>range</code>, <code>histogram</code>, filter aggs, transformations</li>
+</ul>
+<h2 id="scaling-monitoring_1">Scaling &amp; monitoring<a class="headerlink" href="#scaling-monitoring_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Sharding: primary vs replica shards, split-brain, autoscaling</li>
+<li>Cluster management: CAT API, segment merging, monitoring, cross-cluster replication</li>
+<li>Data lifecycle: ILM, snapshots, SLM, data safety practices</li>
+</ul>
+<h2 id="security-relevance_1">Security &amp; relevance<a class="headerlink" href="#security-relevance_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Authentication, roles/users, API keys</li>
+<li>Document scoring, similarity (BM25), boosting, function score, synonyms, match phrase</li>
+</ul>
+<h2 id="advanced-search">Advanced search<a class="headerlink" href="#advanced-search" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Vector search, semantic search, hybrid search, AI-powered features</li>
+<li>Relevance tuning, improving query precision</li>
+</ul>
+<h2 id="learn-more_1">Learn more<a class="headerlink" href="#learn-more_1" title="Permanent link">&para;</a></h2>
+<h2 id="-exploration-jumps-data-engineer-mongodb-devops-backend-full-stack-roadmaps_1">- Exploration jumps: Data Engineer → MongoDB → DevOps → Backend → Full-stack roadmaps<a class="headerlink" href="#-exploration-jumps-data-engineer-mongodb-devops-backend-full-stack-roadmaps_1" title="Permanent link">&para;</a></h2>
+<p>title: Elasticsearch Roadmap
+summary: Concepts, architecture, query languages, aggregation, scaling, and advanced search features for Elasticsearch.</p>
+<hr />
+<h1 id="elasticsearch-roadmap_2">Elasticsearch Roadmap<a class="headerlink" href="#elasticsearch-roadmap_2" title="Permanent link">&para;</a></h1>
+<h2 id="roadmap-signposts">Roadmap signposts<a class="headerlink" href="#roadmap-signposts" title="Permanent link">&para;</a></h2>
+<ul>
+<li>MongoDB Roadmap</li>
+<li>PostgreSQL Roadmap</li>
+<li>Redis Roadmap</li>
+<li>Data Engineer Roadmap</li>
+<li>Visit related tracks (Data Engineer, MongoDB, DevOps) for cross-cutting knowledge.</li>
+</ul>
+<h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Pre-requisites: JSON, REST APIs, GUI consoles (Kibana/Elastic Cloud)</li>
+<li>Environment: Docker, Elastic Cloud, Kibana Console</li>
+<li>Understand search engines vs relational databases and the ELK stack</li>
+</ul>
+<h2 id="core-architecture">Core architecture<a class="headerlink" href="#core-architecture" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Logical concepts: cluster (system), node (instance), index (database), document (row), ID (primary key)</li>
+<li>Node roles: master-eligible, data nodes, coordinating nodes</li>
+<li>Physical layout: sharding/scaling via primary and replica shards, split-brain mitigation</li>
+<li>Data modeling: mappings, explicit dynamic, mapping explosion, data types (numeric, boolean, text, keyword, object, nested, flattened), dates, geo points</li>
+</ul>
+<h2 id="indexing-crud">Indexing &amp; CRUD<a class="headerlink" href="#indexing-crud" title="Permanent link">&para;</a></h2>
+<ul>
+<li>CRUD operations (<code>Create Index</code>, <code>Delete Index</code>, <code>Index Document</code>, <code>Get Document</code>, <code>Update Document</code>, <code>Delete Documents</code>)</li>
+<li>Bulk operations including bulk index, update/delete by query, optimizing bulk ingestion</li>
+<li>Data ingestion patterns (documents, text, analysis)</li>
+</ul>
+<h2 id="query-languages-search-fundamentals">Query languages &amp; search fundamentals<a class="headerlink" href="#query-languages-search-fundamentals" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Query DSL, ES|QL, EQL, SQL</li>
+<li>Search contexts: Query vs Filter, leaf vs compound queries</li>
+<li>Basic queries: match, term, range, exists, ID, prefix, wildcard</li>
+<li>Compound (<code>bool</code>) queries with <code>must</code>, <code>should</code>, <code>filter</code>, <code>must_not</code></li>
+<li>Pagination, sorting, source filtering, highlighting, KQL, Lucene syntax</li>
+</ul>
+<h2 id="aggregations-analysis">Aggregations &amp; analysis<a class="headerlink" href="#aggregations-analysis" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Metric aggregations (value count, avg, sum, min, max, cardinality, stats) and doc values</li>
+<li>Bucket aggregations (terms, range/date range, histogram)</li>
+<li>Filter and pipeline aggregations (transform/pivot, latest, advanced nested/pipeline)</li>
+<li>Search analysis: inverted index, analyzers (standard/custom), analyze API, fielddata</li>
+</ul>
+<h2 id="cluster-management-data-lifecycle">Cluster management &amp; data lifecycle<a class="headerlink" href="#cluster-management-data-lifecycle" title="Permanent link">&para;</a></h2>
+<ul>
+<li>CAT API, segment merging, cluster monitoring</li>
+<li>Cross-cluster replication, autoscaling</li>
+<li>Index Lifecycle Management (ILM), rollover policies, data tiers</li>
+<li>Data safety: snapshots/restore, Snapshot Lifecycle Management (SLM)</li>
+</ul>
+<h2 id="security-tuning">Security &amp; tuning<a class="headerlink" href="#security-tuning" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Authentication, roles/users, API keys</li>
+<li>Relevance tuning (BM25, scoring, boosting, function score, match phrase, synonyms, graph)</li>
+<li>Production features: vector search, semantic search, hybrid search, AI-powered search</li>
+</ul>
+<h2 id="monitoring-best-practices">Monitoring &amp; best practices<a class="headerlink" href="#monitoring-best-practices" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Production monitoring via CAT API, monitoring APIs, trace logs</li>
+<li>Data safety guidelines, advanced aggregation transforms, ensuring accuracy</li>
 </ul>
 
 
