@@ -53,6 +53,13 @@ nav:
       - Reporter API: playwright-reporter.md
       - Library vs Test Runner: playwright-library.md
       - Migration Guides: migration-guides.md
+  - SQL Resources:
+      - SQL Roadmap: sql-roadmap.md
+  - QA Resources:
+      - QA & Automation Roadmap: qa-roadmap.md
+  - Data Resources:
+      - Elasticsearch Roadmap: elasticsearch-roadmap.md
+      - HTTP Caching Guide: http-caching.md
   - Testing Strategy:
       - Test Automation Pyramid: Test_Automation_Pyramid_Guide.md
       - Flaky Test Guide: Flaky_Test_Guide.md
