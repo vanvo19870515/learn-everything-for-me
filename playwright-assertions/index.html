@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://vanvo19870515.github.io/learn-everything-for-me/playwright-library/">
+        <link rel="canonical" href="https://vanvo19870515.github.io/learn-everything-for-me/playwright-assertions/">
       
       
-        <link rel="prev" href="../playwright-reporter/">
+        <link rel="prev" href="../playwright-fixtures/">
       
       
-        <link rel="next" href="../migration-guides/">
+        <link rel="next" href="../playwright-reporter/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Library vs Test Runner - Learn Everything For Me</title>
+        <title>Playwright Assertion APIs - Learn Everything For Me</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#playwright-library-vs-test-runner-best-practices" class="md-skip">
+        <a href="#playwright-assertion-apis" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Library vs Test Runner
+              Playwright Assertion APIs
             
           </span>
         </div>
@@ -418,10 +418,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../playwright-assertions/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assertions Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -437,6 +462,129 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#playwright-assertion-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Playwright Assertion APIs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apiresponseassertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        APIResponseAssertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#genericassertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GenericAssertions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GenericAssertions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deepcomposite-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deep/composite assertions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numeric-truthyfalsy-and-type-guards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Numeric, truthy/falsy, and type guards
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#locatorassertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LocatorAssertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pageassertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PageAssertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snapshotassertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SnapshotAssertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jump-to" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jump to
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -474,37 +622,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Library vs Test Runner
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../playwright-library/" class="md-nav__link">
         
   
   
@@ -520,158 +641,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#library-vs-test-runner" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Library vs Test Runner
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#browser-system-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Browser &amp; System Setup
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#playwright-tooling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Playwright Tooling
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#emulation-actionability" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Emulation &amp; Actionability
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#assertions-expect-api" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Assertions &amp; Expect API
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#fixtures-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixtures &amp; Configuration
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#network-api-testing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Network &amp; API Testing
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#accessibility-snapshot-testing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Accessibility &amp; Snapshot Testing
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#traces-videos-and-reports" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Traces, Videos, and Reports
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#testing-strategies-best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Testing Strategies &amp; Best Practices
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#productivity-tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Productivity Tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#additional-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Additional Notes
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -991,8 +960,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1001,10 +968,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#library-vs-test-runner" class="md-nav__link">
+  <a href="#playwright-assertion-apis" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Library vs Test Runner
+        Playwright Assertion APIs
       
     </span>
   </a>
@@ -1012,10 +979,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#browser-system-setup" class="md-nav__link">
+  <a href="#apiresponseassertions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Browser &amp; System Setup
+        APIResponseAssertions
       
     </span>
   </a>
@@ -1023,10 +990,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#playwright-tooling" class="md-nav__link">
+  <a href="#genericassertions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Playwright Tooling
+        GenericAssertions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GenericAssertions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deepcomposite-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deep/composite assertions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numeric-truthyfalsy-and-type-guards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Numeric, truthy/falsy, and type guards
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#locatorassertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LocatorAssertions
       
     </span>
   </a>
@@ -1034,10 +1040,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#emulation-actionability" class="md-nav__link">
+  <a href="#pageassertions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Emulation &amp; Actionability
+        PageAssertions
       
     </span>
   </a>
@@ -1045,10 +1051,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#assertions-expect-api" class="md-nav__link">
+  <a href="#snapshotassertions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Assertions &amp; Expect API
+        SnapshotAssertions
       
     </span>
   </a>
@@ -1056,76 +1062,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fixtures-configuration" class="md-nav__link">
+  <a href="#jump-to" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fixtures &amp; Configuration
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#network-api-testing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Network &amp; API Testing
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#accessibility-snapshot-testing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Accessibility &amp; Snapshot Testing
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#traces-videos-and-reports" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Traces, Videos, and Reports
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#testing-strategies-best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Testing Strategies &amp; Best Practices
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#productivity-tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Productivity Tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#additional-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Additional Notes
+        Jump to
       
     </span>
   </a>
@@ -1152,108 +1092,310 @@
   
 
 
-<h1 id="playwright-library-vs-test-runner-best-practices">Playwright Library vs Test Runner &amp; Best Practices<a class="headerlink" href="#playwright-library-vs-test-runner-best-practices" title="Permanent link">&para;</a></h1>
-<h2 id="library-vs-test-runner">Library vs Test Runner<a class="headerlink" href="#library-vs-test-runner" title="Permanent link">&para;</a></h2>
+  <h1>Assertions Reference</h1>
+
+<h2 id="playwright-assertion-apis">Playwright Assertion APIs<a class="headerlink" href="#playwright-assertion-apis" title="Permanent link">&para;</a></h2>
+<p>This page distills the most important assertion helpers that Power Playwright tests. It groups them by the helper class (<code>APIResponseAssertions</code>, <code>GenericAssertions</code>, <code>LocatorAssertions</code>, <code>PageAssertions</code>, and <code>SnapshotAssertions</code>) and highlights their intent, common options, and usage patterns so you can pick the right helper quickly.</p>
+<h2 id="apiresponseassertions"><code>APIResponseAssertions</code><a class="headerlink" href="#apiresponseassertions" title="Permanent link">&para;</a></h2>
+<p><code>expect(response)</code> returns an <code>APIResponseAssertions</code> instance that focuses purely on HTTP response metadata.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Added in</th>
+<th>Intent</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toBeOK()</code></td>
+<td>v1.18</td>
+<td>Ensures the status code is in the <code>200..299</code> range using Playwright's automatic retry logic.</td>
+<td><code>await expect(response).toBeOK();</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>.not</code> modifier flips the assertion (e.g., <code>await expect(response).not.toBeOK()</code>).</p>
+<h2 id="genericassertions"><code>GenericAssertions</code><a class="headerlink" href="#genericassertions" title="Permanent link">&para;</a></h2>
+<p><code>expect(value)</code> without any additional import yields <code>GenericAssertions</code>, the most versatile bucket. It supports deep equality, pattern matching, and numeric comparisons.</p>
+<h3 id="deepcomposite-assertions">Deep/composite assertions<a class="headerlink" href="#deepcomposite-assertions" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Added in</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toBe()</code></td>
+<td>v1.9</td>
+<td>Reference equality (<code>===</code>).</td>
+</tr>
+<tr>
+<td><code>toEqual()</code></td>
+<td>v1.9</td>
+<td>Deep equality with optional matchers (<code>expect.any</code>, <code>.arrayContaining</code>, etc.).</td>
+</tr>
+<tr>
+<td><code>toStrictEqual()</code></td>
+<td>v1.9</td>
+<td>Deep equality including <code>undefined</code> keys, sparseness, and constructor identity.</td>
+</tr>
+<tr>
+<td><code>toMatchObject()</code></td>
+<td>v1.9</td>
+<td>Partial object match that allows extra properties.</td>
+</tr>
+<tr>
+<td>Pattern matchers (<code>expect.objectContaining</code>, <code>.arrayContaining</code>, <code>.arrayOf</code>, <code>.stringContaining</code>, <code>.stringMatching</code>, <code>.anything()</code>, <code>.any()</code>, <code>.closeTo()</code>)</td>
+<td>v1.9+</td>
+<td>Relaxed matching helpers to mix into <code>toEqual</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="numeric-truthyfalsy-and-type-guards">Numeric, truthy/falsy, and type guards<a class="headerlink" href="#numeric-truthyfalsy-and-type-guards" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Added in</th>
+<th>Intent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toBeCloseTo()</code></td>
+<td>v1.9</td>
+<td>Float comparison with optional precision.</td>
+</tr>
+<tr>
+<td><code>toBeGreaterThan()</code> / <code>toBeGreaterThanOrEqual()</code></td>
+<td>v1.9</td>
+<td>Numeric comparisons (<code>&gt;</code> / <code>&gt;=</code>).</td>
+</tr>
+<tr>
+<td><code>toBeLessThan()</code> / <code>toBeLessThanOrEqual()</code></td>
+<td>v1.9</td>
+<td>Numeric comparisons (<code>&lt;</code> / <code>&lt;=</code>).</td>
+</tr>
+<tr>
+<td><code>toBeNaN()</code></td>
+<td>v1.9</td>
+<td>Ensures the value is <code>NaN</code>.</td>
+</tr>
+<tr>
+<td><code>toBeDefined()</code> / <code>toBeUndefined()</code> / <code>toBeNull()</code></td>
+<td>v1.9</td>
+<td>Basic presence checks.</td>
+</tr>
+<tr>
+<td><code>toBeTruthy()</code> / <code>toBeFalsy()</code></td>
+<td>v1.9</td>
+<td>Boolean-context checks that ignore the specific value.</td>
+</tr>
+<tr>
+<td><code>toContain()</code> / <code>toContainEqual()</code></td>
+<td>v1.9</td>
+<td>Collection membership, either by reference or deep equality.</td>
+</tr>
+<tr>
+<td><code>toHaveLength()</code></td>
+<td>v1.9</td>
+<td>Ensures <code>value.length === expected</code>.</td>
+</tr>
+<tr>
+<td><code>toHaveProperty()</code></td>
+<td>v1.9</td>
+<td>Ensures nested property exists (optionally matching value).</td>
+</tr>
+<tr>
+<td><code>toMatch()</code></td>
+<td>v1.9</td>
+<td>RegExp match on strings.</td>
+</tr>
+<tr>
+<td><code>toThrow()</code> / <code>toThrowError()</code></td>
+<td>v1.9</td>
+<td>Asserts a function throws (optionally matching error message/instance).</td>
+</tr>
+</tbody>
+</table>
+<p>All <code>GenericAssertions</code> expose <code>.not</code> to invert the check (e.g., <code>expect(value).not.toBe(42)</code>).</p>
+<h2 id="locatorassertions"><code>LocatorAssertions</code><a class="headerlink" href="#locatorassertions" title="Permanent link">&para;</a></h2>
+<p><code>expect(locator)</code> returns <code>LocatorAssertions</code>, which auto-retries until the page stabilizes. These helpers are the cornerstone of web-first validation.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Added in</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toBeVisible()</code> / <code>toBeHidden()</code></td>
+<td>v1.20</td>
+<td>Visibility state, waits for actability, optional timeout.</td>
+</tr>
+<tr>
+<td><code>toBeEnabled()</code> / <code>toBeDisabled()</code></td>
+<td>v1.20</td>
+<td>Control enablement.</td>
+</tr>
+<tr>
+<td><code>toBeChecked()</code></td>
+<td>v1.20</td>
+<td>Checkbox/radio checked state (supports <code>indeterminate</code>).</td>
+</tr>
+<tr>
+<td><code>toBeEditable()</code> / <code>toBeEmpty()</code></td>
+<td>v1.20</td>
+<td>Input writability and emptiness.</td>
+</tr>
+<tr>
+<td><code>toBeAttached()</code></td>
+<td>v1.33</td>
+<td>Element connected to DOM (document or shadow root).</td>
+</tr>
+<tr>
+<td><code>toBeFocused()</code></td>
+<td>v1.20</td>
+<td>Element has document focus.</td>
+</tr>
+<tr>
+<td><code>toBeInViewport()</code></td>
+<td>v1.31</td>
+<td>Ensures the element intersects the viewport (with optional ratio).</td>
+</tr>
+<tr>
+<td><code>toHaveText()</code></td>
+<td>v1.20</td>
+<td>Assert (optionally case-insensitive) text content or arrays of texts.</td>
+</tr>
+<tr>
+<td><code>toContainText()</code></td>
+<td>v1.20</td>
+<td>Partial text match within a set of nodes.</td>
+</tr>
+<tr>
+<td><code>toHaveClass()</code> / <code>toContainClass()</code></td>
+<td>v1.20 / v1.52</td>
+<td>Class-list assertions.</td>
+</tr>
+<tr>
+<td><code>toHaveAttribute()</code> / <code>toHaveAttribute(name)</code></td>
+<td>v1.20 / v1.39</td>
+<td>Attribute presence/value checks.</td>
+</tr>
+<tr>
+<td><code>toHaveId()</code></td>
+<td>v1.20</td>
+<td>ID check (supports RegExp).</td>
+</tr>
+<tr>
+<td><code>toHaveRole()</code></td>
+<td>v1.44</td>
+<td>ARIA role matching.</td>
+</tr>
+<tr>
+<td><code>toHaveCSS()</code></td>
+<td>v1.20</td>
+<td>Computed style value assertion.</td>
+</tr>
+<tr>
+<td><code>toHaveCount()</code></td>
+<td>v1.20</td>
+<td>Number of nodes resolved by locator.</td>
+</tr>
+<tr>
+<td><code>toHaveValues()</code></td>
+<td>v1.23</td>
+<td>Multi-select values.</td>
+</tr>
+<tr>
+<td><code>toHaveValue()</code></td>
+<td>v1.20</td>
+<td>Input value (supports RegExp).</td>
+</tr>
+<tr>
+<td><code>toHaveJSProperty()</code></td>
+<td>v1.20</td>
+<td>JavaScript property on DOM node.</td>
+</tr>
+<tr>
+<td><code>toHaveScreenshot()</code></td>
+<td>v1.23</td>
+<td>Visual regression that waits for stable screenshots, optionally masks areas, hides caret, and compares pixel diff thresholds.</td>
+</tr>
+<tr>
+<td><code>toMatchAriaSnapshot()</code></td>
+<td>v1.49</td>
+<td>Accessibility snapshot assertions stored as <code>.aria.yml</code> files; accepts inline string or references fixture.</td>
+</tr>
+</tbody>
+</table>
+<p>Each method accepts optional <code>timeout</code> (ms) that defaults to the expectation timeout defined in your config. Many also accept method-specific flags such as <code>ignoreCase</code>, <code>mask</code>, or <code>ratio</code>. Use <code>locator.first()</code>/<code>.nth()</code> to narrow collections before asserting.</p>
+<h2 id="pageassertions"><code>PageAssertions</code><a class="headerlink" href="#pageassertions" title="Permanent link">&para;</a></h2>
+<p><code>expect(page)</code> returns helpers scoped to the entire <code>Page</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Added in</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toHaveURL()</code></td>
+<td>v1.20</td>
+<td>Match URL string, regex, or predicate with optional <code>ignoreCase</code>.</td>
+</tr>
+<tr>
+<td><code>toHaveTitle()</code></td>
+<td>v1.20</td>
+<td>Document title match (string or regex).</td>
+</tr>
+<tr>
+<td><code>toHaveScreenshot()</code></td>
+<td>v1.23</td>
+<td>Page-level visual regression (same options as locator version).</td>
+</tr>
+</tbody>
+</table>
+<p><code>.not</code> works on every helper (e.g., <code>await expect(page).not.toHaveURL(/error/)</code>).</p>
+<h2 id="snapshotassertions"><code>SnapshotAssertions</code><a class="headerlink" href="#snapshotassertions" title="Permanent link">&para;</a></h2>
+<p>Snapshots operate on raw buffers/strings (typically screenshots or serialized values). <code>expect(value).toMatchSnapshot(name)</code> compares the value against the file stored in your test snapshots folder. The <code>options</code> parameter can tweak thresholds, provide explicit names, or generate structured paths.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Added in</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toMatchSnapshot(name)</code></td>
+<td>v1.22</td>
+<td>Provide name or array path; best for serialized objects and non-visual snapshots (visual comparisons should use <code>.toHaveScreenshot</code>).</td>
+</tr>
+<tr>
+<td><code>toMatchSnapshot(options)</code></td>
+<td>v1.22</td>
+<td>Let Playwright derive the name from the test, with optional <code>threshold</code>, <code>maxDiffPixels</code>, and <code>maxDiffPixelRatio</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Snapshot assertions only run inside the Playwright test runner; they are helpful for catching regressions that are hard to describe with single-line sanity checks.</p>
+<h2 id="jump-to">Jump to<a class="headerlink" href="#jump-to" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>When to use</strong>: <code>playwright</code> (Library) is a low-level API to launch browsers, handle contexts, pages, and manual assertions. <code>@playwright/test</code> is a full test runner with fixtures, builtin assertions, retries, reporters, and CLI tools.</li>
-<li><strong>Example difference</strong>:</li>
-<li>Library script needs to <code>chromium.launch()</code>, <code>context.newPage()</code>, <code>context.route</code>, <code>await page.title()</code> manually, and asserts via <code>node:assert</code>.</li>
-<li>Test uses <code>test</code> fixture, <code>expect(page).toHaveTitle()</code>, auto-waits, and <code>npx playwright test</code> runs with configuration.</li>
-<li><strong>Extra features</strong>: Playwright Test adds matrix projects, parallelism, web-first assertions, tracing, retries, reporting, and UI tooling.</li>
-<li><strong>Installation</strong>:</li>
-<li>Library: <code>npm install playwright</code> + <code>npx playwright install</code> (or install browser-specific packages).</li>
-<li>Test Runner: <code>npm init playwright@latest</code> (includes configuration, test structure, CLI, and recommended workflow).</li>
-</ul>
-<h2 id="browser-system-setup">Browser &amp; System Setup<a class="headerlink" href="#browser-system-setup" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Install browsers</strong>: <code>npx playwright install</code> for all, or specify <code>chromium</code>, <code>firefox</code>, <code>webkit</code>. Use <code>--with-deps</code> on CI. Use <code>PLAYWRIGHT_DOWNLOAD_HOST</code>, <code>HTTPS_PROXY</code>, or <code>NODE_EXTRA_CA_CERTS</code> when behind a proxy.</li>
-<li><strong>System dependencies</strong>: <code>npx playwright install-deps</code> (+ browser name).</li>
-<li><strong>Hermetic mode</strong>: <code>PLAYWRIGHT_BROWSERS_PATH=0 npx playwright install</code> or share browser cache via <code>PLAYWRIGHT_BROWSERS_PATH=$HOME/pw-browsers</code>.</li>
-<li><strong>Skip downloads</strong>: <code>PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install</code>.</li>
-<li><strong>Update Playwright</strong>: <code>npm install -D @playwright/test@latest</code> + <code>npx playwright install</code>.</li>
-</ul>
-<h2 id="playwright-tooling">Playwright Tooling<a class="headerlink" href="#playwright-tooling" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Codegen</strong>: <code>npx playwright codegen &lt;url&gt;</code> records interactions and annotations, captures locators (<code>Pick Locator</code>), and supports devices, color schemes, viewport, timezone, geolocation, storage state (<code>--save-storage</code>, <code>--load-storage</code>). Useful for rapid test scaffolding or locator discovery.</li>
-<li><strong>UI Mode</strong>: <code>npx playwright test --ui</code> launches interactive watch/debug experience with trace explorer.</li>
-<li><strong>Inspector</strong>: <code>npx playwright test --debug</code> or <code>page.pause()</code> let you step through tests, edit locators, inspect DOM and logs.</li>
-<li><strong>Browser DevTools</strong>: <code>PWDEBUG=console</code> exposes the Playwright helper in DevTools for debugging selectors.</li>
-<li><strong>VS Code Extension</strong>: run/debug tests, pick locators, view logs/traces, and manage projects/profiles.</li>
-</ul>
-<h2 id="emulation-actionability">Emulation &amp; Actionability<a class="headerlink" href="#emulation-actionability" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Leverage <code>devices</code> registry for viewport, UA, mobile, color scheme, geolocation, language, timezone, permissions, touch. Example:
-  <div class="highlight"><pre><span></span><code><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="nx">devices</span><span class="p">[</span><span class="s1">&#39;Desktop Chrome&#39;</span><span class="p">],</span><span class="w"> </span><span class="nx">colorScheme</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;dark&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">geolocation</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">latitude</span><span class="o">:</span><span class="w"> </span><span class="kt">41.9</span><span class="p">,</span><span class="w"> </span><span class="nx">longitude</span><span class="o">:</span><span class="w"> </span><span class="kt">12.5</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
-</code></pre></div></li>
-<li>Auto-wait ensures actions wait for visibility, stability, enabled/receiving events. <code>force: true</code> bypasses checks; use only when necessary.</li>
-<li>Use locators (<code>page.getByRole</code>, <code>getByLabel</code>, <code>getByText</code>, <code>getByTestId</code>) instead of brittle CSS/XPath. Chain <code>.filter()</code>, <code>.and()</code>, <code>.or()</code>, <code>.nth()</code>, <code>.first()</code>, <code>.last()</code> or layout selectors like <code>:right-of()</code>.</li>
-</ul>
-<h2 id="assertions-expect-api">Assertions &amp; Expect API<a class="headerlink" href="#assertions-expect-api" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Prefer web-first assertions: <code>expect(locator).toBeVisible()</code>, <code>toHaveText()</code>, <code>toHaveURL()</code>, <code>toHaveScreenshot()</code>, <code>poll()</code>, <code>toPass()</code>.</li>
-<li>Non-retrying matchers: <code>expect(value).toBe()</code>, <code>.toEqual()</code>, <code>.toMatch()</code>.</li>
-<li>Soft assertions: <code>expect.soft(...)</code> to continue tests while collecting failures. Inspect <code>test.info().errors</code>.</li>
-<li><code>expect.configure({ timeout, soft })</code> for specialized behavior; <code>expect.poll()</code> and <code>.toPass()</code> add custom retry logic.</li>
-<li>Extend expect with <code>expect.extend({ customMatcher() { ... } })</code>. Combine matchers from modules via <code>mergeExpects</code>.</li>
-</ul>
-<h2 id="fixtures-configuration">Fixtures &amp; Configuration<a class="headerlink" href="#fixtures-configuration" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Built-in fixtures: <code>page</code>, <code>context</code>, <code>browser</code>, <code>request</code>, <code>testInfo</code>. Create custom fixtures via <code>test.extend</code>.</li>
-<li>Worker-scoped fixtures reduce duplication (<code>{ scope: 'worker' }</code>), and <code>auto: true</code> runs automatically for every test.</li>
-<li>Use <code>test.use({ storageState: 'state.json' })</code> to share logged-in state or reset state with <code>test.use({ storageState: { cookies: [], origins: [] } })</code>.</li>
-<li>Global setup: prefer project dependencies (setup project + dependencies + teardown). Alternatively configure <code>globalSetup</code>/<code>globalTeardown</code> functions returning teardown data.</li>
-<li><code>test.describe.configure</code> controls mode (<code>serial</code>, <code>parallel</code>). Use <code>test.describe.serial()</code> for dependent tests (flaky).</li>
-<li>Filtering: <code>--grep</code>, <code>--grep-invert</code>, <code>--repeat-each</code>, <code>--shard</code>, <code>--only-changed</code>. Use <code>test.only</code>/<code>test.skip</code> or conditional <code>test.skip(condition)</code>.</li>
-</ul>
-<h2 id="network-api-testing">Network &amp; API Testing<a class="headerlink" href="#network-api-testing" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>API requests</strong>: Use <code>request</code> fixture with <code>baseURL</code>, <code>extraHTTPHeaders</code>, <code>proxy</code>. Setup/teardown with <code>beforeAll</code>/<code>afterAll</code> to create/delete resources.</li>
-<li><strong>Context vs global requests</strong>: <code>context.request</code> shares cookies with browser context, <code>playwright.request.newContext()</code> is isolated. Use <code>request.storageState()</code> for reusable cookies.</li>
-<li><strong>Mocking</strong>: <code>page.route()</code>, <code>context.route()</code> with glob/regexp, <code>route.fulfill/continue/abort</code>. Use HAR replay via <code>routeFromHAR()</code> or command-line <code>playwright open --save-har</code>.</li>
-<li><strong>WebSockets</strong>: <code>page.routeWebSocket(url, handler)</code> to intercept and modify frames.</li>
-<li><strong>Proxy/auth</strong>: configure <code>httpCredentials</code>, <code>proxy</code> fields globally or per-context.</li>
-<li><strong>Mock browser APIs</strong>: <code>page.addInitScript()</code> to override <code>navigator.getBattery</code>, expose functions via <code>page.exposeFunction</code>, or simulate events manually.</li>
-</ul>
-<h2 id="accessibility-snapshot-testing">Accessibility &amp; Snapshot Testing<a class="headerlink" href="#accessibility-snapshot-testing" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Use <code>expect(locator).toMatchAriaSnapshot()</code> to verify structured accessibility tree (<code>.aria.yml</code>). Update with <code>--update-snapshots</code>.</li>
-<li>Generate snapshots via Codegen or <code>locator.ariaSnapshot()</code>. Configure <code>expect.toMatchAriaSnapshot.pathTemplate</code>.</li>
-<li>Use <code>expect(locator).toHaveScreenshot()</code> for visual regression; configure <code>maxDiffPixels</code>, <code>stylePath</code>, <code>pathTemplate</code>.</li>
-<li>Store snapshots under <code>*.spec.ts-snapshots/</code>. Update with <code>npx playwright test -u</code>.</li>
-<li>Soft matching: <code>:text</code>, <code>:text-is</code>, <code>:text-matches</code>, partial matching via <code>[role=...]</code> and <code>/children: equal</code>.</li>
-</ul>
-<h2 id="traces-videos-and-reports">Traces, Videos, and Reports<a class="headerlink" href="#traces-videos-and-reports" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Tracing</strong>: configure <code>use.trace = 'on-first-retry'</code>, <code>'retain-on-failure'</code>, <code>'on'</code>, <code>'off'</code>. Use <code>npx playwright show-trace trace.zip</code> or <code>trace.playwright.dev</code> to inspect actions, DOM snapshots, timeline, console, network, attachments.</li>
-<li><strong>Videos</strong>: <code>use.video = 'on-first-retry' | 'retain-on-failure' | 'on'</code>. Access via <code>page.video().path()</code> after context close.</li>
-<li><strong>Reporters</strong>: combine <code>['html', { open: 'never' }]</code>, <code>blob</code>, <code>json</code>, <code>junit</code>, <code>dot</code>, <code>line</code>, <code>github</code>. Use <code>merge-reports</code> to stitch blob outputs, especially with sharding.</li>
-<li><strong>Artifacts</strong>: upload HTML reports/traces/videos via <code>actions/upload-artifact</code>.</li>
-</ul>
-<h2 id="testing-strategies-best-practices">Testing Strategies &amp; Best Practices<a class="headerlink" href="#testing-strategies-best-practices" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Test pyramid &amp; isolation</strong>: unit/integration/E2E layering; keep tests isolated with independent BrowserContexts (or context per test). Use fixtures to share helper classes (e.g. POMs). Do not clean up by hand; create new contexts or delete storage.</li>
-<li><strong>Locators</strong>: prefer <code>getByRole</code>, <code>getByText</code>, <code>getByLabel</code>; avoid brittle CSS/XPath. Use <code>getByTestId</code> for explicit test contracts. Use <code>locator.filter({ hasText })</code>, <code>.hasNot</code>, <code>.and</code>, <code>.or</code>.</li>
-<li><strong>Actions</strong>: prefer <code>.fill()</code> over <code>.type()</code>/<code>.press()</code> unless necessary. Use <code>locator.hover()</code>, <code>dragTo()</code>, <code>mouse.wheel()</code> when needed. Use <code>locator.dispatchEvent()</code> for advanced keyboard/touch scenarios, multi-touch (pinch/pan), uploads via <code>setInputFiles</code>.</li>
-<li><strong>Auto-wait</strong>: actions automatically wait for visibility/stability/enabled state; use <code>force: true</code> cautiously.</li>
-<li><strong>Authentication</strong>: store storageState under <code>playwright/.auth</code>; authenticate via setup project or worker fixtures; use API login (request context) when possible; set <code>test.use({ storageState: auth.json })</code>.</li>
-<li><strong>Parallel workers</strong>: use <code>testInfo.parallelIndex</code> to create unique accounts; manage per-worker storage states (<code>test.info().project.outputDir</code>).</li>
-<li><strong>Clock</strong>: use <code>page.clock.setFixedTime()</code>, <code>.install()</code>, <code>.fastForward()</code>, <code>.pauseAt()</code>, <code>.runFor()</code> to control timers/Date/timeouts.</li>
-<li><strong>Components (experimental)</strong>: use <code>@playwright/experimental-ct-*</code> to mount React/Vue/Svelte components (<code>mount</code>, <code>unmount</code>, <code>update</code>, <code>hooks</code>). Configure <code>ctViteConfig</code> if reusing existing Vite setup; use <code>hooksConfig</code> for routing, stores, Pinia.</li>
-<li><strong>Mock APIs</strong>: use <code>router</code> fixture or MSW handlers, route WebSocket, use HAR for reproducible responses.</li>
-<li><strong>Service Workers</strong>: disable with <code>serviceWorkers: 'block'</code> or interact via <code>browserContext.serviceWorkers()</code>; route Service Worker requests separately.</li>
-<li><strong>Autos</strong>: prefer <code>page.getByRole('button', { name: 'Submit' })</code>. Use <code>expect.soft</code> for aggregated assertions, and <code>testInfo.setTimeout</code> for dynamic timeouts.</li>
-</ul>
-<h2 id="productivity-tips">Productivity Tips<a class="headerlink" href="#productivity-tips" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Use <code>npx playwright test --workers=1</code></strong> or <code>--shard</code> for relative ordering/clusters.</li>
-<li><strong>Lint and type-check</strong>: <code>npx tsc --noEmit</code>, <code>eslint</code> with <code>@typescript-eslint/no-floating-promises</code>.</li>
-<li><strong>CI</strong>: run tests per-commit, parallelize via matrix/shards, upload blobs; configure <code>maxFailures</code>, <code>retries</code>, <code>workers</code>, <code>--forbid-only</code>.</li>
-<li><strong>Documentation</strong>: keep README updated, store <code>.aria.yml</code> and screenshot snapshots in repo, commit trace/video attachments if needed.</li>
-</ul>
-<h2 id="additional-notes">Additional Notes<a class="headerlink" href="#additional-notes" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Playwright Agents</strong>: use <code>npx playwright init-agents --loop=vscode</code> to set up planner/generator/healer.</li>
-<li><strong>Canary builds</strong>: install via <code>npm install -D @playwright/test@next</code> and view docs (press Shift x5 at playwright.dev) to test unreleased features.</li>
+<li><a href="../Playwright_Guide_Reorganized/">Playwright Guide</a></li>
+<li><a href="../playwright-agents/">Playwright Agents &amp; Canary Workflows</a></li>
+<li><a href="../playwright-library/">Playwright Library vs Test Runner</a></li>
 </ul>
 
 
@@ -1261,6 +1403,9 @@
 
 
 
+
+  
+  
 
 
 
