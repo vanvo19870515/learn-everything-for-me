@@ -15,14 +15,14 @@
 
 1. [The Modern SDET Landscape](#chapter-1-the-modern-sdet-landscape)
 2. [Java Core for Automation Mastery](#chapter-2-java-core-for-automation-mastery)
-3. [Selenium 4 Fundamentals & WebDriver](#chapter-3-selenium-4-fundamentals--webdriver)
-4. [Advanced Framework Design & Architecture](#chapter-4-advanced-framework-design--architecture)
+3. [Selenium 4 Fundamentals & WebDriver](#chapter-3-selenium-4-fundamentals-webdriver)
+4. [Advanced Framework Design & Architecture](#chapter-4-advanced-framework-design-architecture)
 5. [Orchestration: TestNG, Build Tools, and CI/CD](#chapter-5-orchestration-testng-build-tools-and-cicd)
 6. [API Testing Concepts and Protocols](#chapter-6-api-testing-concepts-and-protocols)
-7. [API Automation with Rest Assured & Karate](#chapter-7-api-automation-with-rest-assured--karate)
+7. [API Automation with Rest Assured & Karate](#chapter-7-api-automation-with-rest-assured-karate)
 8. [The Gen AI Revolution in Testing](#chapter-8-the-gen-ai-revolution-in-testing)
-9. [System Design & Coding Challenges](#chapter-9-system-design--coding-challenges)
-10. [Behavioral Interview & Situation Handling](#chapter-10-behavioral-interview--situation-handling)
+9. [System Design & Coding Challenges](#chapter-9-system-design-coding-challenges)
+10. [Behavioral Interview & Situation Handling](#chapter-10-behavioral-interview-situation-handling)
 11. [Videos](#chapter-11-videos)
 
 ---

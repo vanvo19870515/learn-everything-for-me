@@ -4,11 +4,11 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'Playwright_Guide_Reorganized.md'
+      - 'docs/Playwright_Guide_Reorganized.md'
   pull_request:
     branches: [ main ]
     paths:
-      - 'Playwright_Guide_Reorganized.md'
+      - 'docs/Playwright_Guide_Reorganized.md'
   workflow_dispatch:
 
 jobs:
@@ -45,7 +45,7 @@ jobs:
 
         # Generate PDF with error handling
         set -e
-        pandoc Playwright_Guide_Reorganized.md \
+        pandoc docs/Playwright_Guide_Reorganized.md \
           -o Playwright_Complete_Guide.pdf \
           --pdf-engine=$PDF_ENGINE \
           --variable geometry:margin=1in \

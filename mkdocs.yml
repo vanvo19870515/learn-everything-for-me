@@ -45,8 +45,12 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Guides:
+  - Playwright:
       - Playwright Guide: Playwright_Guide_Reorganized.md
+      - Canary & Agentic Workflow: playwright-agents.md
+      - Library vs Test Runner: playwright-library.md
+      - Migration Guides: migration-guides.md
+  - Testing Strategy:
       - Test Automation Pyramid: Test_Automation_Pyramid_Guide.md
       - Flaky Test Guide: Flaky_Test_Guide.md
   - SDET Prep:
