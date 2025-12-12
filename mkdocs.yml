@@ -48,6 +48,9 @@ nav:
   - Playwright:
       - Playwright Guide: Playwright_Guide_Reorganized.md
       - Canary & Agentic Workflow: playwright-agents.md
+      - Fixtures & Config: playwright-fixtures.md
+      - Assertions Reference: playwright-assertions.md
+      - Reporter API: playwright-reporter.md
       - Library vs Test Runner: playwright-library.md
       - Migration Guides: migration-guides.md
   - Testing Strategy:
