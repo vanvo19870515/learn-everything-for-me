@@ -59,6 +59,7 @@ nav:
       - QA & Automation Roadmap: qa-roadmap.md
   - Data Resources:
       - Elasticsearch Roadmap: elasticsearch-roadmap.md
+      - Elasticsearch Query Deep Dive: elasticsearch-query-deepdive.md
       - HTTP Caching Guide: http-caching.md
   - Testing Strategy:
       - Test Automation Pyramid: Test_Automation_Pyramid_Guide.md
