@@ -2699,12 +2699,18 @@ Individuals who want to integrate Hybrid Testing (using the API for data setup, 
 </table>
 <h4 id="c-anti-flaky-philosophy-anti-flaky-robustness">C. Anti-Flaky Philosophy (Anti-Flaky &amp; Robustness)<a class="headerlink" href="#c-anti-flaky-philosophy-anti-flaky-robustness" title="Permanent link">&para;</a></h4>
 <p>These principles are core to understanding why the architecture is designed this way:</p>
-<p><strong>Anti-Flaky:</strong> We implement 3 golden rules for stable tests:
-- <strong>Stable Locators</strong>: Use reliable selectors (<code>getByRole</code>, <code>data-testid</code>) that don't break easily
-- <strong>Controlled Retries</strong>: Smart retry mechanisms (<code>this.retries(2)</code>) for flaky operations
-- <strong>State-based Waits</strong>: Avoid <code>waitForTimeout()</code> - use <code>waitForLoadState('networkidle')</code></p>
-<p><strong>Parallel/Worker:</strong> The Framework runs multiple tests simultaneously (Mocha <code>--parallel</code>) but absolutely does not share the Page/Browser between Workers to prevent random failures.</p>
-<p><strong>Security/Performance Guardrail:</strong> The Framework is not a Load Test tool, but it includes quick checks (guardrail) for Security Headers and Basic Page Load Time to catch fundamental issues early.</p>
+<p><strong>Anti-Flaky:</strong> We implement 3 golden rules for stable tests:</p>
+<ul>
+<li><strong>Stable Locators:</strong> Use reliable selectors (<code>getByRole</code>, <code>data-testid</code>) that don't break easily</li>
+<li><strong>Controlled Retries:</strong> Smart retry mechanisms (<code>this.retries(2)</code>) for flaky operations</li>
+<li>
+<p><strong>State-based Waits:</strong> Avoid <code>waitForTimeout()</code> — use <code>waitForLoadState('networkidle')</code></p>
+</li>
+<li>
+<p><strong>Parallel/Worker:</strong> Run multiple tests simultaneously (Mocha <code>--parallel</code>) but never share the Page/Browser between workers to avoid random failures.</p>
+</li>
+<li><strong>Security/Performance Guardrail:</strong> Not a load-test tool, but includes quick guardrails for Security Headers and basic Page Load Time to catch issues early.</li>
+</ul>
 <h3 id="iv-scripts-quick-start-guide">IV. ⚡ Scripts &amp; Quick Start Guide<a class="headerlink" href="#iv-scripts-quick-start-guide" title="Permanent link">&para;</a></h3>
 <h4 id="available-scripts">Available Scripts:<a class="headerlink" href="#available-scripts" title="Permanent link">&para;</a></h4>
 <ul>
@@ -2909,12 +2915,18 @@ Muốn tích hợp kiểm thử Hybrid (dùng API để chuẩn bị dữ liệu
 </table>
 <h4 id="c-tu-duy-chong-loi-anti-flaky-robustness">C. Tư Duy Chống Lỗi (Anti-Flaky &amp; Robustness)<a class="headerlink" href="#c-tu-duy-chong-loi-anti-flaky-robustness" title="Permanent link">&para;</a></h4>
 <p>Những điểm này là cốt lõi để người mới hiểu tại sao họ phải làm "phức tạp":</p>
-<p><strong>Anti-Flaky:</strong> Chúng tôi áp dụng 3 nguyên tắc vàng để test luôn ổn định:
-- <strong>Locator ổn định:</strong> Sử dụng selectors (<code>getByRole</code>, <code>data-testid</code>) đáng tin cậy, không dễ vỡ
-- <strong>Retry có kiểm soát:</strong> Cơ chế retry thông minh (<code>this.retries(2)</code>) cho operations flaky
-- <strong>Wait theo trạng thái:</strong> Tránh <code>waitForTimeout()</code> - dùng <code>waitForLoadState('networkidle')</code></p>
+<p><strong>Anti-Flaky:</strong> Chúng tôi áp dụng 3 nguyên tắc vàng để test luôn ổn định:</p>
+<ul>
+<li><strong>Locator ổn định:</strong> Sử dụng selectors (<code>getByRole</code>, <code>data-testid</code>) đáng tin cậy, không dễ vỡ</li>
+<li><strong>Retry có kiểm soát:</strong> Cơ chế retry thông minh (<code>this.retries(2)</code>) cho operations flaky</li>
+<li>
+<p><strong>Wait theo trạng thái:</strong> Tránh <code>waitForTimeout()</code> — dùng <code>waitForLoadState('networkidle')</code></p>
+</li>
+<li>
 <p><strong>Parallel/Worker:</strong> Framework chạy nhiều test cùng lúc (Mocha <code>--parallel</code>) nhưng tuyệt đối không chia sẻ Page/Browser giữa các Worker để tránh lỗi ngẫu nhiên.</p>
-<p><strong>Mở rộng Bảo mật/Hiệu năng (Guardrail):</strong> Framework không thay thế công cụ Load Test, nhưng nó có thể kiểm tra nhanh (guardrail) Security Headers và Thời gian tải trang cơ bản để phát hiện lỗi sớm.</p>
+</li>
+<li><strong>Mở rộng Bảo mật/Hiệu năng (Guardrail):</strong> Framework không thay thế công cụ Load Test, nhưng có guardrail kiểm tra nhanh Security Headers và thời gian tải trang cơ bản để phát hiện lỗi sớm.</li>
+</ul>
 <h3 id="iv-scripts-huong-dan-quick-start">IV. ⚡ Scripts &amp; Hướng Dẫn Quick Start<a class="headerlink" href="#iv-scripts-huong-dan-quick-start" title="Permanent link">&para;</a></h3>
 <h4 id="cac-scripts-co-san">Các Scripts có sẵn:<a class="headerlink" href="#cac-scripts-co-san" title="Permanent link">&para;</a></h4>
 <ul>
