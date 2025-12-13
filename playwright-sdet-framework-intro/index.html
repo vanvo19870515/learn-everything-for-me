@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://vanvo19870515.github.io/learn-everything-for-me/playwright-agents/">
+        <link rel="canonical" href="https://vanvo19870515.github.io/learn-everything-for-me/playwright-sdet-framework-intro/">
       
       
-        <link rel="prev" href="../playwright-sdet-framework-intro/">
+        <link rel="prev" href="../Playwright_Guide_Reorganized/">
       
       
-        <link rel="next" href="../playwright-fixtures/">
+        <link rel="next" href="../playwright-agents/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Canary & Agentic Workflow - Learn Everything For Me</title>
+        <title>SDET Framework Introduction - Learn Everything For Me</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#playwright-agents-test-automation-guide" class="md-skip">
+        <a href="#introducing-the-playwright-sdet-framework-from-basics-to-advanced-architecture" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Canary & Agentic Workflow
+              SDET Framework Introduction
             
           </span>
         </div>
@@ -362,34 +362,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../playwright-sdet-framework-intro/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SDET Framework Introduction
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -409,7 +381,7 @@
   <span class="md-ellipsis">
     
   
-    Canary & Agentic Workflow
+    SDET Framework Introduction
   
 
     
@@ -427,7 +399,7 @@
   <span class="md-ellipsis">
     
   
-    Canary & Agentic Workflow
+    SDET Framework Introduction
   
 
     
@@ -453,33 +425,67 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#canary-releases" class="md-nav__link">
+  <a href="#english-version" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Canary releases
+        🌍 ENGLISH VERSION
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌍 ENGLISH VERSION">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-who-is-this-framework-for-target-audience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I. 🎯 Who is This Framework For? (Target Audience)
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#playwright-test-agents" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#ii-architecture-and-philosophy-why-is-this-an-sdet-standard-framework" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Playwright Test Agents
+        II. 🧱 Architecture and Philosophy: Why is this an SDET-Standard Framework?
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Playwright Test Agents">
+    <nav class="md-nav" aria-label="II. 🧱 Architecture and Philosophy: Why is this an SDET-Standard Framework?">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#a-the-golden-rule-separation-of-concerns-soc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Getting started
+        A. The Golden Rule: Separation of Concerns (SoC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-decoding-the-tools-for-the-absolute-beginner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Decoding the Tools (For the Absolute Beginner)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-anti-flaky-philosophy-anti-flaky-robustness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Anti-Flaky Philosophy (Anti-Flaky &amp; Robustness)
       
     </span>
   </a>
@@ -490,57 +496,24 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#annotations-tags" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#iii-code-approach-guide-advice-for-juniors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Annotations &amp; tags
+        III. ⌨️ Code Approach Guide (Advice for Juniors)
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#test-execution-basics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test execution basics
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#playwright-cli-cheatsheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Playwright CLI cheatsheet
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced-topics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Advanced topics
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced topics">
+    <nav class="md-nav" aria-label="III. ⌨️ Code Approach Guide (Advice for Juniors)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#parallelism-sharding" class="md-nav__link">
+  <a href="#step-1-run-and-see" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Parallelism &amp; sharding
+        Step 1: Run and See
       
     </span>
   </a>
@@ -548,10 +521,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixtures-configuration" class="md-nav__link">
+  <a href="#step-2-analyze-the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fixtures &amp; configuration
+        Step 2: Analyze the Scenario
       
     </span>
   </a>
@@ -559,10 +532,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#global-setupteardown" class="md-nav__link">
+  <a href="#step-3-trace-the-action" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Global setup/teardown
+        Step 3: Trace the Action
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phien-ban-tieng-viet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🇻🇳 PHIÊN BẢN TIẾNG VIỆT
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🇻🇳 PHIÊN BẢN TIẾNG VIỆT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-framework-nay-danh-cho-ai-who-should-use-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I. 🎯 Framework Này Dành Cho Ai? (Who Should Use This?)
       
     </span>
   </a>
@@ -570,10 +576,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#configuration-options" class="md-nav__link">
+  <a href="#ii-kien-truc-va-tu-duy-tai-sao-framework-nay-lai-chuan-sdet" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration options
+        II. 🧱 Kiến Trúc và Tư Duy: Tại Sao Framework Này Lại Chuẩn SDET?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="II. 🧱 Kiến Trúc và Tư Duy: Tại Sao Framework Này Lại Chuẩn SDET?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-nguyen-tac-vang-tach-biet-trach-nhiem-separation-of-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Nguyên Tắc Vàng: Tách Biệt Trách Nhiệm (Separation of Concerns)
       
     </span>
   </a>
@@ -581,10 +599,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#environment-secrets" class="md-nav__link">
+  <a href="#b-giai-ma-cong-cu-danh-cho-nguoi-moi-toanh" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Environment &amp; secrets
+        B. Giải Mã Công Cụ (Dành cho Người mới toanh)
       
     </span>
   </a>
@@ -592,10 +610,38 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#reporters" class="md-nav__link">
+  <a href="#c-tu-duy-chong-loi-anti-flaky-robustness" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reporters
+        C. Tư Duy Chống Lỗi (Anti-Flaky &amp; Robustness)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-huong-dan-tiep-can-code-loi-khuyen-cho-junior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        III. ⌨️ Hướng Dẫn Tiếp Cận Code (Lời khuyên cho Junior)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="III. ⌨️ Hướng Dẫn Tiếp Cận Code (Lời khuyên cho Junior)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buoc-1-chay-thu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 1: Chạy Thử
       
     </span>
   </a>
@@ -603,10 +649,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#retries-timeouts" class="md-nav__link">
+  <a href="#buoc-2-phan-tich-kich-ban" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Retries &amp; timeouts
+        Bước 2: Phân tích Kịch bản
       
     </span>
   </a>
@@ -614,10 +660,76 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
+  <a href="#buoc-3-truy-nguoc-hanh-ong" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Additional resources
+        Bước 3: Truy ngược Hành động
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#framework-overview-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 FRAMEWORK OVERVIEW SUMMARY
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 FRAMEWORK OVERVIEW SUMMARY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-at-a-glance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Architecture at a Glance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Key Benefits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-path-for-beginners" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Learning Path for Beginners
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#who-should-study-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎓 Who Should Study This?
       
     </span>
   </a>
@@ -633,6 +745,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../playwright-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Canary & Agentic Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1509,33 +1649,67 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#canary-releases" class="md-nav__link">
+  <a href="#english-version" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Canary releases
+        🌍 ENGLISH VERSION
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌍 ENGLISH VERSION">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-who-is-this-framework-for-target-audience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I. 🎯 Who is This Framework For? (Target Audience)
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#playwright-test-agents" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#ii-architecture-and-philosophy-why-is-this-an-sdet-standard-framework" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Playwright Test Agents
+        II. 🧱 Architecture and Philosophy: Why is this an SDET-Standard Framework?
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Playwright Test Agents">
+    <nav class="md-nav" aria-label="II. 🧱 Architecture and Philosophy: Why is this an SDET-Standard Framework?">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#getting-started" class="md-nav__link">
+  <a href="#a-the-golden-rule-separation-of-concerns-soc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Getting started
+        A. The Golden Rule: Separation of Concerns (SoC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-decoding-the-tools-for-the-absolute-beginner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Decoding the Tools (For the Absolute Beginner)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-anti-flaky-philosophy-anti-flaky-robustness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Anti-Flaky Philosophy (Anti-Flaky &amp; Robustness)
       
     </span>
   </a>
@@ -1546,57 +1720,24 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#annotations-tags" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#iii-code-approach-guide-advice-for-juniors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Annotations &amp; tags
+        III. ⌨️ Code Approach Guide (Advice for Juniors)
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#test-execution-basics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test execution basics
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#playwright-cli-cheatsheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Playwright CLI cheatsheet
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced-topics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Advanced topics
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced topics">
+    <nav class="md-nav" aria-label="III. ⌨️ Code Approach Guide (Advice for Juniors)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#parallelism-sharding" class="md-nav__link">
+  <a href="#step-1-run-and-see" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Parallelism &amp; sharding
+        Step 1: Run and See
       
     </span>
   </a>
@@ -1604,10 +1745,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixtures-configuration" class="md-nav__link">
+  <a href="#step-2-analyze-the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fixtures &amp; configuration
+        Step 2: Analyze the Scenario
       
     </span>
   </a>
@@ -1615,10 +1756,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#global-setupteardown" class="md-nav__link">
+  <a href="#step-3-trace-the-action" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Global setup/teardown
+        Step 3: Trace the Action
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phien-ban-tieng-viet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🇻🇳 PHIÊN BẢN TIẾNG VIỆT
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🇻🇳 PHIÊN BẢN TIẾNG VIỆT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-framework-nay-danh-cho-ai-who-should-use-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I. 🎯 Framework Này Dành Cho Ai? (Who Should Use This?)
       
     </span>
   </a>
@@ -1626,10 +1800,22 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#configuration-options" class="md-nav__link">
+  <a href="#ii-kien-truc-va-tu-duy-tai-sao-framework-nay-lai-chuan-sdet" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration options
+        II. 🧱 Kiến Trúc và Tư Duy: Tại Sao Framework Này Lại Chuẩn SDET?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="II. 🧱 Kiến Trúc và Tư Duy: Tại Sao Framework Này Lại Chuẩn SDET?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-nguyen-tac-vang-tach-biet-trach-nhiem-separation-of-concerns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Nguyên Tắc Vàng: Tách Biệt Trách Nhiệm (Separation of Concerns)
       
     </span>
   </a>
@@ -1637,10 +1823,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#environment-secrets" class="md-nav__link">
+  <a href="#b-giai-ma-cong-cu-danh-cho-nguoi-moi-toanh" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Environment &amp; secrets
+        B. Giải Mã Công Cụ (Dành cho Người mới toanh)
       
     </span>
   </a>
@@ -1648,10 +1834,38 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#reporters" class="md-nav__link">
+  <a href="#c-tu-duy-chong-loi-anti-flaky-robustness" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reporters
+        C. Tư Duy Chống Lỗi (Anti-Flaky &amp; Robustness)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-huong-dan-tiep-can-code-loi-khuyen-cho-junior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        III. ⌨️ Hướng Dẫn Tiếp Cận Code (Lời khuyên cho Junior)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="III. ⌨️ Hướng Dẫn Tiếp Cận Code (Lời khuyên cho Junior)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buoc-1-chay-thu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 1: Chạy Thử
       
     </span>
   </a>
@@ -1659,10 +1873,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#retries-timeouts" class="md-nav__link">
+  <a href="#buoc-2-phan-tich-kich-ban" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Retries &amp; timeouts
+        Bước 2: Phân tích Kịch bản
       
     </span>
   </a>
@@ -1670,10 +1884,76 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
+  <a href="#buoc-3-truy-nguoc-hanh-ong" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Additional resources
+        Bước 3: Truy ngược Hành động
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#framework-overview-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 FRAMEWORK OVERVIEW SUMMARY
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 FRAMEWORK OVERVIEW SUMMARY">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-at-a-glance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Architecture at a Glance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Key Benefits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-path-for-beginners" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Learning Path for Beginners
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#who-should-study-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎓 Who Should Study This?
       
     </span>
   </a>
@@ -1705,152 +1985,227 @@
   
 
 
-<h1 id="playwright-agents-test-automation-guide">Playwright Agents &amp; Test Automation Guide<a class="headerlink" href="#playwright-agents-test-automation-guide" title="Permanent link">&para;</a></h1>
-<h2 id="canary-releases">Canary releases<a class="headerlink" href="#canary-releases" title="Permanent link">&para;</a></h2>
-<p>Playwright publishes daily canary builds under the <code>@next</code> npm dist tag. This lets you try upcoming features ahead of stable release and send early feedback.<br />
-<div class="highlight"><pre><span></span><code>npm install -D @playwright/test@next
-</code></pre></div>
-Learn more at <a href="https://playwright.dev/">Playwright docs</a> (press Shift five times to view next docs).</p>
-<h2 id="playwright-test-agents">Playwright Test Agents<a class="headerlink" href="#playwright-test-agents" title="Permanent link">&para;</a></h2>
-<p>Three agents power the agentic loop:</p>
-<ul>
-<li><strong>🎭 planner</strong> explores the app and builds a Markdown test plan (<code>specs/basic-operations.md</code>).</li>
-<li><strong>🎭 generator</strong> turns the plan into executable tests (written to <code>tests/</code>).</li>
-<li><strong>🎭 healer</strong> repairs failing tests automatically by replaying steps, updating locators, and rerunning until success.</li>
-</ul>
-<h3 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Run <code>npx playwright init-agents --loop=vscode</code> (requires VS Code 1.105+).  </li>
-<li>Use your preferred AI tool to prompt the planner/generator/healer sequentially.  </li>
-<li>Store specs and generated tests under the recommended folder structure:</li>
-</ol>
-<div class="highlight"><pre><span></span><code>repo/
-├── specs/
-│   └── basic-operations.md
-├── tests/
-│   └── seed.spec.ts
-│   └── tests/create/add-valid-todo.spec.ts
-├── playwright.config.ts
-└── .github/
-    └── agent definitions
-</code></pre></div>
-<h2 id="annotations-tags">Annotations &amp; tags<a class="headerlink" href="#annotations-tags" title="Permanent link">&para;</a></h2>
-<p>Built-in annotations:</p>
-<ul>
-<li><code>test.skip()</code> – test is ignored.  </li>
-<li><code>test.fail()</code> – test must fail.  </li>
-<li><code>test.fixme()</code> – skipped due to known issue.  </li>
-<li><code>test.slow()</code> – triples timeout.  </li>
-</ul>
-<p>Apply annotations/tags per test or describe block:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;login @fast&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">tag</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;@fast&#39;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">page</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">});</span>
-
-<span class="nx">test</span><span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;report&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">annotation</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;issue&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://github.com/microsoft/playwright/issues/23180&#39;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;header&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">});</span>
-<span class="p">});</span>
-</code></pre></div>
-<p>Use <code>--grep</code>/<code>--grep-invert</code> on CLI to filter by tags.</p>
-<h2 id="test-execution-basics">Test execution basics<a class="headerlink" href="#test-execution-basics" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>npx playwright test</code> – run all projects.  </li>
-<li><code>--project=&lt;name&gt;</code> – run selected project.  </li>
-<li><code>--headed</code>, <code>--debug</code>, <code>--ui</code> – interact with browsers.  </li>
-<li><code>--workers=1</code> – disable parallelism.</li>
-</ul>
-<p>Use <code>test.describe.configure({ mode: 'parallel' })</code> to run tests inside a file concurrently.<br />
-Focus tests with <code>test.only</code> or skip them with <code>test.skip</code> (supports conditional predicates).</p>
-<h2 id="playwright-cli-cheatsheet">Playwright CLI cheatsheet<a class="headerlink" href="#playwright-cli-cheatsheet" title="Permanent link">&para;</a></h2>
+<h1 id="introducing-the-playwright-sdet-framework-from-basics-to-advanced-architecture">🚀 Introducing the Playwright SDET Framework: From Basics to Advanced Architecture<a class="headerlink" href="#introducing-the-playwright-sdet-framework-from-basics-to-advanced-architecture" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>A comprehensive guide to understanding and implementing a professional SDET testing framework</p>
+</blockquote>
+<hr />
+<h2 id="english-version">🌍 ENGLISH VERSION<a class="headerlink" href="#english-version" title="Permanent link">&para;</a></h2>
+<h3 id="i-who-is-this-framework-for-target-audience">I. 🎯 Who is This Framework For? (Target Audience)<a class="headerlink" href="#i-who-is-this-framework-for-target-audience" title="Permanent link">&para;</a></h3>
+<p><strong>QAs Transitioning from Manual to Automation:</strong>
+This serves as a standardized stepping stone to learn the best design patterns (POM, Service Model) right from the start.</p>
+<p><strong>SDETs / Senior QAs:</strong>
+Those looking to set up a scalable and robust testing environment by unifying API and UI under a single runner (Mocha) and reporting tool (Allure).</p>
+<p><strong>Dev/Testers:</strong>
+Individuals who want to integrate Hybrid Testing (using the API for data setup, using the UI for flow confirmation) to reduce flakiness and increase test speed.</p>
+<h3 id="ii-architecture-and-philosophy-why-is-this-an-sdet-standard-framework">II. 🧱 Architecture and Philosophy: Why is this an SDET-Standard Framework?<a class="headerlink" href="#ii-architecture-and-philosophy-why-is-this-an-sdet-standard-framework" title="Permanent link">&para;</a></h3>
+<p>Instead of just listing files, we explain the role and purpose of each code layer.</p>
+<h4 id="a-the-golden-rule-separation-of-concerns-soc">A. The Golden Rule: Separation of Concerns (SoC)<a class="headerlink" href="#a-the-golden-rule-separation-of-concerns-soc" title="Permanent link">&para;</a></h4>
+<p>This architecture promotes maintainability and clarity.</p>
 <table>
 <thead>
 <tr>
-<th>Command</th>
-<th>Description</th>
+<th>Layer (Folder)</th>
+<th>Role in Testing</th>
+<th>Benefit for Beginners</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>npx playwright test</code></td>
-<td>Run tests</td>
+<td><strong>src/ui/</strong></td>
+<td>UI Actions Library (Page Object Model - POM)</td>
+<td>You only need to focus on the ACTION (e.g., <code>loginPage.enterEmail()</code>) without worrying about complex locators. Easy to maintain.</td>
 </tr>
 <tr>
-<td><code>npx playwright install --with-deps</code></td>
-<td>Install browsers + deps</td>
+<td><strong>src/api/</strong></td>
+<td>API Communication Library (Service Model)</td>
+<td>Used to quickly create or clean up data via API. No need to go through the UI, saving time.</td>
 </tr>
 <tr>
-<td><code>npx playwright codegen &lt;url&gt;</code></td>
-<td>Record flows</td>
+<td><strong>src/tests/</strong></td>
+<td>Business Scenarios (Test Scenarios)</td>
+<td>This is where you tell the story of the test (<code>it(...)</code>). Focus only on the business flow and confirming results (<code>expect(...)</code>).</td>
 </tr>
 <tr>
-<td><code>npx playwright test --ui</code></td>
-<td>Launch interactive UI mode</td>
-</tr>
-<tr>
-<td><code>npx playwright show-report</code></td>
-<td>View last HTML report</td>
-</tr>
-<tr>
-<td><code>npx playwright merge-reports path</code></td>
-<td>Merge blob reports</td>
+<td><strong>src/utils/</strong></td>
+<td>Shared Toolbox</td>
+<td>Contains common utilities like the Logger (Pino) and environment Config. Keeps the code clean and manageable.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="advanced-topics">Advanced topics<a class="headerlink" href="#advanced-topics" title="Permanent link">&para;</a></h2>
-<h3 id="parallelism-sharding">Parallelism &amp; sharding<a class="headerlink" href="#parallelism-sharding" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>test.describe.configure({ mode: 'serial' })</code> prevents parallelism inside a file.  </li>
-<li>Run <code>npx playwright test --shard=1/4</code> (etc.) to split suites across machines.  </li>
-<li>Use <code>blob</code> reporter on CI and merge reports via <code>npx playwright merge-reports</code>.</li>
-</ul>
-<h3 id="fixtures-configuration">Fixtures &amp; configuration<a class="headerlink" href="#fixtures-configuration" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Fixtures represent shared setup/state (<code>page</code>, <code>context</code>, <code>request</code>).  </li>
-<li>Extend <code>test</code> via <code>test.extend</code> for custom fixtures.  </li>
-<li>Use automatic fixtures (<code>{ auto: true }</code>) for global hooks.</li>
-</ul>
-<h3 id="global-setupteardown">Global setup/teardown<a class="headerlink" href="#global-setupteardown" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Prefer project dependencies for global setup (adds traces).  </li>
-<li>Alternatively configure <code>globalSetup</code>/<code>globalTeardown</code> in <code>playwright.config.ts</code>.</li>
-</ul>
-<h3 id="configuration-options">Configuration options<a class="headerlink" href="#configuration-options" title="Permanent link">&para;</a></h3>
-<p>Examples:</p>
-<div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">defineConfig</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">baseURL</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://localhost:3000&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">trace</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;on-first-retry&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">viewport</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="kt">1280</span><span class="p">,</span><span class="w"> </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="kt">720</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nx">projects</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;chromium&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="nx">devices</span><span class="p">[</span><span class="s1">&#39;Desktop Chrome&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;firefox&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="nx">devices</span><span class="p">[</span><span class="s1">&#39;Desktop Firefox&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="p">],</span>
-<span class="p">});</span>
+<h4 id="b-decoding-the-tools-for-the-absolute-beginner">B. Decoding the Tools (For the Absolute Beginner)<a class="headerlink" href="#b-decoding-the-tools-for-the-absolute-beginner" title="Permanent link">&para;</a></h4>
+<p>We use simplified analogies to eliminate the fear of complex technical terms:</p>
+<table>
+<thead>
+<tr>
+<th>Concept/Tool</th>
+<th>Role (Analogy)</th>
+<th>Simplest Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mocha</strong></td>
+<td>The Project Manager</td>
+<td>The main tool that decides which test runs, when it stops, and when the Report (Allure) is generated.</td>
+</tr>
+<tr>
+<td><strong>Pino</strong></td>
+<td>The Log Secretary</td>
+<td>The library that records every important action (Log): what the API sent, where the UI clicked, and if there were any errors. Purpose: When a Test fails on the CI system, Pino helps you review every step.</td>
+</tr>
+<tr>
+<td><strong>testContext.ts / Fixtures</strong></td>
+<td>The Independent Workstation</td>
+<td>This is where the Framework prepares everything needed before a Test starts (e.g., creating a new Browser Page, initializing the API Client). Crucial: It ensures every Test has a clean, isolated "workstation."</td>
+</tr>
+<tr>
+<td><strong>Models &amp; Validators</strong></td>
+<td>The Data Blueprint (Schema)</td>
+<td>Model is the data blueprint (e.g., a User must have a name, email, id). Validator checks: "Does the API data conform to this blueprint?"</td>
+</tr>
+</tbody>
+</table>
+<h4 id="c-anti-flaky-philosophy-anti-flaky-robustness">C. Anti-Flaky Philosophy (Anti-Flaky &amp; Robustness)<a class="headerlink" href="#c-anti-flaky-philosophy-anti-flaky-robustness" title="Permanent link">&para;</a></h4>
+<p>These principles are core to understanding why the architecture is designed this way:</p>
+<p><strong>Anti-Flaky:</strong> We implement 3 golden rules for stable tests:
+- <strong>Stable Locators</strong>: Use reliable selectors that don't break easily
+- <strong>Controlled Retries</strong>: Smart retry mechanisms for flaky operations
+- <strong>State-based Waits</strong>: Avoid <code>waitForTimeout()</code> - use condition-based waits</p>
+<p><strong>Parallel/Worker:</strong> The Framework runs multiple tests simultaneously (Mocha <code>--parallel</code>) but absolutely does not share the Page/Browser between Workers to prevent random failures.</p>
+<p><strong>Security/Performance Guardrail:</strong> The Framework is not a Load Test tool, but it includes quick checks (guardrail) for Security Headers and Basic Page Load Time to catch fundamental issues early.</p>
+<h3 id="iii-code-approach-guide-advice-for-juniors">III. ⌨️ Code Approach Guide (Advice for Juniors)<a class="headerlink" href="#iii-code-approach-guide-advice-for-juniors" title="Permanent link">&para;</a></h3>
+<h4 id="step-1-run-and-see">Step 1: Run and See<a class="headerlink" href="#step-1-run-and-see" title="Permanent link">&para;</a></h4>
+<p>Start by running the command <code>npm run demo:with-report</code> to see how the Allure Report works.</p>
+<h4 id="step-2-analyze-the-scenario">Step 2: Analyze the Scenario<a class="headerlink" href="#step-2-analyze-the-scenario" title="Permanent link">&para;</a></h4>
+<p>Open the <code>src/tests/ui/form.ui.spec.ts</code> file (or similar). Focus on reading the <code>describe/it</code> blocks to understand <strong>What</strong> the Test is doing.</p>
+<h4 id="step-3-trace-the-action">Step 3: Trace the Action<a class="headerlink" href="#step-3-trace-the-action" title="Permanent link">&para;</a></h4>
+<p>When you see <code>loginPage.enterCredentials(...)</code>, jump to the Page Object file (<code>src/ui/pages/LoginPage.ts</code>) to see <strong>How</strong> that function is written.</p>
+<p><strong>Mindset:</strong> Always ask <strong>"Why did they call this function here?"</strong> Instead of trying to memorize syntax, focus on the flow of the system.</p>
+<hr />
+<h2 id="phien-ban-tieng-viet">🇻🇳 PHIÊN BẢN TIẾNG VIỆT<a class="headerlink" href="#phien-ban-tieng-viet" title="Permanent link">&para;</a></h2>
+<h3 id="i-framework-nay-danh-cho-ai-who-should-use-this">I. 🎯 Framework Này Dành Cho Ai? (Who Should Use This?)<a class="headerlink" href="#i-framework-nay-danh-cho-ai-who-should-use-this" title="Permanent link">&para;</a></h3>
+<p><strong>QA chuyển từ Manual sang Automation:</strong>
+Cần một bước đệm chuẩn chỉnh để học các mô hình thiết kế tốt nhất (POM, Service Model) ngay từ đầu.</p>
+<p><strong>SDET / Senior QA:</strong>
+Muốn thiết lập một môi trường kiểm thử scalable (có thể mở rộng) và robust (ổn định) bằng cách thống nhất API và UI dưới cùng một runner (Mocha) và báo cáo (Allure).</p>
+<p><strong>Dev/Tester:</strong>
+Muốn tích hợp kiểm thử Hybrid (dùng API để chuẩn bị dữ liệu, dùng UI để xác nhận flow) để giảm độ flaky và tăng tốc độ test.</p>
+<h3 id="ii-kien-truc-va-tu-duy-tai-sao-framework-nay-lai-chuan-sdet">II. 🧱 Kiến Trúc và Tư Duy: Tại Sao Framework Này Lại Chuẩn SDET?<a class="headerlink" href="#ii-kien-truc-va-tu-duy-tai-sao-framework-nay-lai-chuan-sdet" title="Permanent link">&para;</a></h3>
+<p>Thay vì chỉ liệt kê các file, chúng ta giải thích vai trò của từng lớp code.</p>
+<h4 id="a-nguyen-tac-vang-tach-biet-trach-nhiem-separation-of-concerns">A. Nguyên Tắc Vàng: Tách Biệt Trách Nhiệm (Separation of Concerns)<a class="headerlink" href="#a-nguyen-tac-vang-tach-biet-trach-nhiem-separation-of-concerns" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Lớp (Folder)</th>
+<th>Vai trò trong Kiểm thử</th>
+<th>Lợi ích cho người mới</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>src/ui/</strong></td>
+<td>Thư Viện Thao Tác UI (Page Object Model - POM)</td>
+<td>Bạn chỉ cần quan tâm đến HÀNH ĐỘNG (ví dụ: <code>loginPage.enterEmail()</code>) mà không cần lo lắng về locator phức tạp. Dễ bảo trì.</td>
+</tr>
+<tr>
+<td><strong>src/api/</strong></td>
+<td>Thư Viện Giao Tiếp API (Service Model)</td>
+<td>Dùng để tạo hoặc dọn dẹp dữ liệu nhanh chóng qua API. Không cần qua UI, tiết kiệm thời gian.</td>
+</tr>
+<tr>
+<td><strong>src/tests/</strong></td>
+<td>Kịch Bản Nghiệp Vụ (Test Scenarios)</td>
+<td>Đây là nơi bạn kể câu chuyện của bài test (<code>it(...)</code>). Chỉ tập trung vào flow nghiệp vụ và xác nhận kết quả (<code>expect(...)</code>).</td>
+</tr>
+<tr>
+<td><strong>src/utils/</strong></td>
+<td>Hộp Đồ Dùng Chung</td>
+<td>Nơi chứa các công cụ dùng chung như Logger (Pino), Config môi trường. Giúp code gọn gàng, dễ quản lý.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="b-giai-ma-cong-cu-danh-cho-nguoi-moi-toanh">B. Giải Mã Công Cụ (Dành cho Người mới toanh)<a class="headerlink" href="#b-giai-ma-cong-cu-danh-cho-nguoi-moi-toanh" title="Permanent link">&para;</a></h4>
+<p>Sử dụng bảng giải mã đơn giản hóa để loại bỏ sự sợ hãi về thuật ngữ:</p>
+<table>
+<thead>
+<tr>
+<th>Khái niệm/Công cụ</th>
+<th>Vai trò (Hình ảnh hóa)</th>
+<th>Giải thích Đơn giản nhất</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mocha</strong></td>
+<td>Người Quản Lý Dự Án</td>
+<td>Quyết định Test nào chạy, dừng, và tạo báo cáo.</td>
+</tr>
+<tr>
+<td><strong>Pino</strong></td>
+<td>Thư Ký Ghi Chép</td>
+<td>Ghi lại mọi hành động và lỗi, giúp bạn debug dễ dàng trên CI.</td>
+</tr>
+<tr>
+<td><strong>testContext.ts / Fixtures</strong></td>
+<td>Bàn Làm Việc Độc Lập</td>
+<td>Chuẩn bị mọi thứ (Browser, Page, API Client) cho mỗi bài test, đảm bảo chúng không ảnh hưởng lẫn nhau.</td>
+</tr>
+<tr>
+<td><strong>Models &amp; Validators</strong></td>
+<td>Bản Thiết Kế Dữ liệu</td>
+<td>Đảm bảo dữ liệu (API) trả về đúng khuôn mẫu mong đợi.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="c-tu-duy-chong-loi-anti-flaky-robustness">C. Tư Duy Chống Lỗi (Anti-Flaky &amp; Robustness)<a class="headerlink" href="#c-tu-duy-chong-loi-anti-flaky-robustness" title="Permanent link">&para;</a></h4>
+<p>Những điểm này là cốt lõi để người mới hiểu tại sao họ phải làm "phức tạp":</p>
+<p><strong>Anti-Flaky:</strong> Chúng tôi áp dụng 3 nguyên tắc vàng để test luôn ổn định:
+- <strong>Locator ổn định:</strong> Sử dụng selectors đáng tin cậy, không dễ vỡ
+- <strong>Retry có kiểm soát:</strong> Cơ chế retry thông minh cho operations flaky
+- <strong>Wait theo trạng thái:</strong> Tránh <code>waitForTimeout()</code> - dùng wait theo điều kiện</p>
+<p><strong>Parallel/Worker:</strong> Framework chạy nhiều test cùng lúc (Mocha <code>--parallel</code>) nhưng tuyệt đối không chia sẻ Page/Browser giữa các Worker để tránh lỗi ngẫu nhiên.</p>
+<p><strong>Mở rộng Bảo mật/Hiệu năng (Guardrail):</strong> Framework không thay thế công cụ Load Test, nhưng nó có thể kiểm tra nhanh (guardrail) Security Headers và Thời gian tải trang cơ bản để phát hiện lỗi sớm.</p>
+<h3 id="iii-huong-dan-tiep-can-code-loi-khuyen-cho-junior">III. ⌨️ Hướng Dẫn Tiếp Cận Code (Lời khuyên cho Junior)<a class="headerlink" href="#iii-huong-dan-tiep-can-code-loi-khuyen-cho-junior" title="Permanent link">&para;</a></h3>
+<h4 id="buoc-1-chay-thu">Bước 1: Chạy Thử<a class="headerlink" href="#buoc-1-chay-thu" title="Permanent link">&para;</a></h4>
+<p>Bắt đầu bằng việc chạy lệnh <code>npm run demo:with-report</code> để xem Báo cáo Allure hoạt động như thế nào.</p>
+<h4 id="buoc-2-phan-tich-kich-ban">Bước 2: Phân tích Kịch bản<a class="headerlink" href="#buoc-2-phan-tich-kich-ban" title="Permanent link">&para;</a></h4>
+<p>Mở file <code>src/tests/ui/form.ui.spec.ts</code> (hoặc tương tự). Tập trung đọc phần <code>describe/it</code> để hiểu Test đang làm gì.</p>
+<h4 id="buoc-3-truy-nguoc-hanh-ong">Bước 3: Truy ngược Hành động<a class="headerlink" href="#buoc-3-truy-nguoc-hanh-ong" title="Permanent link">&para;</a></h4>
+<p>Khi thấy <code>loginPage.enterCredentials(...)</code>, hãy nhảy sang file Page Object (<code>src/ui/pages/LoginPage.ts</code>) để xem cách hàm đó được viết.</p>
+<p><strong>Tư duy:</strong> Hãy luôn hỏi <strong>"Tại sao họ lại gọi hàm này?"</strong> Thay vì cố gắng học thuộc cú pháp, hãy tập trung vào flow của hệ thống.</p>
+<hr />
+<h2 id="framework-overview-summary">🎯 FRAMEWORK OVERVIEW SUMMARY<a class="headerlink" href="#framework-overview-summary" title="Permanent link">&para;</a></h2>
+<h3 id="architecture-at-a-glance">🏗️ <strong>Architecture at a Glance</strong><a class="headerlink" href="#architecture-at-a-glance" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>src/
+├── ui/          # 🎨 Page Objects &amp; UI Actions
+├── api/         # 🔌 API Clients &amp; Data Models
+├── tests/       # 🧪 Test Scenarios &amp; Assertions
+└── utils/       # 🛠️ Shared Utilities &amp; Config
 </code></pre></div>
-<h3 id="environment-secrets">Environment &amp; secrets<a class="headerlink" href="#environment-secrets" title="Permanent link">&para;</a></h3>
-<p>Pass secrets via env vars:
-<div class="highlight"><pre><span></span><code>USER_NAME=me PASSWORD=secret npx playwright test
-</code></pre></div>
-Use <code>.env</code> files with <code>dotenv</code> for easier management.</p>
-<h3 id="reporters">Reporters<a class="headerlink" href="#reporters" title="Permanent link">&para;</a></h3>
+<h3 id="key-benefits">🚀 <strong>Key Benefits</strong><a class="headerlink" href="#key-benefits" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>html</code>: default interactive report.  </li>
-<li><code>blob</code>: CI-friendly artifacts for merging.  </li>
-<li><code>json</code>, <code>junit</code>, <code>dot</code>, <code>line</code> etc.  </li>
-<li><code>github</code> reporter adds annotations on GitHub Actions.</li>
+<li><strong>Scalable:</strong> Easy to add new tests and features</li>
+<li><strong>Maintainable:</strong> Clear separation reduces complexity</li>
+<li><strong>Robust:</strong> Anti-flaky mechanisms ensure stability</li>
+<li><strong>Professional:</strong> Follows SDET industry standards</li>
 </ul>
-<h3 id="retries-timeouts">Retries &amp; timeouts<a class="headerlink" href="#retries-timeouts" title="Permanent link">&para;</a></h3>
+<h3 id="learning-path-for-beginners">📚 <strong>Learning Path for Beginners</strong><a class="headerlink" href="#learning-path-for-beginners" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Run the Framework</strong> → See it in action</li>
+<li><strong>Read Test Scenarios</strong> → Understand the "what"</li>
+<li><strong>Explore Page Objects</strong> → Learn the "how"</li>
+<li><strong>Study Architecture</strong> → Master the "why"</li>
+</ol>
+<h3 id="who-should-study-this">🎓 <strong>Who Should Study This?</strong><a class="headerlink" href="#who-should-study-this" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Configure <code>retries</code> globally or per describe/test.  </li>
-<li><code>test.setTimeout(120000)</code> adjusts per test.  </li>
-<li><code>expect(..., { timeout: 10000 })</code> sets assertion timeouts.  </li>
-<li><code>globalTimeout</code> caps whole suite.</li>
+<li><strong>Manual QAs</strong> learning automation</li>
+<li><strong>Junior Automators</strong> wanting standards</li>
+<li><strong>Mid-level Testers</strong> seeking advancement</li>
+<li><strong>Anyone</strong> wanting professional testing skills</li>
 </ul>
-<h3 id="additional-resources">Additional resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Use fixtures to share user data (see worker-scoped fixtures).  </li>
-<li>Use <code>parallel</code>/<code>serial</code> describe to control execution order.  </li>
-<li>Use <code>testInfo</code> inside tests/fixtures to inspect retries or annotations.</li>
-</ul>
+<hr />
+<p><em>This framework introduction serves as both a learning guide and implementation reference for aspiring SDETs!</em> 🎯</p>
 
 
 
