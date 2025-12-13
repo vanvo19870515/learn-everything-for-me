@@ -1785,10 +1785,12 @@
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p><strong>🧠 Golden Rule of UI POM</strong>
-- ❌ No expect/assertions
-- ❌ No test logic
-- ✅ Only locator + action</p>
+<p><strong>🧠 Golden Rule of UI POM</strong></p>
+<ul>
+<li>❌ No expect/assertions</li>
+<li>❌ No test logic</li>
+<li>✅ Only locator + action</li>
+</ul>
 <p><strong>🧩 BasicFormPage.ts</strong>
 <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">BasicFormPage</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">BasePage</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">usernameInput</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">locator</span><span class="p">(</span><span class="s1">&#39;#username&#39;</span><span class="p">);</span>
@@ -1958,10 +1960,12 @@ Test = orchestration (coordination)</p>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p><strong>🧠 Quy tắc vàng của UI POM</strong>
-- ❌ Không expect/không assertion
-- ❌ Không logic test
-- ✅ Chỉ locator + action</p>
+<p><strong>🧠 Quy tắc vàng của UI POM</strong></p>
+<ul>
+<li>❌ Không expect/không assertion</li>
+<li>❌ Không logic test</li>
+<li>✅ Chỉ locator + action</li>
+</ul>
 <p><strong>🧩 BasicFormPage.ts</strong>
 <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">BasicFormPage</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">BasePage</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">usernameInput</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">locator</span><span class="p">(</span><span class="s1">&#39;#username&#39;</span><span class="p">);</span>
@@ -2087,14 +2091,18 @@ Test = orchestration (điều phối)</p>
 <li><strong>Lack of Clear Separation</strong>: No dedicated folders for UI vs API layers</li>
 </ol>
 <h3 id="clear-separation-clear-understanding">✅ <strong>Clear Separation = Clear Understanding</strong><a class="headerlink" href="#clear-separation-clear-understanding" title="Permanent link">&para;</a></h3>
-<p><strong>UI POM Structure:</strong>
-- <code>src/ui/pages/</code> - Page Objects (locators + actions only)
-- <code>src/ui/components/</code> - Reusable UI components
-- <code>src/tests/ui/</code> - UI-only tests</p>
-<p><strong>API POM Structure:</strong>
-- <code>src/api/clients/</code> - API client classes (endpoints + methods)
-- <code>src/api/models/</code> - Data contracts/interfaces
-- <code>src/tests/api/</code> - API-only tests</p>
+<p><strong>UI POM Structure:</strong></p>
+<ul>
+<li><code>src/ui/pages/</code> - Page Objects (locators + actions only)</li>
+<li><code>src/ui/components/</code> - Reusable UI components</li>
+<li><code>src/tests/ui/</code> - UI-only tests</li>
+</ul>
+<p><strong>API POM Structure:</strong></p>
+<ul>
+<li><code>src/api/clients/</code> - API client classes (endpoints + methods)</li>
+<li><code>src/api/models/</code> - Data contracts/interfaces</li>
+<li><code>src/tests/api/</code> - API-only tests</li>
+</ul>
 <p><strong>Hybrid Tests:</strong>
 - <code>src/tests/hybrid/</code> or <code>src/tests/e2e/</code> - Tests combining UI + API</p>
 <h3 id="benefits-of-clear-structure">🚀 <strong>Benefits of Clear Structure:</strong><a class="headerlink" href="#benefits-of-clear-structure" title="Permanent link">&para;</a></h3>
