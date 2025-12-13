@@ -47,6 +47,7 @@ nav:
   - Home: index.md
   - Playwright:
       - Playwright Guide: Playwright_Guide_Reorganized.md
+      - SDET Framework Introduction: playwright-sdet-framework-intro.md
       - Canary & Agentic Workflow: playwright-agents.md
       - Fixtures & Config: playwright-fixtures.md
       - Assertions Reference: playwright-assertions.md
