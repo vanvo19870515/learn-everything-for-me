@@ -47,7 +47,6 @@ nav:
   - Home: index.md
   - Playwright:
       - Playwright Guide: Playwright_Guide_Reorganized.md
-      - SDET Framework Introduction: playwright-sdet-framework-intro.md
       - Canary & Agentic Workflow: playwright-agents.md
       - Fixtures & Config: playwright-fixtures.md
       - Assertions Reference: playwright-assertions.md
@@ -59,6 +58,7 @@ nav:
   - QA Resources:
       - QA & Automation Roadmap: qa-roadmap.md
       - Core Principles Framework: sdet-framework-foundation.md
+      - SDET Framework Introduction: playwright-sdet-framework-intro.md
   - Data Resources:
       - Elasticsearch Roadmap: elasticsearch-roadmap.md
       - Elasticsearch Query Deep Dive: elasticsearch-query-deepdive.md
@@ -67,11 +67,9 @@ nav:
       - Test Automation Pyramid: Test_Automation_Pyramid_Guide.md
       - Flaky Test Guide: Flaky_Test_Guide.md
       - UI POM vs API POM: ui-api-pom-comparison.md
+      - Shift-Left Testing: shift-left-testing.md
   - SDET Prep:
       - SDET Interview Preparation: SDET_Interview_Preparation_Guide.md
       - Experienced Automation Tester Q&A: Experienced_Automation_Tester_QA.md
       - Automation Interview Q&A: Automation_Interview_QA.md
-      - Shift-Left Testing: shift-left-testing.md
       - Java OOP Concepts: java-oop-concepts.md
-
-      
