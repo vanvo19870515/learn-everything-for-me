@@ -61,6 +61,7 @@ Risk = Probability (Chance of occurrence) × Impact (Consequences)
 |6. Maintenance |→ Maintenance|
 
 **SOFTWARE TESTING LIFE CYCLE (STLC):**
+
 | **Step** | **Describe** |
 |------|------------|
 |1. Requirement Analysis| → Analyze requirements|
@@ -858,7 +859,8 @@ export { expect };
 #### **Day 1-2: Standard Test Case Template**
 
 **TEST CASE TEMPLATE - INDUSTRY STANDARD**
-|Test Case |Information|Title| Module | Feature | Created By| Created Date| Last Modified | Version|
+
+|**Test Case** |**Information**|**Title**| **Module** | **Feature** | **Created By**| **Created Date**| **Last Modified** | **Version**|
 |----|---|---|---|---|---|---|----|---|
 |ID |TC_CHECKOUT_001| Complete checkout with credit card payment| Checkout| Payment Processin|[Your Name] |2024-01-15|2024-01-15|1.0
 
@@ -997,7 +999,8 @@ Verify that a registered user can complete checkout process using credit card pa
 ```
 
 **6. Risks & Mitigation**
-| Risk | Probability | Impact | Mitigation |
+
+| **Risk** | **Probability** | **Impact** | **Mitigation** |
 |------|------------|--------|------------|
 | Payment gateway downtime | Medium | High | Mock service for testing |
 | Test data corruption | Low | Medium | Daily backups |
