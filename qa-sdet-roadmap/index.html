@@ -1183,6 +1183,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#day-3-4-complex-feature-test-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Day 3-4: Complex Feature Test Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#day-5-7-test-plan-template" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2489,6 +2500,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#day-3-4-complex-feature-test-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Day 3-4: Complex Feature Test Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#day-5-7-test-plan-template" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3640,10 +3662,27 @@
 <span class="mf">4.</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">valid</span><span class="w"> </span><span class="nx">shipping</span><span class="w"> </span><span class="nx">address</span><span class="w"> </span><span class="nx">saved</span>
 <span class="mf">5.</span><span class="w"> </span><span class="nx">Test</span><span class="w"> </span><span class="nx">credit</span><span class="w"> </span><span class="nx">card</span><span class="w"> </span><span class="nx">credentials</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">available</span>
 </code></pre></div>
-<strong>Test Data</strong>
-|User|Credit Card|Expiry|CVV|Shipping Address|
-|--|--|--|--|--|
-|testuser@example.com / Password123!| 4111 1111 1111 1111| 12/2025 |123 |[Valid US address]|</p>
+<strong>Test Data</strong></p>
+<table>
+<thead>
+<tr>
+<th>User</th>
+<th>Credit Card</th>
+<th>Expiry</th>
+<th>CVV</th>
+<th>Shipping Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>testuser@example.com / Password123!</td>
+<td>4111 1111 1111 1111</td>
+<td>12/2025</td>
+<td>123</td>
+<td>[Valid US address]</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Test Steps &amp; Expected Results</strong></p>
 <table>
 <thead>
@@ -3766,12 +3805,25 @@
 <div class="highlight"><pre><span></span><code><span class="o">-</span><span class="w"> </span><span class="nx">Screenshot</span><span class="o">:</span><span class="w"> </span><span class="nx">checkout_process</span><span class="p">.</span><span class="nx">png</span>
 <span class="o">-</span><span class="w"> </span><span class="nx">Screenshot</span><span class="o">:</span><span class="w"> </span><span class="nx">order_confirmation</span><span class="p">.</span><span class="nx">png</span>
 <span class="o">-</span><span class="w"> </span><span class="nx">Email</span><span class="o">:</span><span class="w"> </span><span class="nx">order_confirmation_email</span><span class="p">.</span><span class="nx">png</span>
-</code></pre></div>
-|<strong>Risk Level</strong>| <strong>Priority</strong> | <strong>Automation</strong>|
-|--|--|--|
-|<strong>High</strong>|<strong>P1</strong> |<strong>Yes</strong> (Automated in checkout.spec.ts)|</p>
-<p>#### <strong>Day 3-4: Complex Feature Test Cases</strong>\
-<strong>COMPLEX TEST CASE: MULTI-STEP CHECKOUT WITH PROMO CODE</strong></p>
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th><strong>Risk Level</strong></th>
+<th><strong>Priority</strong></th>
+<th><strong>Automation</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>High</strong></td>
+<td><strong>P1</strong></td>
+<td><strong>Yes</strong> (Automated in checkout.spec.ts)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="day-3-4-complex-feature-test-cases"><strong>Day 3-4: Complex Feature Test Cases</strong><a class="headerlink" href="#day-3-4-complex-feature-test-cases" title="Permanent link">&para;</a></h4>
+<p><strong>COMPLEX TEST CASE: MULTI-STEP CHECKOUT WITH PROMO CODE</strong></p>
 <p><strong>Scenario: Apply expired promo code during checkout</strong></p>
 <table>
 <thead>
