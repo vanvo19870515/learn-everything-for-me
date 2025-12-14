@@ -56,6 +56,7 @@ nav:
   - SQL Resources:
       - SQL Roadmap: sql-roadmap.md
   - QA Resources:
+      - QA/SDET Transition Roadmap: qa-sdet-roadmap.md
       - QA & Automation Roadmap: qa-roadmap.md
       - Core Principles Framework: sdet-framework-foundation.md
       - SDET Framework Introduction: playwright-sdet-framework-intro.md
