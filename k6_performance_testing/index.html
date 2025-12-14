@@ -13,6 +13,10 @@
         <link rel="canonical" href="https://vanvo19870515.github.io/learn-everything-for-me/k6_performance_testing/">
       
       
+        <link rel="prev" href="../playwright-sdet-framework-intro/">
+      
+      
+        <link rel="next" href="../elasticsearch-roadmap/">
       
       
         
@@ -23,7 +27,7 @@
     
     
       
-        <title>📊 Lộ trình học k6 chi tiết (4 tuần) - Learn Everything For Me</title>
+        <title>QA Load Test with K6 - Learn Everything For Me</title>
       
     
     
@@ -109,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              📊 Lộ trình học k6 chi tiết (4 tuần)
+              QA Load Test with K6
             
           </span>
         </div>
@@ -622,8 +626,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -634,13 +640,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
@@ -661,7 +665,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -779,6 +783,575 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA Load Test with K6
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA Load Test with K6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tuan-1-kien-thuc-nen-tang-script-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuần 1: Kiến thức nền tảng &amp; Script cơ bản
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tuần 1: Kiến thức nền tảng &amp; Script cơ bản">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ngay-1-2-tong-quan-ve-load-testing-voi-k6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 1-2: Tổng quan về Load Testing với k6
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-3-4-cac-ham-va-options-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 3-4: Các hàm và options cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-5-7-thuc-hanh-voi-api-thuc-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 5-7: Thực hành với API thực tế
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuan-2-nang-cao-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuần 2: Nâng cao &amp; Thực hành
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tuần 2: Nâng cao &amp; Thực hành">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ngay-8-9-data-driven-testing-voi-csvjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 8-9: Data-driven testing với CSV/JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-10-11-authentication-sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 10-11: Authentication &amp; Sessions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-12-14-performance-dashboard-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 12-14: Performance Dashboard &amp; CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuan-3-real-world-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuần 3: Real-world Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tuần 3: Real-world Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ngay-15-16-e-commerce-load-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 15-16: E-commerce Load Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-17-18-websocket-graphql-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 17-18: WebSocket &amp; GraphQL Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuan-4-optimization-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuần 4: Optimization &amp; Production
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tuần 4: Optimization &amp; Production">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ngay-19-20-monitoring-alerting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 19-20: Monitoring &amp; Alerting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-21-22-distributed-testing-voi-k6-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 21-22: Distributed Testing với k6 Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-23-24-best-practices-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 23-24: Best Practices &amp; Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-25-28-project-tong-hop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 25-28: Project tổng hợp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cau-truc-project-hoan-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📁 Cấu trúc project hoàn chỉnh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meo-hoc-hieu-qua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Mẹo học hiệu quả
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuan-1-kien-thuc-nen-tang-script-co-ban_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuần 1: Kiến thức nền tảng &amp; Script cơ bản
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tuần 1: Kiến thức nền tảng &amp; Script cơ bản">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ngay-1-2-tong-quan-ve-load-testing-voi-k6_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 1-2: Tổng quan về Load Testing với k6
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-3-4-cac-ham-va-options-co-ban_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 3-4: Các hàm và options cơ bản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-5-7-thuc-hanh-voi-api-thuc-te_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 5-7: Thực hành với API thực tế
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuan-2-nang-cao-thuc-hanh_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuần 2: Nâng cao &amp; Thực hành
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tuần 2: Nâng cao &amp; Thực hành">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ngay-8-9-data-driven-testing-voi-csvjson_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 8-9: Data-driven testing với CSV/JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-10-11-authentication-sessions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 10-11: Authentication &amp; Sessions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-12-14-performance-dashboard-cicd_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 12-14: Performance Dashboard &amp; CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuan-3-real-world-scenarios_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuần 3: Real-world Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tuần 3: Real-world Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ngay-15-16-e-commerce-load-test_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 15-16: E-commerce Load Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-17-18-websocket-graphql-testing_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 17-18: WebSocket &amp; GraphQL Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tuan-4-optimization-production_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuần 4: Optimization &amp; Production
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tuần 4: Optimization &amp; Production">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ngay-19-20-monitoring-alerting_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 19-20: Monitoring &amp; Alerting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-21-22-distributed-testing-voi-k6-cloud_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 21-22: Distributed Testing với k6 Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-23-24-best-practices-optimization_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 23-24: Best Practices &amp; Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ngay-25-28-project-tong-hop_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ngày 25-28: Project tổng hợp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cau-truc-project-hoan-chinh_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📁 Cấu trúc project hoàn chỉnh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meo-hoc-hieu-qua_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Mẹo học hiệu quả
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Mẹo học hiệu quả">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tuan-1-2-lam-quen-voi-syntax-chay-cac-script-on-gian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuần 1-2: Làm quen với syntax, chạy các script đơn giản
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuan-3-ap-dung-vao-du-an-that-cua-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuần 3: Áp dụng vào dự án thật của bạn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuan-4-toi-uu-va-ua-vao-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuần 4: Tối ưu và đưa vào CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-buoc-tiep-theo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Các bước tiếp theo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
