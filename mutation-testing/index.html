@@ -13,6 +13,10 @@
         <link rel="canonical" href="https://vanvo19870515.github.io/learn-everything-for-me/mutation-testing/">
       
       
+        <link rel="prev" href="../shift-left-testing/">
+      
+      
+        <link rel="next" href="../SDET_Interview_Preparation_Guide/">
       
       
         
@@ -23,7 +27,7 @@
     
     
       
-        <title>Mutation testing - Learn Everything For Me</title>
+        <title>Mutation Testing - Learn Everything For Me</title>
       
     
     
@@ -109,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Mutation testing
+              Mutation Testing
             
           </span>
         </div>
@@ -968,8 +972,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -980,13 +986,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
@@ -1007,7 +1011,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1125,6 +1129,966 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mutation Testing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mutation Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mutation-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 MUTATION TESTING
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 MUTATION TESTING">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-sentence-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 1-SENTENCE SUMMARY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-do-we-need-mutation-testing-the-real-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤔 WHY DO WE NEED MUTATION TESTING? - THE REAL PROBLEM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-mutation-testing-work-understanding-it-like-cooking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧬 HOW DOES MUTATION TESTING WORK? - UNDERSTANDING IT LIKE COOKING
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧬 HOW DOES MUTATION TESTING WORK? - UNDERSTANDING IT LIKE COOKING">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-prepare-the-ingredients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        STEP 1: PREPARE THE "INGREDIENTS"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-mutation-tool-adds-wrong-seasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        STEP 2: MUTATION TOOL "ADDS WRONG SEASONING"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-tasting-rerunning-the-unit-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        STEP 3: "TASTING" - RERUNNING THE UNIT TESTS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-code-coverage-vs-mutation-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 COMPARISON: CODE COVERAGE vs MUTATION TESTING
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-in-everyday-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎭 UNDERSTANDING IN EVERYDAY TERMS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎭 UNDERSTANDING IN EVERYDAY TERMS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-checking-security-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario: CHECKING SECURITY QUALITY
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-mutation-types-tool-generated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ COMMON MUTATION TYPES (Tool-generated)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ COMMON MUTATION TYPES (Tool-generated)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-arithmetic-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Arithmetic Operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-relational-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Relational Operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-logical-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Logical Operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-value-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Value Change
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-statement-deletion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Statement Deletion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-example-start-to-finish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 FULL EXAMPLE - START TO FINISH
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 FULL EXAMPLE - START TO FINISH">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-banking-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario: Banking System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fix-unit-test-make-it-stronger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FIX UNIT TEST (Make it stronger)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ket-qua-sau-khi-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KẾT QUẢ SAU KHI FIX:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#who-does-what-in-mutation-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👥 WHO DOES WHAT IN MUTATION TESTING?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="👥 WHO DOES WHAT IN MUTATION TESTING?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#role-of-developer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROLE of DEVELOPER:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#role-of-qa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROLE of QA:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#role-of-team-leadprincipal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROLE of TEAM LEAD/PRINCIPAL:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-benefits-business-perspective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💰 COST &amp; BENEFITS - BUSINESS PERSPECTIVE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💰 COST &amp; BENEFITS - BUSINESS PERSPECTIVE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COST:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BENEFITS:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rules-of-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RULES OF APPLICATION:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-project-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 REAL-WORLD PROJECT APPLICATION
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 REAL-WORLD PROJECT APPLICATION">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-pilot-2-weeks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PHASE 1: Pilot (2 weeks)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-scale-1-month" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PHASE 2: Scale (1 month)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-mature-ongoing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PHASE 3: Mature (Ongoing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 SUMMARY KEY TAKEAWAYS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 SUMMARY KEY TAKEAWAYS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-it-right" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET IT RIGHT:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CORE VALUE:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smart-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SMART APPLICATION:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practice-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎁 PRACTICE RESOURCES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✨ CONCLUSION
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutation-testing_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 MUTATION TESTING
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 MUTATION TESTING">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tom-tat-trong-1-cau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 TÓM TẮT TRONG 1 CÂU
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 TÓM TẮT TRONG 1 CÂU">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tai-sao-can-mutation-testing-van-e-thuc-te" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🤔 TẠI SAO CẦN MUTATION TESTING? - VẤN ĐỀ THỰC TẾ
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutation-testing-hoat-ong-the-nao-hieu-nhu-nau-an" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧬 MUTATION TESTING HOẠT ĐỘNG THẾ NÀO? - HIỂU NHƯ NẤU ĂN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧬 MUTATION TESTING HOẠT ĐỘNG THẾ NÀO? - HIỂU NHƯ NẤU ĂN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buoc-1-chuan-bi-nguyen-lieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BƯỚC 1: CHUẨN BỊ "NGUYÊN LIỆU"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-2-mutation-tool-nem-gia-vi-sai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BƯỚC 2: MUTATION TOOL "NÊM GIA VỊ SAI"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-3-nem-thu-chay-lai-unit-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BƯỚC 3: "NẾM THỬ" - CHẠY LẠI UNIT TEST
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BƯỚC 3: &#34;NẾM THỬ&#34; - CHẠY LẠI UNIT TEST">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutant-4-them-test-case-moi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutant 4: Thêm test case mới?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-4-anh-gia-mon-an-tinh-mutation-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BƯỚC 4: "ĐÁNH GIÁ MÓN ĂN" - TÍNH MUTATION SCORE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-sanh-code-coverage-vs-mutation-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 SO SÁNH: CODE COVERAGE vs MUTATION TESTING
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phan-tich" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PHÂN TÍCH:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hieu-theo-cach-oi-thuong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎭 HIỂU THEO CÁCH ĐỜI THƯỜNG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-loai-mutation-pho-bien-tool-tu-lam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ CÁC LOẠI MUTATION PHỔ BIẾN (Tool tự làm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vi-du-ay-u-tu-au-en-cuoi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 VÍ DỤ ĐẦY ĐỦ - TỪ ĐẦU ĐẾN CUỐI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 VÍ DỤ ĐẦY ĐỦ - TỪ ĐẦU ĐẾN CUỐI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-he-thong-ngan-hang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario: Hệ thống ngân hàng
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai-lam-gi-trong-mutation-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👥 AI LÀM GÌ TRONG MUTATION TESTING?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="👥 AI LÀM GÌ TRONG MUTATION TESTING?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#role-cua-developer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROLE của DEVELOPER:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#role-cua-team-leadprincipal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ROLE của TEAM LEAD/PRINCIPAL:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chi-phi-loi-ich-business-perspective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💰 CHI PHÍ &amp; LỢI ÍCH - BUSINESS PERSPECTIVE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💰 CHI PHÍ &amp; LỢI ÍCH - BUSINESS PERSPECTIVE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chi-phi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CHI PHÍ:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loi-ich" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LỢI ÍCH:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quy-tac-ap-dung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QUY TẮC ÁP DỤNG:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ap-dung-thuc-te-trong-du-an" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 ÁP DỤNG THỰC TẾ TRONG DỰ ÁN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 ÁP DỤNG THỰC TẾ TRONG DỰ ÁN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-pilot-2-tuan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PHASE 1: Pilot (2 tuần)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-scale-1-thang" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PHASE 2: Scale (1 tháng)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-mature-ongoing_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PHASE 3: Mature (Ongoing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tom-tat-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 TÓM TẮT KEY TAKEAWAYS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 TÓM TẮT KEY TAKEAWAYS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hieu-ung" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HIỂU ĐÚNG:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value-cot-loi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VALUE CỐT LÕI:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ap-dung-khon-ngoan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ÁP DỤNG KHÔN NGOAN:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cau-tra-loi-phong-van-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 CÂU TRẢ LỜI PHỎNG VẤN MẪU
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tai-nguyen-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎁 TÀI NGUYÊN THỰC HÀNH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ket-luan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✨ KẾT LUẬN
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2243,7 +3207,7 @@
   
 
 
-  <h1>Mutation testing</h1>
+  <h1>Mutation Testing</h1>
 
 <h2 id="mutation-testing">🧪 MUTATION TESTING<a class="headerlink" href="#mutation-testing" title="Permanent link">&para;</a></h2>
 <h3 id="1-sentence-summary">🎯 1-SENTENCE SUMMARY<a class="headerlink" href="#1-sentence-summary" title="Permanent link">&para;</a></h3>
