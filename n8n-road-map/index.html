@@ -1,0 +1,2749 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Knowledge base for SDET, Playwright, Selenium, API, and QA strategy">
+      
+      
+      
+        <link rel="canonical" href="https://vanvo19870515.github.io/learn-everything-for-me/n8n-road-map/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/avatar-32.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>N8n road map - Learn Everything For Me</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-mo-command-prompt" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Learn Everything For Me" class="md-header__button md-logo" aria-label="Learn Everything For Me" data-md-component="logo">
+      
+  <img src="../assets/avatar.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learn Everything For Me
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              N8n road map
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vanvo19870515/learn-everything-for-me" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vanvo19870515/learn-everything-for-me
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Learn Everything For Me" class="md-nav__button md-logo" aria-label="Learn Everything For Me" data-md-component="logo">
+      
+  <img src="../assets/avatar.png" alt="logo">
+
+    </a>
+    Learn Everything For Me
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vanvo19870515/learn-everything-for-me" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vanvo19870515/learn-everything-for-me
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Playwright
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Playwright
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Playwright_Guide_Reorganized/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Playwright Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../playwright-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Canary & Agentic Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../playwright-fixtures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fixtures & Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../playwright-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assertions Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../playwright-reporter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reporter API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../playwright-library/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library vs Test Runner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration-guides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration Guides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SQL Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    QA Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qa-sdet-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA/SDET Transition Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qa-sdet-roadmap-detail-60pages-vn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA/SDET Roadmap 60 pages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qa-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA & Automation Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdet-framework-foundation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Principles Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../playwright-sdet-framework-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDET Framework Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k6_performance_testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA Load Test with K6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k6-grafana-very-detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA K6 Grafana roadmap detail
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security-testing-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QA APIs Security Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elasticsearch-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elasticsearch Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elasticsearch-query-deepdive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elasticsearch Query Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../http-caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP Caching Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Strategy
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testing Strategy
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Test_Automation_Pyramid_Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Automation Pyramid
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Flaky_Test_Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flaky Test Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui-api-pom-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI POM vs API POM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shift-left-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shift-Left Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mutation-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mutation Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDET Prep
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SDET Prep
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SDET_Interview_Preparation_Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDET Interview Preparation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Experienced_Automation_Tester_QA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experienced Automation Tester Q&A
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Automation_Interview_QA/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automation Interview Q&A
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../java-oop-concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java OOP Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p>HỌC N8N TỪ CON SỐ 0 - HƯỚNG DẪN SIÊU CHI TIẾT DÀNH CHO NGƯỜI MỚI
+PHẦN 1: HIỂU N8N NHƯ "NGƯỜI GIÚP VIỆC ẢO" CỦA BẠN
+1.1 Giải thích bằng ví dụ cụ thể hàng ngày
+Ví dụ 1: Bạn là giáo viên</p>
+<div class="highlight"><pre><span></span><code>Mỗi tuần bạn phải:
+1. Nhận bài tập từ email học sinh
+2. Chấm điểm và ghi vào Excel
+3. Gửi email phản hồi cho từng học sinh
+4. Tổng hợp điểm vào Google Sheets
+5. Nhắn tin cho phụ huynh học sinh yếu
+
+Với n8n, bạn chỉ cần:
+- Cài đặt 1 lần duy nhất
+- Từ đó về sau, mọi việc tự động chạy
+- Bạn có thêm thời gian dạy học thay vì làm việc vặt
+  Ví dụ 2: Bạn là chủ shop online nhỏ
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Hàng ngày bạn phải:
+1. Check Facebook/Instagram có ai nhắn đặt hàng không
+2. Ghi đơn hàng vào sổ Excel
+3. Tính tiền ship, tổng tiền
+4. Nhắn tin xác nhận cho khách
+5. Đăng ký đơn hàng với đối tác vận chuyển
+
+n8n sẽ làm hết tất cả, bạn chỉ cần đóng gói hàng!
+1.2 n8n là gì? So sánh dễ hiểu
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>n8n = &quot;nối&quot; + &quot;tự động&quot;
+Giống như:
+- Công tắc tự động bật đèn khi trời tối
+- Robot hút bụi tự chạy
+- Email trả lời tự động khi bạn đi nghỉ
+  Bảng so sánh với công cụ khác:
+
+Công cụ Giống như   Giá Ưu điểm Nhược điểm
+n8n Người giúp việc đa năng MIỄN PHÍ 100%   Tự cài trên máy mình, không giới hạn    Phải tự cài đặt
+Zapier  Người giúp việc chuyên nghiệp   20-100$/tháng   Dễ dùng, không cần cài  Đắt, giới hạn số lần chạy
+IFTTT   Người giúp việc đơn giản    Miễn phí/trả phí    Rất đơn giản    Ít tính năng
+Make    Kỹ sư tự động hóa   10-50$/tháng    Mạnh mẽ Phức tạp, đắt
+1.3 Các khái niệm CƠ BẢN NHẤT trong n8n
+1. Workflow (Luồng công việc):
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Là 1 bản vẽ kế hoạch tự động hóa
+- Ví dụ: &quot;Kế hoạch gửi email sinh nhật&quot;
+- Mỗi workflow làm 1 việc cụ thể
+2. Node (Nút):
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Là 1 bước trong kế hoạch
+- Ví dụ:
+    + Bước 1: Đọc danh sách sinh nhật (node Google Sheets)
+    + Bước 2: Gửi email (node Gmail)
+    + Bước 3: Nhắn tin Telegram (node Telegram)
+3. Connection (Kết nối):
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Là mũi tên nối các node
+- Chỉ đường đi của dữ liệu
+- Ví dụ: Dữ liệu từ Google Sheets → Gmail → Telegram
+4. Trigger (Kích hoạt):
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Là cái BẬT công tắc
+- Ví dụ:
+    + Hàng ngày lúc 8h sáng (Schedule)
+    + Khi có email mới (Email Trigger)
+    + Khi có ai đó gửi tin nhắn (Webhook)
+      PHẦN 2: CÀI ĐẶT n8n - TỪNG BƯỚC TỪ A ĐẾN Z
+      2.1 Cài đặt trên Windows (CÁCH DỄ NHẤT CHO NGƯỜI MỚI)
+      Phương pháp DỄ NHẤT: Dùng npx (không cần cài gì trước)
+
+Bước 1: Mở Command Prompt
+
+Nhấn Windows + R
+
+Gõ cmd → Enter
+
+Bước 2: Chạy lệnh đơn giản
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>npx n8n
+*Lần đầu chạy sẽ mất 1-2 phút để tải về*
+
+Bước 3: Truy cập n8n
+
+Mở trình duyệt (Chrome/Firefox)
+
+Gõ: http://localhost:5678
+
+Username: admin@n8n.io
+
+Password: password
+
+Bước 4: Đổi mật khẩu (QUAN TRỌNG!)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Click vào avatar góc phải
+2. Chọn &quot;Settings&quot;
+3. Chọn &quot;Change Password&quot;
+4. Đặt mật khẩu mạnh
+   2.2 Cài đặt bằng Docker (ỔN ĐỊNH HƠN)
+   Bước 1: Cài Docker Desktop (nếu chưa có)
+
+Vào https://www.docker.com/products/docker-desktop
+
+Download phiên bản Windows
+
+Cài đặt bình thường (next → next → finish)
+
+Bước 2: Tạo thư mục cho n8n
+
+Tạo folder C:\n8n trên máy tính
+
+Trong folder đó, tạo file mới tên docker-compose.yml
+
+Bước 3: Copy nội dung này vào file:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+
+<span class="nt">services</span><span class="p">:</span>
+<span class="nt">n8n</span><span class="p">:</span>
+<span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n8nio/n8n</span>
+<span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n8n</span>
+<span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span><span class="w">  </span><span class="c1"># Tự động chạy lại nếu tắt</span>
+<span class="nt">ports</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;5678:5678&quot;</span><span class="w">  </span><span class="c1"># Cổng truy cập</span>
+<span class="nt">environment</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N8N_BASIC_AUTH_ACTIVE=true</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N8N_BASIC_AUTH_USER=admin</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N8N_BASIC_AUTH_PASSWORD=matkhau123</span><span class="w">  </span><span class="c1"># ĐỔI MẬT KHẨU NÀY!</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N8N_HOST=localhost</span>
+<span class="nt">volumes</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n8n_data:/home/node/.n8n</span><span class="w">  </span><span class="c1"># Lưu dữ liệu</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">C:/n8n/local-files:/files</span><span class="w">  </span><span class="c1"># Thư mục chia sẻ</span>
+
+<span class="nt">volumes</span><span class="p">:</span>
+<span class="nt">n8n_data</span><span class="p">:</span>
+<span class="nt">Bước 4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Mở Command Prompt trong thư mục C:\n8n</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+<h1 id="1-mo-command-prompt">1. Mở Command Prompt<a class="headerlink" href="#1-mo-command-prompt" title="Permanent link">&para;</a></h1>
+<h1 id="2-go">2. Gõ:<a class="headerlink" href="#2-go" title="Permanent link">&para;</a></h1>
+<p>cd C:\n8n</p>
+<h1 id="3-chay-lenh">3. Chạy lệnh:<a class="headerlink" href="#3-chay-lenh" title="Permanent link">&para;</a></h1>
+<p>docker-compose up -d</p>
+<h1 id="4-kiem-tra-ang-chay">4. Kiểm tra đang chạy:<a class="headerlink" href="#4-kiem-tra-ang-chay" title="Permanent link">&para;</a></h1>
+<p>docker ps
+Bước 5: Truy cập n8n</p>
+<p>Mở trình duyệt</p>
+<p>Vào: http://localhost:5678</p>
+<p>Đăng nhập: admin / matkhau123</p>
+<p>2.3 Cấu trúc thư mục sau khi cài
+<div class="highlight"><pre><span></span><code>C:\n8n\
+├── docker-compose.yml    # File cấu hình
+├── local-files\          # Thư mục chia sẻ file
+│   └── data\            # Dữ liệu của bạn
+└── n8n_data\            # Dữ liệu n8n (tự động tạo)
+PHẦN 3: LÀM QUEN GIAO DIỆN - THỰC HÀNH NGAY TRONG 10 PHÚT
+3.1 Tour giao diện CHI TIẾT
+Khi mới vào n8n, bạn thấy:
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────┐
+│  + New Workflow    🔍 Search     ⚙️ Settings    │  ← Thanh trên
+├─────────────────────────────────────────────────┤
+│                                                 │
+│  [Menu trái]         [Vùng làm việc chính]     │
+│  • Workflows         ░░░░░░░░░░░░░░░░░░░░░░    │
+│  • Executions        ░░░░░░░░░░░░░░░░░░░░░░    │
+│  • Settings          ░░░░░░░░░░░░░░░░░░░░░░    │
+│  • Credentials       ░░░░░░░░░░░░░░░░░░░░░░    │
+│                      ░░░░░░░░░░░░░░░░░░░░░░    │
+│  [Menu phải]         ░░░░░░░░░░░░░░░░░░░░░░    │
+│  ┌─────────────┐     ░░░░░░░░░░░░░░░░░░░░░░    │
+│  │ All Nodes   │     ░░░░░░░░░░░░░░░░░░░░░░    │
+│  │ ═══════════ │     ░░░░░░░░░░░░░░░░░░░░░░    │
+│  │ Trigger     │     ░░░░░░░░░░░░░░░░░░░░░░    │
+│  │ Core Nodes  │     ░░░░░░░░░░░░░░░░░░░░░░    │
+│  │ ...         │     ░░░░░░░░░░░░░░░░░░░░░░    │
+│  └─────────────┘     └─────────────────────┘   │
+└─────────────────────────────────────────────────┘
+3.2 Bài thực hành ĐẦU TIÊN: &quot;Xin chào thế giới&quot;
+Mục tiêu: Tạo workflow đầu tiên, hiểu cơ bản nhất
+
+Bước 1: Tạo workflow mới
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Click &quot;Workflows&quot; (menu trái)
+2. Click &quot;New workflow&quot;
+3. Đặt tên: &quot;Bài 1 - Xin chào&quot;
+   Bước 2: Thêm TRIGGER đầu tiên
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Ở menu phải, tìm &quot;Manual Trigger&quot;
+2. Click vào nó, giữ chuột và KÉO vào vùng trắng
+3. Thả chuột → Xuất hiện ô màu tím
+   Bước 3: Thêm NODE xử lý
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Ở menu phải, tìm &quot;Code&quot; (trong Core Nodes)
+2. Kéo vào bên cạnh Manual Trigger
+3. DI CHUYỆN đến gần Manual Trigger
+4. Sẽ xuất hiện các chấm tròn
+5. Click vào chấm tròn của Manual Trigger
+6. KÉO đến chấm tròn của Code node
+7. Bạn có 1 mũi tên nối 2 node!
+   Bước 4: Cấu hình Code node
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Click vào &quot;Code&quot; node (ô màu xanh)
+2. Bên phải xuất hiện cấu hình
+3. Tìm ô &quot;JavaScript Code&quot;
+4. Xóa hết, gõ vào:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="w">   </span><span class="c1">// Tạo biến tên</span>
+<span class="w">   </span><span class="kd">var</span><span class="w"> </span><span class="nx">tenCuaBan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Bạn&quot;</span><span class="p">;</span>
+<span class="w">   </span><span class="kd">var</span><span class="w"> </span><span class="nx">gioiTinh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;nam&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// Đổi thành &quot;nữ&quot; nếu bạn là nữ</span>
+
+<span class="c1">// Tạo lời chào</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">loiChao</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">gioiTinh</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;nam&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">loiChao</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Chào anh &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">tenCuaBan</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;!&quot;</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">loiChao</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Chào chị &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">tenCuaBan</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;!&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Thêm thời gian</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">bayGio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">gio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">bayGio</span><span class="p">.</span><span class="nx">getHours</span><span class="p">();</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">buoi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">gio</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">12</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">buoi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;buổi sáng&quot;</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">gio</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">18</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">buoi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;buổi chiều&quot;</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">buoi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;buổi tối&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Trả kết quả</span>
+<span class="k">return</span><span class="w"> </span><span class="p">[{</span>
+<span class="nx">json</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">loi_chao</span><span class="o">:</span><span class="w"> </span><span class="nx">loiChao</span><span class="p">,</span>
+<span class="nx">thoi_gian</span><span class="o">:</span><span class="w"> </span><span class="nx">buoi</span><span class="p">,</span>
+<span class="nx">gio_hien_tai</span><span class="o">:</span><span class="w"> </span><span class="nx">gio</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot; giờ&quot;</span><span class="p">,</span>
+<span class="nx">ngay_thang</span><span class="o">:</span><span class="w"> </span><span class="nx">bayGio</span><span class="p">.</span><span class="nx">toLocaleDateString</span><span class="p">(</span><span class="s1">&#39;vi-VN&#39;</span><span class="p">),</span>
+<span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="nx">loiChao</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot; Chúc bạn một &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">buoi</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot; tốt lành!&quot;</span>
+<span class="p">}</span>
+<span class="p">}];</span>
+<span class="nx">Bước</span><span class="w"> </span><span class="mf">5</span><span class="o">:</span><span class="w"> </span><span class="nx">CHẠY</span><span class="w"> </span><span class="nx">THỬ</span><span class="w"> </span><span class="nx">workflow</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Click nút ▶ &quot;Execute Workflow&quot; (ở trên cùng)
+2. Chờ 1-2 giây
+3. Click vào &quot;Code&quot; node
+4. Ở tab &quot;Output&quot;, xem kết quả!
+   Kết quả bạn sẽ thấy:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="nt">&quot;loi_chao&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Chào anh Bạn!&quot;</span><span class="p">,</span>
+<span class="nt">&quot;thoi_gian&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;buổi sáng/chiều/tối&quot;</span><span class="p">,</span>
+<span class="nt">&quot;gio_hien_tai&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;14 giờ&quot;</span><span class="p">,</span>
+<span class="nt">&quot;ngay_thang&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;15/01/2024&quot;</span><span class="p">,</span>
+<span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Chào anh Bạn! Chúc bạn một buổi chiều tốt lành!&quot;</span>
+<span class="p">}</span>
+<span class="err">Bước</span><span class="w"> </span><span class="mi">6</span><span class="p">:</span><span class="w"> </span><span class="err">Thêm</span><span class="w"> </span><span class="kc">n</span><span class="err">ode</span><span class="w"> </span><span class="err">Debug</span><span class="w"> </span><span class="err">để</span><span class="w"> </span><span class="err">xem</span><span class="w"> </span><span class="err">kế</span><span class="kc">t</span><span class="w"> </span><span class="err">quả</span><span class="w"> </span><span class="err">đẹp</span><span class="w"> </span><span class="err">hơ</span><span class="kc">n</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Tìm &quot;Debug&quot; node (trong Core Nodes)
+2. Kéo vào sau Code node
+3. Kết nối Code → Debug
+4. Chạy lại workflow
+5. Xem kết quả ở Debug node
+   PHẦN 4: HIỂU CÁC NODE QUAN TRỌNG - VỚI VÍ DỤ CỤ THỂ
+   4.1 Các TRIGGER Nodes - Ai bật đèn?
+1. Manual Trigger (Kích hoạt thủ công)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Dùng khi: Bạn muốn tự chạy bằng tay
+- Ví dụ:
+    + Test workflow
+    + Chạy báo cáo khi cần
+    + Xuất dữ liệu theo yêu cầu
+2. Schedule Trigger (Lịch trình)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Dùng khi: Chạy tự động theo thời gian
+- Ví dụ:
+    + 8h sáng mỗi ngày: Gửi báo cáo
+    + Mỗi 1 giờ: Kiểm tra email
+    + 23h đêm: Backup dữ liệu
+      Cấu hình Schedule Trigger:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Cách 1: Chọn từ dropdown</span>
+<span class="s2">&quot;Every 10 minutes&quot;</span><span class="w">   </span><span class="c1">// Mỗi 10 phút</span>
+<span class="s2">&quot;Every day at 8 AM&quot;</span><span class="w">  </span><span class="c1">// 8h sáng hàng ngày</span>
+<span class="s2">&quot;Every Monday at 9 AM&quot;</span><span class="w"> </span><span class="c1">// 9h sáng thứ 2</span>
+
+<span class="c1">// Cách 2: Dùng Cron (nâng cao)</span>
+<span class="s2">&quot;0 8 * * *&quot;</span><span class="w">    </span><span class="c1">// 8h sáng mỗi ngày</span>
+<span class="s2">&quot;0 9 * * 1&quot;</span><span class="w">    </span><span class="c1">// 9h sáng thứ 2</span>
+<span class="s2">&quot;*/15 * * * *&quot;</span><span class="w"> </span><span class="c1">// Mỗi 15 phút</span>
+<span class="mf">3.</span><span class="w"> </span><span class="nx">Webhook</span><span class="w"> </span><span class="nx">Trigger</span><span class="w"> </span><span class="p">(</span><span class="nx">Nhận</span><span class="w"> </span><span class="nx">dữ</span><span class="w"> </span><span class="nx">liệu</span><span class="w"> </span><span class="nx">từ</span><span class="w"> </span><span class="nx">bên</span><span class="w"> </span><span class="nx">ngoài</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Dùng khi: Có ứng dụng khác gửi dữ liệu cho bạn
+- Ví dụ:
+    + Website gửi thông tin đơn hàng
+    + Form đăng ký gửi thông tin
+    + App mobile gửi dữ liệu
+      Cấu hình Webhook:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Method: POST
+Path: /nhan-don-hang  // Đường dẫn riêng
+Response Mode: On Received  // Trả lời ngay
+
+URL sẽ là: http://localhost:5678/webhook/nhan-don-hang
+4. Email Trigger (IMAP) - Nhận email tự động
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Dùng khi: Cần xử lý email tự động
+- Ví dụ:
+    + Khi khách gửi email đặt hàng
+    + Khi có CV ứng tuyển
+    + Khi nhận báo cáo tự động
+      4.2 Các ACTION Nodes - Làm gì sau khi bật đèn?
+1. HTTP Request Node - Gọi API/Website
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Giống như trình duyệt thu nhỏ
+- Có thể: Lấy dữ liệu, gửi dữ liệu
+  Ví dụ: Lấy thời tiết Hà Nội
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://api.openweathermap.org/data/2.5/weather</span>
+<span class="nt">Method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GET</span>
+<span class="nt">Query Parameters</span><span class="p">:</span>
+<span class="nt">q</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Hanoi,VN</span>
+<span class="nt">appid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YOUR_API_KEY</span><span class="w">  </span><span class="c1"># Đăng ký free tại openweathermap.org</span>
+<span class="nt">units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metric</span>
+<span class="nt">lang</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vi</span>
+<span class="nt">Ví dụ</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Gửi SMS (giả lập)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://api.sms-gateway.com/send</span>
+<span class="nt">Method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span>
+<span class="nt">Headers</span><span class="p">:</span>
+<span class="nt">Content-Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">application/json</span>
+<span class="nt">Authorization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bearer YOUR_TOKEN</span>
+<span class="nt">Body (JSON)</span><span class="p">:</span>
+<span class="p p-Indicator">{</span>
+<span class="s">&quot;to&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">$json.phone</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="p p-Indicator">,</span>
+<span class="s">&quot;message&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">$json.content</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="p p-Indicator">,</span>
+<span class="s">&quot;sender&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;SHOP&quot;</span>
+<span class="p p-Indicator">}</span>
+<span class="l l-Scalar l-Scalar-Plain">2. Code Node - Viết mã tùy chỉnh</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Sức mạnh vô hạn
+- Dùng JavaScript cơ bản
+  Ví dụ: Tính toán đơn giản
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Dữ liệu từ node trước</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">donHang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$input</span><span class="p">.</span><span class="nx">first</span><span class="p">().</span><span class="nx">json</span><span class="p">;</span>
+
+<span class="c1">// Tính toán</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tongTien</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">donHang</span><span class="p">.</span><span class="nx">gia</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">donHang</span><span class="p">.</span><span class="nx">soLuong</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">phiShip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tongTien</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">500000</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mf">30000</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tongCong</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tongTien</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">phiShip</span><span class="p">;</span>
+
+<span class="c1">// Phân loại khách hàng</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">loaiKhachHang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Thường&quot;</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">tongCong</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">1000000</span><span class="p">)</span><span class="w"> </span><span class="nx">loaiKhachHang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;VIP&quot;</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">tongCong</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">5000000</span><span class="p">)</span><span class="w"> </span><span class="nx">loaiKhachHang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;VVIP&quot;</span><span class="p">;</span>
+
+<span class="c1">// Tạo thông báo</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">thongBao</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`Đơn hàng </span><span class="si">${</span><span class="nx">donHang</span><span class="p">.</span><span class="nx">maDon</span><span class="si">}</span>
+<span class="sb">Tổng tiền: </span><span class="si">${</span><span class="nx">tongCong</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="s1">&#39;vi-VN&#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">đ</span>
+<span class="sb">Khách hàng: </span><span class="si">${</span><span class="nx">loaiKhachHang</span><span class="si">}</span>
+<span class="sb">Cảm ơn quý khách!`</span><span class="p">;</span>
+
+<span class="c1">// Trả kết quả</span>
+<span class="k">return</span><span class="w"> </span><span class="p">[{</span>
+<span class="nx">json</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="p">...</span><span class="nx">donHang</span><span class="p">,</span><span class="w">  </span><span class="c1">// Giữ nguyên dữ liệu cũ</span>
+<span class="nx">tong_tien</span><span class="o">:</span><span class="w"> </span><span class="nx">tongTien</span><span class="p">,</span>
+<span class="nx">phi_ship</span><span class="o">:</span><span class="w"> </span><span class="nx">phiShip</span><span class="p">,</span>
+<span class="nx">tong_cong</span><span class="o">:</span><span class="w"> </span><span class="nx">tongCong</span><span class="p">,</span>
+<span class="nx">loai_khach_hang</span><span class="o">:</span><span class="w"> </span><span class="nx">loaiKhachHang</span><span class="p">,</span>
+<span class="nx">thong_bao</span><span class="o">:</span><span class="w"> </span><span class="nx">thongBao</span>
+<span class="p">}</span>
+<span class="p">}];</span>
+<span class="mf">3.</span><span class="w"> </span><span class="nx">IF</span><span class="w"> </span><span class="nx">Node</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">Nếu</span><span class="p">...</span><span class="w"> </span><span class="nx">thì</span><span class="p">...</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Phân nhánh công việc
+- Giống như ngã ba đường
+  Ví dụ: Phân loại đơn hàng
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Điều kiện:
+1. Nếu {{ $json.tong_tien &gt; 1000000 }} → Gửi quà tặng
+2. Nếu {{ $json.khach_hang == &quot;VIP&quot; }} → Miễn phí ship
+3. Mặc định → Xử lý thường
+4. Switch Node - Nhiều lựa chọn
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Giống như bảng chỉ đường
+- Có thể có nhiều hướng đi
+  Ví dụ: Phân vùng giao hàng
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Mode: Expression
+Rules:
+- Rule 1: {{ $json.tinh contains &quot;Hà Nội&quot; }} → Khu vực 1
+- Rule 2: {{ $json.tinh contains &quot;Hồ Chí Minh&quot; }} → Khu vực 2
+- Rule 3: {{ [&quot;Hải Phòng&quot;, &quot;Đà Nẵng&quot;].includes($json.tinh) }} → Khu vực 3
+  Default: Khu vực 4
+5. Wait Node - Chờ đợi
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Tạm dừng workflow
+- Ví dụ: Chờ 5 phút rồi gửi nhắc nhở
+  Cấu hình Wait:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">// Chờ 1 tiếng</span>
+<span class="l l-Scalar l-Scalar-Plain">Mode</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">For Time Interval</span>
+<span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">Unit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hours</span>
+
+<span class="l l-Scalar l-Scalar-Plain">// Chờ đến 9h sáng mai</span>
+<span class="nt">Mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Until Specified Time</span>
+<span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">$now.plus(1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;day&#39;</span><span class="nv">).startOf(&#39;day&#39;).plus(9</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;hours&#39;</span><span class="nv">)</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="nt">PHẦN 5</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10+ VÍ DỤ THỰC TẾ TỪ DỄ ĐẾN KHÓ</span>
+<span class="nt">Ví dụ 1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Tự động chúc mừng sinh nhật qua Email</span>
+<span class="nt">Workflow đơn giản nhất</span><span class="p">:</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Schedule Trigger (8h sáng hàng ngày)
+   ↓
+2. Google Sheets (Đọc danh sách sinh nhật)
+   ↓
+3. Code (Kiểm tra ai sinh nhật hôm nay)
+   ↓
+4. IF (Có ai sinh nhật không?)
+   ├── CÓ → Gmail (Gửi email chúc mừng)
+   └── KHÔNG → Dừng
+   Chi tiết từng bước:
+
+Bước 1: Tạo Google Sheets
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Tạo file Google Sheets: &quot;Danh sách sinh nhật&quot;
+Cột A: Tên
+Cột B: Email
+Cột C: Ngày sinh (dd/mm/yyyy)
+Cột D: Đã gửi (TRUE/FALSE)
+Bước 2: Cấu hình Google Sheets node
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">Operation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Read</span>
+<span class="nt">Spreadsheet ID</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(ID từ URL Google Sheets)</span>
+<span class="nt">Sheet Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sheet1&quot;</span>
+<span class="nt">Range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A2:D100&quot;</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Đọc từ dòng 2 đến 100</span>
+<span class="nt">Header Row</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1  // Dòng 1 là tiêu đề</span>
+<span class="nt">Bước 3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Code node kiểm tra sinh nhật</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Lấy danh sách từ Google Sheets</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">danhSach</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$input</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">homNay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">ngayHomNay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">homNay</span><span class="p">.</span><span class="nx">getDate</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">thangHomNay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">homNay</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">danhSachSinhNhat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+
+<span class="c1">// Duyệt qua từng người</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">danhSach</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">nguoi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">danhSach</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">json</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Kiểm tra định dạng ngày sinh</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">nguoi</span><span class="p">.</span><span class="nx">ngay_sinh</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">parts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">nguoi</span><span class="p">.</span><span class="nx">ngay_sinh</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">parts</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">ngaySinh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">parts</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+<span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">thangSinh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">parts</span><span class="p">[</span><span class="mf">1</span><span class="p">]);</span>
+
+<span class="w">            </span><span class="c1">// Kiểm tra trùng ngày tháng</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">ngaySinh</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">ngayHomNay</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">thangSinh</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">thangHomNay</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// Kiểm tra chưa gửi</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">nguoi</span><span class="p">.</span><span class="nx">da_gui</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">nguoi</span><span class="p">.</span><span class="nx">da_gui</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nx">danhSachSinhNhat</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+<span class="w">                        </span><span class="p">...</span><span class="nx">nguoi</span><span class="p">,</span>
+<span class="w">                        </span><span class="nx">tuoi</span><span class="o">:</span><span class="w"> </span><span class="nx">homNay</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">parts</span><span class="p">[</span><span class="mf">2</span><span class="p">])</span>
+<span class="w">                    </span><span class="p">});</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Trả kết quả</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">danhSachSinhNhat</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="k">return</span><span class="w"> </span><span class="nx">danhSachSinhNhat</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="nx">json</span><span class="o">:</span><span class="w"> </span><span class="nx">item</span>
+<span class="p">}));</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// Không có ai sinh nhật</span>
+<span class="k">return</span><span class="w"> </span><span class="p">[{</span>
+<span class="nx">json</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">thong_bao</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hôm nay không có ai sinh nhật&quot;</span><span class="p">,</span>
+<span class="nx">so_luong</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span>
+<span class="p">}</span>
+<span class="p">}];</span>
+<span class="p">}</span>
+<span class="nx">Bước</span><span class="w"> </span><span class="mf">4</span><span class="o">:</span><span class="w"> </span><span class="nx">IF</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="nx">phân</span><span class="w"> </span><span class="nx">nhánh</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Điều kiện: {{ $json.so_luong &gt; 0 }}
+- TRUE: Có sinh nhật → Gửi email
+- FALSE: Không có → Dừng
+  Bước 5: Gmail node gửi email
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">To</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">$json.email</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="nt">Subject</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">🎉 Chúc mừng sinh nhật {{ $json.ten }}!</span>
+<span class="nt">Body (HTML)</span><span class="p">:</span>
+<span class="l l-Scalar l-Scalar-Plain">&lt;h1&gt;Chúc mừng sinh nhật!&lt;/h1&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">&lt;p&gt;Kính gửi {{ $json.ten }},&lt;/p&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">&lt;p&gt;Chúc mừng sinh nhật lần thứ {{ $json.tuoi }} của bạn! 🎂&lt;/p&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">&lt;p&gt;Chúc bạn một ngày sinh nhật thật vui vẻ, hạnh phúc và thành công!&lt;/p&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">&lt;p&gt;Trân trọng,&lt;br&gt;Đội ngũ của chúng tôi&lt;/p&gt;</span>
+<span class="nt">Ví dụ 2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Tự động lưu file đính kèm từ Gmail vào Google Drive</span>
+<span class="nt">Workflow</span><span class="p">:</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Email Trigger (Kiểm tra email mới mỗi 5 phút)
+   ↓
+2. IF (Email có file đính kèm không?)
+   ↓ (CÓ)
+3. Google Drive (Upload file)
+   ↓
+4. Gmail (Đánh dấu đã đọc)
+   ↓
+5. Telegram (Thông báo đã lưu file)
+   Cấu hình chi tiết:
+
+Bước 1: Email Trigger
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">Credential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Gmail (cần cấu hình OAuth2)</span>
+<span class="nt">Mail Server</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imap.gmail.com</span>
+<span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">993</span>
+<span class="nt">Secure</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">Check every</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="nt">Only unread emails</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">Bước 2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IF node kiểm tra file đính kèm</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Điều kiện: {{ $json.attachments.length &gt; 0 }}
+Bước 3: Google Drive upload
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">Operation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Upload</span>
+<span class="nt">Folder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/n8n/email-attachments/{{ $now.format(&#39;YYYY-MM-DD&#39;) }}/</span>
+<span class="nt">Binary Property</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">attachments[0]</span>
+<span class="nt">Filename</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">$json.subject</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="l l-Scalar l-Scalar-Plain">_{{ $now.format(&#39;HH-mm-ss&#39;) }}</span>
+<span class="nt">Ví dụ 3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Hệ thống nhắc nhở uống nước</span>
+<span class="nt">Workflow vui vẻ</span><span class="p">:</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Schedule Trigger (Mỗi 2 tiếng từ 8h-20h)
+   ↓
+2. Telegram (Nhắn tin nhắc nhở)
+   ↓
+3. Wait (Đợi 30 phút)
+   ↓
+4. IF (Đã uống nước chưa?)
+   ├── RỒI → Telegram (Khen ngợi)
+   └── CHƯA → Telegram (Nhắc lại)
+   Chi tiết:
+
+Bước 1: Schedule Trigger
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Cron expression: 0 8-20/2 * * *
+Giải thích: Chạy vào phút 0, từ 8h đến 20h, mỗi 2 tiếng
+Bước 2: Telegram gửi nhắc nhở
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">Chat ID</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">(ID chat của bạn)</span>
+<span class="nt">Text</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="l l-Scalar l-Scalar-Plain">💧 THỜI GIAN UỐNG NƯỚC 💧</span>
+
+<span class="l l-Scalar l-Scalar-Plain">Bạn đã uống nước chưa?</span>
+
+<span class="l l-Scalar l-Scalar-Plain">Nếu RỒI, reply &quot;R&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">Nếu CHƯA, reply &quot;C&quot;</span>
+
+<span class="l l-Scalar l-Scalar-Plain">(Tự động kiểm tra sau 30 phút)</span>
+<span class="nt">Bước 3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Wait node</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Mode: For Time Interval
+Value: 30
+Unit: minutes
+Bước 4: Telegram nhận phản hồi
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>(Bạn cần tạo bot Telegram riêng cho việc này)
+PHẦN 6: KẾT NỐI VỚI DỊCH VỤ PHỔ BIẾN
+6.1 Kết nối Google Services
+Cách lấy Google Sheets ID:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>URL: https://docs.google.com/spreadsheets/d/ABC123DEF456/edit
+ID là: ABC123DEF456
+Cấu hình Google Sheets đọc dữ liệu:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Node: Google Sheets</span>
+<span class="nx">Operation</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Read&quot;</span>
+<span class="nx">Spreadsheet</span><span class="w"> </span><span class="nx">ID</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ABC123DEF456&quot;</span>
+<span class="nx">Sheet</span><span class="w"> </span><span class="nx">Name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Sheet1&quot;</span>
+<span class="nx">Range</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;A2:Z1000&quot;</span><span class="w">  </span><span class="c1">// Đọc từ A2 đến Z1000</span>
+<span class="nx">Header</span><span class="w"> </span><span class="nx">Row</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="w">  </span><span class="c1">// Dòng 1 là tiêu đề</span>
+
+<span class="c1">// Dữ liệu trả về sẽ có dạng:</span>
+<span class="p">[</span>
+<span class="p">{</span>
+<span class="s2">&quot;json&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="s2">&quot;STT&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="s2">&quot;Ten&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Nguyen Van A&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Email&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;a@gmail.com&quot;</span><span class="p">,</span>
+<span class="p">...</span>
+<span class="p">}</span>
+<span class="p">}</span>
+<span class="p">]</span>
+<span class="nx">Cấu</span><span class="w"> </span><span class="nx">hình</span><span class="w"> </span><span class="nx">Google</span><span class="w"> </span><span class="nx">Sheets</span><span class="w"> </span><span class="nx">ghi</span><span class="w"> </span><span class="nx">dữ</span><span class="w"> </span><span class="nx">liệu</span><span class="o">:</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">Operation</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Append&quot;</span>
+<span class="nt">Spreadsheet ID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ABC123DEF456&quot;</span>
+<span class="nt">Sheet Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sheet1&quot;</span>
+<span class="nt">Range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A:Z&quot;</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Tự động thêm vào dòng cuối</span>
+<span class="nt">Columns</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Auto-Map&quot;</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Tự động map theo tên cột</span>
+<span class="l l-Scalar l-Scalar-Plain">6.2 Kết nối Telegram</span>
+<span class="nt">Bước 1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Tạo bot Telegram</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Mở Telegram, tìm @BotFather
+2. Gửi /newbot
+3. Đặt tên bot (ví dụ: My n8n Bot)
+4. Đặt username (phải kết thúc bằng bot, ví dụ: my_n8n_bot)
+5. Lưu API Token: 123456789:ABCdefGHIjklMNOpqrSTUvwxYZ
+   Bước 2: Lấy Chat ID
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Tìm @userinfobot trên Telegram
+2. Gửi /start
+3. Nó sẽ trả về ID của bạn (ví dụ: 123456789)
+   Bước 3: Cấu hình Telegram node
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">Resource</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Message</span>
+<span class="nt">Operation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Send Message</span>
+<span class="nt">Chat ID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;123456789&quot;</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// ID của bạn</span>
+<span class="nt">Text</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Xin</span><span class="nv"> </span><span class="s">chào!</span><span class="nv"> </span><span class="s">Đây</span><span class="nv"> </span><span class="s">là</span><span class="nv"> </span><span class="s">tin</span><span class="nv"> </span><span class="s">nhắn</span><span class="nv"> </span><span class="s">tự</span><span class="nv"> </span><span class="s">động</span><span class="nv"> </span><span class="s">từ</span><span class="nv"> </span><span class="s">n8n&quot;</span>
+<span class="nt">Parse Mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HTML  // Cho phép format đẹp</span>
+<span class="nt">Ví dụ tin nhắn format đẹp</span><span class="p">:</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>🔔 THÔNG BÁO ĐƠN HÀNG MỚI<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
+──────────────
+🛒 <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Mã đơn:<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;</span>DH001<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span>
+👤 <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Khách hàng:<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span> Nguyễn Văn A
+💰 <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Tổng tiền:<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span> 500,000đ
+📍 <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Địa chỉ:<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span> Hà Nội
+⏰ <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Thời gian:<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span> 14:30 15/01/2024
+──────────────
+✅ <span class="p">&lt;</span><span class="nt">i</span><span class="p">&gt;</span>Đơn hàng đã được tiếp nhận<span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+6.3 Kết nối Gmail
+Cách 1: Dùng OAuth2 (an toàn nhất)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Trong n8n, vào Credentials → New
+2. Chọn &quot;OAuth2 API&quot;
+3. Làm theo hướng dẫn (cần có Google Cloud Project)
+   Cách 2: Dùng App Password (đơn giản hơn)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Vào Google Account → Security
+2. Bật 2-Step Verification
+3. Tạo App Password
+4. Dùng password này trong n8n
+   Cấu hình Gmail node gửi email:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">From</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your.email@gmail.com</span>
+<span class="nt">To</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">$json.email_khach_hang</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="nt">Subject</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Xác nhận đơn hàng {{ $json.ma_don }}</span>
+<span class="nt">Body (HTML)</span><span class="p">:</span>
+<span class="l l-Scalar l-Scalar-Plain">&lt;h2&gt;Xác nhận đơn hàng&lt;/h2&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">&lt;p&gt;Kính gửi {{ $json.ten_khach_hang }},&lt;/p&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">&lt;p&gt;Chúng tôi đã nhận được đơn hàng &lt;strong&gt;{{ $json.ma_don }}&lt;/strong&gt;&lt;/p&gt;</span>
+<span class="nt">&lt;p&gt;Tổng giá trị</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;strong&gt;{{ $json.tong_tien }}&lt;/strong&gt;&lt;/p&gt;</span>
+<span class="nt">&lt;p&gt;Trạng thái</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Đang xử lý&lt;/p&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">&lt;p&gt;Cảm ơn bạn đã mua hàng!&lt;/p&gt;</span>
+<span class="nt">PHẦN 7</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XỬ LÝ DỮ LIỆU VỚI CODE NODE</span>
+<span class="l l-Scalar l-Scalar-Plain">7.1 Các biến đặc biệt trong n8n</span>
+<span class="nt">$json</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dữ liệu từ node trước</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Lấy giá trị</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">ten</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$json</span><span class="p">.</span><span class="nx">ten</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tuoi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$json</span><span class="p">.</span><span class="nx">tuoi</span><span class="p">;</span>
+
+<span class="c1">// Hoặc nếu có nhiều items</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$input</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">itemDauTien</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">items</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">json</span><span class="p">;</span>
+<span class="nx">$input</span><span class="o">:</span><span class="w"> </span><span class="nx">Tất</span><span class="w"> </span><span class="nx">cả</span><span class="w"> </span><span class="nx">dữ</span><span class="w"> </span><span class="nx">liệu</span><span class="w"> </span><span class="nx">đầu</span><span class="w"> </span><span class="nx">vào</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Lấy tất cả items</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tatCaItems</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$input</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
+
+<span class="c1">// Lấy item đầu tiên</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">item1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$input</span><span class="p">.</span><span class="nx">first</span><span class="p">();</span>
+
+<span class="c1">// Lấy item thứ n</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">itemN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$input</span><span class="p">.</span><span class="nx">item</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span><span class="w">  </span><span class="c1">// Item thứ 0</span>
+<span class="nx">$node</span><span class="o">:</span><span class="w"> </span><span class="nx">Truy</span><span class="w"> </span><span class="nx">cập</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="nx">khác</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Lấy dữ liệu từ node có tên &quot;Google Sheets&quot;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">duLieu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$node</span><span class="p">[</span><span class="s2">&quot;Google Sheets&quot;</span><span class="p">].</span><span class="nx">json</span><span class="p">;</span>
+
+<span class="c1">// Lấy tên node hiện tại</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tenNode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$node</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+<span class="nx">$now</span><span class="o">:</span><span class="w"> </span><span class="nx">Thời</span><span class="w"> </span><span class="nx">gian</span><span class="w"> </span><span class="nx">hiện</span><span class="w"> </span><span class="nx">tại</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">bayGio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$now</span><span class="p">;</span><span class="w">  </span><span class="c1">// Object Date</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">ngay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$now</span><span class="p">.</span><span class="nx">toISOString</span><span class="p">();</span><span class="w">  </span><span class="c1">// 2024-01-15T14:30:00.000Z</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">ngayVietNam</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$now</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;DD/MM/YYYY HH:mm:ss&#39;</span><span class="p">);</span>
+
+<span class="c1">// Tính toán thời gian</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">ngayMai</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$now</span><span class="p">.</span><span class="nx">plus</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;day&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tuanSau</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$now</span><span class="p">.</span><span class="nx">plus</span><span class="p">(</span><span class="mf">7</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;days&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">motGioTruoc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$now</span><span class="p">.</span><span class="nx">minus</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;hour&#39;</span><span class="p">);</span>
+<span class="nx">$env</span><span class="o">:</span><span class="w"> </span><span class="nx">Biến</span><span class="w"> </span><span class="nx">môi</span><span class="w"> </span><span class="nx">trường</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">apiKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$env</span><span class="p">.</span><span class="nx">API_KEY</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">dbPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$env</span><span class="p">.</span><span class="nx">DB_PASSWORD</span><span class="p">;</span>
+<span class="mf">7.2</span><span class="w"> </span><span class="nx">Ví</span><span class="w"> </span><span class="nx">dụ</span><span class="w"> </span><span class="nx">xử</span><span class="w"> </span><span class="nx">lý</span><span class="w"> </span><span class="nx">dữ</span><span class="w"> </span><span class="nx">liệu</span><span class="w"> </span><span class="nx">thực</span><span class="w"> </span><span class="nx">tế</span>
+<span class="nx">Ví</span><span class="w"> </span><span class="nx">dụ</span><span class="w"> </span><span class="mf">1</span><span class="o">:</span><span class="w"> </span><span class="nx">Tính</span><span class="w"> </span><span class="nx">toán</span><span class="w"> </span><span class="nx">hóa</span><span class="w"> </span><span class="nx">đơn</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Dữ liệu từ node trước (giỏ hàng)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">gioHang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$json</span><span class="p">.</span><span class="nx">gio_hang</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">khachHang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$json</span><span class="p">.</span><span class="nx">khach_hang</span><span class="p">;</span>
+
+<span class="c1">// Tính tổng tiền</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">tongTien</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">soLuongSanPham</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">sanPham</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">gioHang</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">thanhTien</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sanPham</span><span class="p">.</span><span class="nx">gia</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">sanPham</span><span class="p">.</span><span class="nx">so_luong</span><span class="p">;</span>
+<span class="nx">tongTien</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">thanhTien</span><span class="p">;</span>
+<span class="nx">soLuongSanPham</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">sanPham</span><span class="p">.</span><span class="nx">so_luong</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Thêm field tính toán cho từng sản phẩm</span>
+<span class="w">    </span><span class="nx">sanPham</span><span class="p">.</span><span class="nx">thanh_tien</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">thanhTien</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">sanPham</span><span class="p">.</span><span class="nx">thanh_tien_fmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">thanhTien</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="s1">&#39;vi-VN&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;đ&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Tính phí ship</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">phiShip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">tongTien</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">500000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">phiShip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// Miễn phí ship</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">khachHang</span><span class="p">.</span><span class="nx">vip</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">phiShip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">15000</span><span class="p">;</span><span class="w">  </span><span class="c1">// VIP giảm giá</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">phiShip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">30000</span><span class="p">;</span><span class="w">  </span><span class="c1">// Thường</span>
+<span class="p">}</span>
+
+<span class="c1">// Tính VAT (10%)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">vat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tongTien</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span>
+
+<span class="c1">// Tổng cộng</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tongCong</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tongTien</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">phiShip</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">vat</span><span class="p">;</span>
+
+<span class="c1">// Tạo mã đơn hàng</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">maDon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;DH&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">().</span><span class="nx">toString</span><span class="p">().</span><span class="nx">slice</span><span class="p">(</span><span class="o">-</span><span class="mf">8</span><span class="p">);</span>
+
+<span class="c1">// Phân loại khách hàng</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">loaiKhachHang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Thường&#39;</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">tongCong</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">2000000</span><span class="p">)</span><span class="w"> </span><span class="nx">loaiKhachHang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;VIP&#39;</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">tongCong</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">5000000</span><span class="p">)</span><span class="w"> </span><span class="nx">loaiKhachHang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;VVIP&#39;</span><span class="p">;</span>
+
+<span class="c1">// Tạo kết quả</span>
+<span class="k">return</span><span class="w"> </span><span class="p">[{</span>
+<span class="nx">json</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">ma_don</span><span class="o">:</span><span class="w"> </span><span class="nx">maDon</span><span class="p">,</span>
+<span class="nx">khach_hang</span><span class="o">:</span><span class="w"> </span><span class="nx">khachHang</span><span class="p">,</span>
+<span class="nx">gio_hang</span><span class="o">:</span><span class="w"> </span><span class="nx">gioHang</span><span class="p">,</span>
+<span class="nx">tong_tien</span><span class="o">:</span><span class="w"> </span><span class="nx">tongTien</span><span class="p">,</span>
+<span class="nx">tong_tien_fmt</span><span class="o">:</span><span class="w"> </span><span class="nx">tongTien</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="s1">&#39;vi-VN&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;đ&#39;</span><span class="p">,</span>
+<span class="nx">phi_ship</span><span class="o">:</span><span class="w"> </span><span class="nx">phiShip</span><span class="p">,</span>
+<span class="nx">phi_ship_fmt</span><span class="o">:</span><span class="w"> </span><span class="nx">phiShip</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="s1">&#39;vi-VN&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;đ&#39;</span><span class="p">,</span>
+<span class="nx">vat</span><span class="o">:</span><span class="w"> </span><span class="nx">vat</span><span class="p">,</span>
+<span class="nx">vat_fmt</span><span class="o">:</span><span class="w"> </span><span class="nx">vat</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="s1">&#39;vi-VN&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;đ&#39;</span><span class="p">,</span>
+<span class="nx">tong_cong</span><span class="o">:</span><span class="w"> </span><span class="nx">tongCong</span><span class="p">,</span>
+<span class="nx">tong_cong_fmt</span><span class="o">:</span><span class="w"> </span><span class="nx">tongCong</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="s1">&#39;vi-VN&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;đ&#39;</span><span class="p">,</span>
+<span class="nx">so_luong_san_pham</span><span class="o">:</span><span class="w"> </span><span class="nx">soLuongSanPham</span><span class="p">,</span>
+<span class="nx">loai_khach_hang</span><span class="o">:</span><span class="w"> </span><span class="nx">loaiKhachHang</span><span class="p">,</span>
+<span class="nx">thoi_gian</span><span class="o">:</span><span class="w"> </span><span class="nx">$now</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;DD/MM/YYYY HH:mm:ss&#39;</span><span class="p">),</span>
+
+<span class="w">        </span><span class="c1">// Thông báo đẹp cho email/telegram</span>
+<span class="w">        </span><span class="nx">thong_bao</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span>
+<span class="sb">🎉 ĐƠN HÀNG THÀNH CÔNG 🎉</span>
+<span class="sb">Mã đơn: </span><span class="si">${</span><span class="nx">maDon</span><span class="si">}</span>
+<span class="sb">Khách hàng: </span><span class="si">${</span><span class="nx">khachHang</span><span class="p">.</span><span class="nx">ten</span><span class="si">}</span>
+<span class="sb">Số lượng: </span><span class="si">${</span><span class="nx">soLuongSanPham</span><span class="si">}</span><span class="sb"> sản phẩm</span>
+<span class="sb">Tổng tiền: </span><span class="si">${</span><span class="nx">tongCong</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">(</span><span class="s1">&#39;vi-VN&#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">đ</span>
+<span class="sb">Loại khách: </span><span class="si">${</span><span class="nx">loaiKhachHang</span><span class="si">}</span>
+<span class="sb">`</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="p">}];</span>
+<span class="nx">Ví</span><span class="w"> </span><span class="nx">dụ</span><span class="w"> </span><span class="mf">2</span><span class="o">:</span><span class="w"> </span><span class="nx">Xử</span><span class="w"> </span><span class="nx">lý</span><span class="w"> </span><span class="nx">và</span><span class="w"> </span><span class="nx">làm</span><span class="w"> </span><span class="nx">sạch</span><span class="w"> </span><span class="nx">dữ</span><span class="w"> </span><span class="nx">liệu</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Dữ liệu thô từ form/API</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">duLieuTho</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$json</span><span class="p">;</span>
+
+<span class="c1">// 1. Làm sạch và chuẩn hóa</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">duLieuSach</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// Tên: viết hoa chữ cái đầu</span>
+<span class="nx">ten</span><span class="o">:</span><span class="w"> </span><span class="nx">duLieuTho</span><span class="p">.</span><span class="nx">ten</span>
+<span class="o">?</span><span class="w"> </span><span class="nx">duLieuTho</span><span class="p">.</span><span class="nx">ten</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
+<span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span>
+<span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\b\w/g</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">())</span>
+<span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">// Email: lowercase và trim</span>
+<span class="w">    </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="nx">duLieuTho</span><span class="p">.</span><span class="nx">email</span><span class="w"> </span>
+<span class="w">        </span><span class="o">?</span><span class="w"> </span><span class="nx">duLieuTho</span><span class="p">.</span><span class="nx">email</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">toLowerCase</span><span class="p">()</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">// Số điện thoại: chỉ giữ số</span>
+<span class="w">    </span><span class="nx">so_dien_thoai</span><span class="o">:</span><span class="w"> </span><span class="nx">duLieuTho</span><span class="p">.</span><span class="nx">so_dien_thoai</span><span class="w"> </span>
+<span class="w">        </span><span class="o">?</span><span class="w"> </span><span class="nx">duLieuTho</span><span class="p">.</span><span class="nx">so_dien_thoai</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\D/g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">// Địa chỉ: chuẩn hóa</span>
+<span class="w">    </span><span class="nx">dia_chi</span><span class="o">:</span><span class="w"> </span><span class="nx">duLieuTho</span><span class="p">.</span><span class="nx">dia_chi</span><span class="w"> </span>
+<span class="w">        </span><span class="o">?</span><span class="w"> </span><span class="nx">duLieuTho</span><span class="p">.</span><span class="nx">dia_chi</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\s+/g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="w">  </span><span class="c1">// Xóa khoảng trắng thừa</span>
+<span class="w">            </span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/, /g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;, &#39;</span><span class="p">)</span><span class="w">   </span><span class="c1">// Đảm bảo format</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span>
+<span class="p">};</span>
+
+<span class="c1">// 2. Validate dữ liệu</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">loi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+
+<span class="c1">// Validate email</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">duLieuSach</span><span class="p">.</span><span class="nx">email</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">loi</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;Email không được để trống&#39;</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="sr">/^[^\s@]+@[^\s@]+\.[^\s@]+$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">duLieuSach</span><span class="p">.</span><span class="nx">email</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">loi</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;Email không hợp lệ&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Validate phone</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">duLieuSach</span><span class="p">.</span><span class="nx">so_dien_thoai</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">loi</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;Số điện thoại không được để trống&#39;</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">duLieuSach</span><span class="p">.</span><span class="nx">so_dien_thoai</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">loi</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;Số điện thoại phải có ít nhất 10 số&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 3. Format lại cho đẹp</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">duLieuSach</span><span class="p">.</span><span class="nx">so_dien_thoai</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// Format: 0912 345 678</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">sdt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">duLieuSach</span><span class="p">.</span><span class="nx">so_dien_thoai</span><span class="p">;</span>
+<span class="nx">duLieuSach</span><span class="p">.</span><span class="nx">so_dien_thoai_formatted</span><span class="w"> </span><span class="o">=</span>
+<span class="nx">sdt</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="o">+</span>
+<span class="nx">sdt</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="mf">7</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="o">+</span>
+<span class="nx">sdt</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mf">7</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 4. Tạo kết quả</span>
+<span class="k">return</span><span class="w"> </span><span class="p">[{</span>
+<span class="nx">json</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="p">...</span><span class="nx">duLieuSach</span><span class="p">,</span>
+<span class="nx">valid</span><span class="o">:</span><span class="w"> </span><span class="nx">loi</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="nx">errors</span><span class="o">:</span><span class="w"> </span><span class="nx">loi</span><span class="p">,</span>
+<span class="nx">error_count</span><span class="o">:</span><span class="w"> </span><span class="nx">loi</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
+<span class="nx">processed_at</span><span class="o">:</span><span class="w"> </span><span class="nx">$now</span><span class="p">.</span><span class="nx">toISOString</span><span class="p">(),</span>
+
+<span class="w">        </span><span class="c1">// Summary</span>
+<span class="w">        </span><span class="nx">summary</span><span class="o">:</span><span class="w"> </span><span class="nx">loi</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span>
+<span class="w">            </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;✅ Dữ liệu hợp lệ&#39;</span>
+<span class="w">            </span><span class="o">:</span><span class="w"> </span><span class="sb">`❌ Có </span><span class="si">${</span><span class="nx">loi</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb"> lỗi: </span><span class="si">${</span><span class="nx">loi</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}];</span>
+<span class="nx">PHẦN</span><span class="w"> </span><span class="mf">8</span><span class="o">:</span><span class="w"> </span><span class="nx">DỰ</span><span class="w"> </span><span class="nx">ÁN</span><span class="w"> </span><span class="nx">THỰC</span><span class="w"> </span><span class="nx">TẾ</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">HỆ</span><span class="w"> </span><span class="nx">THỐNG</span><span class="w"> </span><span class="nx">QUẢN</span><span class="w"> </span><span class="nx">LÝ</span><span class="w"> </span><span class="nx">ĐƠN</span><span class="w"> </span><span class="nx">HÀNG</span><span class="w"> </span><span class="nx">NHỎ</span>
+<span class="mf">8.1</span><span class="w"> </span><span class="nx">Yêu</span><span class="w"> </span><span class="nx">cầu</span><span class="w"> </span><span class="nx">hệ</span><span class="w"> </span><span class="nx">thống</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Shop nhỏ bán hàng online qua:
+1. Facebook Messenger
+2. Zalo
+3. Website form
+
+Cần hệ thống tự động:
+- Nhận đơn hàng từ các nguồn
+- Lưu vào Google Sheets
+- Tính toán tự động
+- Thông báo cho chủ shop
+- Gửi xác nhận cho khách
+  8.2 Kiến trúc hệ thống
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>  3 NGUỒN DỮ LIỆU:
+1. Facebook Webhook → Workflow 1
+2. Zalo Webhook → Workflow 1
+3. Website Form → Workflow 1
+
+WORKFLOW CHÍNH (Xử lý đơn hàng):
+1. Nhận dữ liệu từ webhook
+2. Validate và làm sạch
+3. Tính toán giá
+4. Lưu vào Google Sheets
+5. Gửi Telegram cho chủ shop
+6. Gửi email/SMS cho khách
+7. Tạo mã vận đơn (giả lập)
+
+WORKFLOW PHỤ (Báo cáo):
+1. Schedule 20h hàng ngày
+2. Tổng hợp doanh thu ngày
+3. Gửi báo cáo Telegram
+   8.3 Triển khai chi tiết
+   Workflow 1: Xử lý đơn hàng
+
+Bước 1: Webhook Trigger
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">Method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span>
+<span class="nt">Path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/nhan-don-hang</span>
+<span class="nt">Response Mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Response Node</span>
+<span class="nt">Bước 2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Code Node - Validate</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Nhận dữ liệu từ webhook</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">donHang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$json</span><span class="p">;</span>
+
+<span class="c1">// Kiểm tra bắt buộc</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">requiredFields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;ten_khach&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;so_dien_thoai&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;san_pham&#39;</span><span class="p">];</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">missingFields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">field</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">requiredFields</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">donHang</span><span class="p">[</span><span class="nx">field</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">donHang</span><span class="p">[</span><span class="nx">field</span><span class="p">].</span><span class="nx">trim</span><span class="p">()</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">missingFields</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">field</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">missingFields</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// Trả về lỗi</span>
+<span class="k">return</span><span class="w"> </span><span class="p">[{</span>
+<span class="nx">json</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="sb">`Thiếu thông tin: </span><span class="si">${</span><span class="nx">missingFields</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+<span class="nx">error_code</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MISSING_FIELDS&#39;</span>
+<span class="p">}</span>
+<span class="p">}];</span>
+<span class="p">}</span>
+
+<span class="c1">// Tạo mã đơn hàng</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">maDon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;DH&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">().</span><span class="nx">toString</span><span class="p">().</span><span class="nx">slice</span><span class="p">(</span><span class="o">-</span><span class="mf">6</span><span class="p">);</span>
+
+<span class="c1">// Tính giá (đơn giản)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">giaSanPham</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="s1">&#39;ao_phong&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">150000</span><span class="p">,</span>
+<span class="s1">&#39;ao_somi&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">250000</span><span class="p">,</span>
+<span class="s1">&#39;quan_jean&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">300000</span>
+<span class="p">};</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">sanPham</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">donHang</span><span class="p">.</span><span class="nx">san_pham</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">soLuong</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">donHang</span><span class="p">.</span><span class="nx">so_luong</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">gia</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">giaSanPham</span><span class="p">[</span><span class="nx">sanPham</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="mf">200000</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tongTien</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">gia</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">soLuong</span><span class="p">;</span>
+
+<span class="c1">// Trả về thành công</span>
+<span class="k">return</span><span class="w"> </span><span class="p">[{</span>
+<span class="nx">json</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="nx">ma_don</span><span class="o">:</span><span class="w"> </span><span class="nx">maDon</span><span class="p">,</span>
+<span class="nx">thoi_gian</span><span class="o">:</span><span class="w"> </span><span class="nx">$now</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;DD/MM/YYYY HH:mm:ss&#39;</span><span class="p">),</span>
+<span class="nx">ten_khach</span><span class="o">:</span><span class="w"> </span><span class="nx">donHang</span><span class="p">.</span><span class="nx">ten_khach</span><span class="p">.</span><span class="nx">trim</span><span class="p">(),</span>
+<span class="nx">so_dien_thoai</span><span class="o">:</span><span class="w"> </span><span class="nx">donHang</span><span class="p">.</span><span class="nx">so_dien_thoai</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\D/g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">),</span>
+<span class="nx">dia_chi</span><span class="o">:</span><span class="w"> </span><span class="nx">donHang</span><span class="p">.</span><span class="nx">dia_chi</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="nx">san_pham</span><span class="o">:</span><span class="w"> </span><span class="nx">sanPham</span><span class="p">,</span>
+<span class="nx">so_luong</span><span class="o">:</span><span class="w"> </span><span class="nx">soLuong</span><span class="p">,</span>
+<span class="nx">gia</span><span class="o">:</span><span class="w"> </span><span class="nx">gia</span><span class="p">,</span>
+<span class="nx">tong_tien</span><span class="o">:</span><span class="w"> </span><span class="nx">tongTien</span><span class="p">,</span>
+<span class="nx">trang_thai</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MOI_TAO&#39;</span><span class="p">,</span>
+<span class="nx">ghi_chu</span><span class="o">:</span><span class="w"> </span><span class="nx">donHang</span><span class="p">.</span><span class="nx">ghi_chu</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;&#39;</span>
+<span class="p">}</span>
+<span class="p">}];</span>
+<span class="nx">Bước</span><span class="w"> </span><span class="mf">3</span><span class="o">:</span><span class="w"> </span><span class="nx">Google</span><span class="w"> </span><span class="nx">Sheets</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">Lưu</span><span class="w"> </span><span class="nx">đơn</span><span class="w"> </span><span class="nx">hàng</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">Operation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Append</span>
+<span class="nt">Spreadsheet ID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR_SHEET_ID&quot;</span>
+<span class="nt">Sheet Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;DonHang&quot;</span>
+<span class="nt">Range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A:Z&quot;</span>
+<span class="nt">Columns</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Auto-Map&quot;</span>
+<span class="nt">Bước 4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Telegram - Thông báo chủ shop</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">Chat ID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;YOUR_CHAT_ID&quot;</span>
+<span class="nt">Parse Mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HTML</span>
+<span class="nt">Text</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="l l-Scalar l-Scalar-Plain">🛒 &lt;b&gt;ĐƠN HÀNG MỚI&lt;/b&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">──────────────</span>
+<span class="l l-Scalar l-Scalar-Plain">📦 &lt;b&gt;Mã đơn:&lt;/b&gt; &lt;code&gt;{{ $json.ma_don }}&lt;/code&gt;</span>
+<span class="l l-Scalar l-Scalar-Plain">👤 &lt;b&gt;Khách:&lt;/b&gt; {{ $json.ten_khach }}</span>
+<span class="l l-Scalar l-Scalar-Plain">📞 &lt;b&gt;Điện thoại:&lt;/b&gt; {{ $json.so_dien_thoai }}</span>
+<span class="l l-Scalar l-Scalar-Plain">📍 &lt;b&gt;Địa chỉ:&lt;/b&gt; {{ $json.dia_chi }}</span>
+<span class="l l-Scalar l-Scalar-Plain">🏷️ &lt;b&gt;Sản phẩm:&lt;/b&gt; {{ $json.san_pham }}</span>
+<span class="l l-Scalar l-Scalar-Plain">🔢 &lt;b&gt;Số lượng:&lt;/b&gt; {{ $json.so_luong }}</span>
+<span class="l l-Scalar l-Scalar-Plain">💰 &lt;b&gt;Tổng tiền:&lt;/b&gt; {{ $json.tong_tien.toLocaleString(&#39;vi-VN&#39;) }}đ</span>
+<span class="l l-Scalar l-Scalar-Plain">⏰ &lt;b&gt;Thời gian:&lt;/b&gt; {{ $json.thoi_gian }}</span>
+<span class="l l-Scalar l-Scalar-Plain">──────────────</span>
+<span class="l l-Scalar l-Scalar-Plain">✅ Đã lưu vào hệ thống</span>
+<span class="nt">Bước 5</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Response Node - Trả về cho khách</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Node: HTTP Request (Response)</span>
+<span class="c1">// Đây là response cho webhook ban đầu</span>
+
+<span class="k">return</span><span class="w"> </span><span class="p">[{</span>
+<span class="nx">json</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Đơn hàng đã được tiếp nhận!&quot;</span><span class="p">,</span>
+<span class="nx">order_id</span><span class="o">:</span><span class="w"> </span><span class="nx">$json</span><span class="p">.</span><span class="nx">ma_don</span><span class="p">,</span>
+<span class="nx">total</span><span class="o">:</span><span class="w"> </span><span class="nx">$json</span><span class="p">.</span><span class="nx">tong_tien</span><span class="p">,</span>
+<span class="nx">estimated_time</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2-3 ngày&quot;</span><span class="p">,</span>
+<span class="nx">contact_info</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hotline: 0912 345 678&quot;</span>
+<span class="p">}</span>
+<span class="p">}];</span>
+<span class="nx">PHẦN</span><span class="w"> </span><span class="mf">9</span><span class="o">:</span><span class="w"> </span><span class="nx">MẸO</span><span class="w"> </span><span class="nx">VÀ</span><span class="w"> </span><span class="nx">THỦ</span><span class="w"> </span><span class="nx">THUẬT</span><span class="w"> </span><span class="nx">HAY</span>
+<span class="mf">9.1</span><span class="w"> </span><span class="nx">Debug</span><span class="w"> </span><span class="nx">workflow</span><span class="w"> </span><span class="nx">hiệu</span><span class="w"> </span><span class="nx">quả</span>
+<span class="nx">Cách</span><span class="w"> </span><span class="mf">1</span><span class="o">:</span><span class="w"> </span><span class="nx">Dùng</span><span class="w"> </span><span class="nx">Debug</span><span class="w"> </span><span class="nx">Node</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>- Thêm Debug node sau node cần kiểm tra
+- Chạy workflow
+- Xem dữ liệu truyền qua Debug node
+  Cách 2: Console.log trong Code node
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Dữ liệu đầu vào:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">$json</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Số lượng items:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">$input</span><span class="p">.</span><span class="nx">all</span><span class="p">().</span><span class="nx">length</span><span class="p">);</span>
+
+<span class="c1">// Xem log ở:</span>
+<span class="c1">// 1. Terminal nếu chạy npx n8n</span>
+<span class="c1">// 2. Docker logs nếu chạy Docker</span>
+<span class="nx">Cách</span><span class="w"> </span><span class="mf">3</span><span class="o">:</span><span class="w"> </span><span class="nx">Execute</span><span class="w"> </span><span class="nx">Workflow</span><span class="w"> </span><span class="nx">từ</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="nx">cụ</span><span class="w"> </span><span class="nx">thể</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>1. Click phải vào node
+2. Chọn &quot;Execute Workflow&quot;
+3. Workflow sẽ chạy từ node đó
+   9.2 Xử lý lỗi thông minh
+   Tạo workflow xử lý lỗi:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Main Workflow
+↓ (Có thể lỗi)
+TRY: Node dễ lỗi
+↓ (Nếu lỗi)
+CATCH: Error Trigger
+↓
+CODE: Ghi log lỗi
+↓
+TELEGRAM: Báo lỗi cho admin
+↓
+GMAIL: Gửi email cảnh báo
+Code node xử lý lỗi:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// Code có thể lỗi</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">someRiskyOperation</span><span class="p">();</span>
+<span class="k">return</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">json</span><span class="o">:</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="p">}];</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// Ghi log chi tiết</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Lỗi xảy ra:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">        </span><span class="nx">json</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">stack</span><span class="o">:</span><span class="w"> </span><span class="nx">error</span><span class="p">.</span><span class="nx">stack</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">timestamp</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">()</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}];</span>
+<span class="p">}</span>
+<span class="mf">9.3</span><span class="w"> </span><span class="nx">Tối</span><span class="w"> </span><span class="nx">ưu</span><span class="w"> </span><span class="nx">hiệu</span><span class="w"> </span><span class="nx">suất</span>
+<span class="mf">1.</span><span class="w"> </span><span class="nx">Giới</span><span class="w"> </span><span class="nx">hạn</span><span class="w"> </span><span class="nx">dữ</span><span class="w"> </span><span class="nx">liệu</span><span class="w"> </span><span class="nx">đọc</span><span class="w"> </span><span class="nx">từ</span><span class="w"> </span><span class="nx">Google</span><span class="w"> </span><span class="nx">Sheets</span><span class="o">:</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">Range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A2:E1000&quot;</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">// Chỉ đọc 1000 dòng đầu</span>
+<span class="nt">Thay vì</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A:E&quot;</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">// Đọc toàn bộ</span>
+<span class="nt">2. Batch processing khi có nhiều items</span><span class="p">:</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Thay vì xử lý từng item trong vòng lặp</span>
+<span class="c1">// Gộp lại xử lý 1 lần</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$input</span><span class="p">.</span><span class="nx">all</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">processedItems</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">items</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// Xử lý nhanh</span>
+<span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">json</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="p">...</span><span class="nx">item</span><span class="p">.</span><span class="nx">json</span><span class="p">,</span>
+<span class="nx">processed</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+<span class="p">};</span>
+<span class="p">});</span>
+
+<span class="k">return</span><span class="w"> </span><span class="nx">processedItems</span><span class="p">;</span>
+<span class="mf">3.</span><span class="w"> </span><span class="nx">Sử</span><span class="w"> </span><span class="nx">dụng</span><span class="w"> </span><span class="nx">Wait</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="nx">hợp</span><span class="w"> </span><span class="nx">lý</span><span class="o">:</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">// KHÔNG NÊN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Chờ 24 giờ liên tục</span>
+<span class="nt">// NÊN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Schedule chạy mỗi ngày</span>
+
+<span class="nt">Schedule Trigger</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0 8 * * *  // 8h sáng mỗi ngày</span>
+<span class="nt">Thay vì</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Manual Trigger → Wait 24h</span>
+<span class="nt">PHẦN 10</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TRIỂN KHAI THỰC TẾ &amp; BẢO MẬT</span>
+<span class="l l-Scalar l-Scalar-Plain">10.1 Deploy lên server thật (VPS)</span>
+<span class="nt">Bước 1: Mua VPS (ví dụ</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$5/tháng)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Nhà cung cấp: DigitalOcean, Vultr, Linode
+Cấu hình: 1GB RAM, 1 CPU, 25GB SSD
+Hệ điều hành: Ubuntu 20.04
+Bước 2: SSH vào VPS
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+<h1 id="tren-may-ban">Trên máy bạn<a class="headerlink" href="#tren-may-ban" title="Permanent link">&para;</a></h1>
+<p>ssh root@IP_VPS</p>
+<h1 id="cap-nhat-he-thong">Cập nhật hệ thống<a class="headerlink" href="#cap-nhat-he-thong" title="Permanent link">&para;</a></h1>
+<p>apt update &amp;&amp; apt upgrade -y
+Bước 3: Cài Docker</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://get.docker.com<span class="w"> </span>-o<span class="w"> </span>get-docker.sh
+sh<span class="w"> </span>get-docker.sh
+</code></pre></div>
+<h1 id="cai-docker-compose">Cài Docker Compose<a class="headerlink" href="#cai-docker-compose" title="Permanent link">&para;</a></h1>
+<p>apt install docker-compose -y
+Bước 4: Tạo thư mục n8n</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>/opt/n8n
+<span class="nb">cd</span><span class="w"> </span>/opt/n8n
+nano<span class="w"> </span>docker-compose.yml
+Bước<span class="w"> </span><span class="m">5</span>:<span class="w"> </span>File<span class="w"> </span>docker-compose.yml<span class="w"> </span>cho<span class="w"> </span>production
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+
+<span class="nt">services</span><span class="p">:</span>
+<span class="nt">n8n</span><span class="p">:</span>
+<span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n8nio/n8n</span>
+<span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n8n</span>
+<span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
+<span class="nt">ports</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;5678:5678&quot;</span>
+<span class="nt">environment</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N8N_BASIC_AUTH_ACTIVE=true</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N8N_BASIC_AUTH_USER=admin</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N8N_BASIC_AUTH_PASSWORD=MatKhauManh123!</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N8N_HOST=your-domain.com</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N8N_PORT=5678</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N8N_PROTOCOL=https</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N8N_EDITOR_BASE_URL=https://your-domain.com</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WEBHOOK_URL=https://your-domain.com</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N8N_ENCRYPTION_KEY=YourEncryptionKey123</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EXECUTIONS_DATA_PRUNE=true</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EXECUTIONS_DATA_MAX_AGE=168</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EXECUTIONS_DATA_MAX_COUNT=10000</span>
+<span class="nt">volumes</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n8n_data:/home/node/.n8n</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./local-files:/files</span>
+
+<span class="nt">volumes</span><span class="p">:</span>
+<span class="nt">n8n_data</span><span class="p">:</span>
+<span class="nt">Bước 6</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Chạy n8n</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+Bước<span class="w"> </span><span class="m">7</span>:<span class="w"> </span>Cài<span class="w"> </span>Nginx<span class="w"> </span>+<span class="w"> </span>SSL<span class="w"> </span><span class="o">(</span>HTTPS<span class="w"> </span>miễn<span class="w"> </span>phí<span class="o">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+<h1 id="cai-nginx">Cài Nginx<a class="headerlink" href="#cai-nginx" title="Permanent link">&para;</a></h1>
+<p>apt install nginx -y</p>
+<h1 id="cai-certbot-cho-ssl">Cài Certbot cho SSL<a class="headerlink" href="#cai-certbot-cho-ssl" title="Permanent link">&para;</a></h1>
+<p>apt install certbot python3-certbot-nginx -y</p>
+<h1 id="tao-config-nginx">Tạo config Nginx<a class="headerlink" href="#tao-config-nginx" title="Permanent link">&para;</a></h1>
+<p>nano /etc/nginx/sites-available/n8n
+File Nginx config:</p>
+<div class="highlight"><pre><span></span><code><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+<span class="kn">server_name</span><span class="w"> </span><span class="s">your-domain.com</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://localhost:5678</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_http_version</span><span class="w"> </span><span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Upgrade</span><span class="w"> </span><span class="nv">$http_upgrade</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Connection</span><span class="w"> </span><span class="s">&#39;upgrade&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_cache_bypass</span><span class="w"> </span><span class="nv">$http_upgrade</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="k">Bước</span><span class="w"> </span><span class="mi">8</span><span class="p">:</span><span class="w"> </span><span class="s">Cài</span><span class="w"> </span><span class="s">SSL</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+<h1 id="kich-hoat-site">Kích hoạt site<a class="headerlink" href="#kich-hoat-site" title="Permanent link">&para;</a></h1>
+<p>ln -s /etc/nginx/sites-available/n8n /etc/nginx/sites-enabled/</p>
+<h1 id="kiem-tra-cau-hinh">Kiểm tra cấu hình<a class="headerlink" href="#kiem-tra-cau-hinh" title="Permanent link">&para;</a></h1>
+<p>nginx -t</p>
+<h1 id="khoi-ong-lai-nginx">Khởi động lại Nginx<a class="headerlink" href="#khoi-ong-lai-nginx" title="Permanent link">&para;</a></h1>
+<p>systemctl restart nginx</p>
+<h1 id="cai-ssl">Cài SSL<a class="headerlink" href="#cai-ssl" title="Permanent link">&para;</a></h1>
+<p>certbot --nginx -d your-domain.com
+10.2 Backup dữ liệu
+Workflow backup tự động:</p>
+<div class="highlight"><pre><span></span><code>1. Schedule Trigger (2h sáng chủ nhật)
+2. Code Node: Tạo file backup
+3. Google Drive: Upload backup
+4. Telegram: Thông báo backup thành công
+   Script backup đơn giản:
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+<h1 id="binbash">!/bin/bash<a class="headerlink" href="#binbash" title="Permanent link">&para;</a></h1>
+<h1 id="backupsh">backup.sh<a class="headerlink" href="#backupsh" title="Permanent link">&para;</a></h1>
+<p>DATE=$(date +%Y%m%d_%H%M%S)
+BACKUP_FILE="/backups/n8n_backup_$DATE.tar.gz"</p>
+<h1 id="backup-data">Backup data<a class="headerlink" href="#backup-data" title="Permanent link">&para;</a></h1>
+<p>docker exec n8n tar czf - /home/node/.n8n &gt; $BACKUP_FILE</p>
+<h1 id="upload-len-google-drive-dung-rclone">Upload lên Google Drive (dùng rclone)<a class="headerlink" href="#upload-len-google-drive-dung-rclone" title="Permanent link">&para;</a></h1>
+<p>rclone copy $BACKUP_FILE gdrive:n8n-backups/</p>
+<h1 id="xoa-backup-cu-giu-7-ngay">Xóa backup cũ (giữ 7 ngày)<a class="headerlink" href="#xoa-backup-cu-giu-7-ngay" title="Permanent link">&para;</a></h1>
+<p>find /backups -name "n8n_backup_*" -mtime +7 -delete
+TỔNG KẾT LỘ TRÌNH HỌC 4 TUẦN
+Tuần 1: Làm quen cơ bản
+<div class="highlight"><pre><span></span><code>Ngày 1-2: Hiểu n8n là gì, cài đặt local
+Ngày 3-4: Tạo workflow đầu tiên &quot;Hello World&quot;
+Ngày 5-7: Học về Trigger nodes (Manual, Schedule)
+Bài tập: Tạo workflow chào buổi sáng/trưa/tối
+Tuần 2: Các node cơ bản
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code>Ngày 1-2: HTTP Request, Code node cơ bản
+Ngày 3-4: IF node, Switch node
+Ngày 5-6: Debug, Wait nodes
+Ngày 7: Tổng hợp - Tạo workflow tính tiền đơn hàng
+Tuần 3: Kết nối dịch vụ
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Ngày 1-2: Google Sheets (đọc/ghi)
+Ngày 3-4: Telegram bot
+Ngày 5-6: Gmail (gửi email)
+Ngày 7: Tổng hợp - Hệ thống nhắc nhở
+Tuần 4: Dự án thực tế
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Ngày 1-2: Hệ thống quản lý đơn hàng đơn giản
+Ngày 3-4: Hệ thống báo cáo tự động
+Ngày 5-6: Xử lý lỗi và tối ưu
+Ngày 7: Deploy lên server thật
+5 dự án nhỏ nên làm khi học:
+Bot nhắc nhở cá nhân (Telegram + Schedule)
+
+Tự động lưu file email (Gmail + Google Drive)
+
+Theo dõi giá sản phẩm (HTTP Request + Telegram)
+
+Hệ thống đăng ký lớp học (Webhook + Google Sheets)
+
+Báo cáo thời tiết hàng ngày (API + Telegram)
+</code></pre></div>
+<p>Tài nguyên học thêm:
+Documentation chính thức: https://docs.n8n.io</p>
+<p>Video tutorials: https://www.youtube.com/c/n8nio</p>
+<p>Community forum: https://community.n8n.io</p>
+<p>Workflow templates: https://n8n.io/workflows</p>
+<p>GitHub examples: https://github.com/n8n-io/n8n/tree/master/packages/cli/examples</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "content.code.copy", "content.code.annotate", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
