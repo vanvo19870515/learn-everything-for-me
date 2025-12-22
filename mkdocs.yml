@@ -71,6 +71,7 @@ nav:
   - Testing Strategy:
       - Test Automation Pyramid: Test_Automation_Pyramid_Guide.md
       - Flaky Test Guide: Flaky_Test_Guide.md
+      - Flaky Test Infographic: Flaky_Test_Infographic.html
       - UI POM vs API POM: ui-api-pom-comparison.md
       - Shift-Left Testing: shift-left-testing.md
       - Mutation Testing: mutation-testing.md
