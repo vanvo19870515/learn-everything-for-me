@@ -10,7 +10,7 @@ Thế mạnh: Đã biết code, có tư duy kỹ thuật
 Weakness: Thiếu kinh nghiệm testing hệ thống
 
 Mục Tiêu 3-6 Tháng
-text
+```text
 THÁNG 1-2: Foundation Building
 ├── Hiểu sâu QA Theory & Testing Concepts
 ├── Master 1 Automation Stack (TypeScript + Playwright)
@@ -30,7 +30,9 @@ THÁNG 5-6: Career Preparation
 └── Offer Negotiation
 Vị Trí Mục Tiêu Chi Tiết
 1. SDET (Software Development Engineer in Test)
-yaml
+```
+
+```yaml
 Vai trò: 
   - Developer mindset, tập trung automation
   - Xây dựng test frameworks và tools
@@ -47,7 +49,9 @@ Kỹ năng cần:
   - Lương cao hơn QA thông thường
   - Growth path rõ ràng: Senior SDET → Test Architect
 2. Automation QA Engineer
-yaml
+```
+
+```yaml
 Vai trò:
   - Balance giữa manual và automation
   - Thiết kế test cases và automate chúng
@@ -64,7 +68,9 @@ Kỹ năng cần:
   - Có thể học dần automation
   - Phù hợp background IT Support
 3. QA Engineer (Manual + Automation)
-yaml
+```
+
+```yaml
 Vai trò:
   - 70% Manual, 30% Automation
   - Test planning và execution
@@ -83,7 +89,9 @@ Kỹ năng cần:
 🧠 GIAI ĐOẠN CHUẨN BỊ: XÂY DỰNG TƯ DUY QA (Tuần 0)
 Tư Duy "QA Mindset" - Shift từ Developer sang Tester
 Mindset Shift 1: Từ "Making It Work" sang "Breaking It"
-text
+```
+
+```text
 DEVELOPER MINDSET:
 - Làm cho feature chạy đúng
 - Focus trên happy path
@@ -94,7 +102,9 @@ QA MINDSET:
 - Focus trên edge cases và negative scenarios
 - User experience là chính
 Mindset Shift 2: Từ "Individual Code" sang "System Thinking"
-typescript
+```
+
+```typescript
 // Developer: Test từng function
 function addToCart(productId) {
   // Test function này hoạt động
@@ -109,7 +119,9 @@ User Story: Mua hàng thành công
 5. Thanh toán
 6. Nhận xác nhận
 Mindset Shift 3: Từ "Technical Correctness" sang "User Perspective"
-text
+```
+
+```text
 Không chỉ hỏi: "Code có chạy đúng không?"
 Mà còn hỏi: 
 - User có hiểu interface không?
@@ -161,7 +173,9 @@ E-commerce ≠ Banking Software
 
 Risk-Based Testing Framework Chi Tiết
 Risk Assessment Matrix
-markdown
+```
+
+```markdown
 | Feature/Module | Probability | Impact | Risk Score | Priority |
 |----------------|-------------|---------|------------|----------|
 | Login/Logout   | High (9/10) | High (9/10) | 81         | P0       |
@@ -177,7 +191,9 @@ Priority:
 - P2: Risk Score 16-35
 - P3: Risk Score < 16
 Risk Identification Checklist
-text
+```
+
+```text
 TECHNICAL RISKS:
 ☐ New technology/framework
 ☐ Complex integrations
@@ -204,7 +220,11 @@ Ngày 1: SDLC - Software Development Life Cycle
 Chi Tiết Từng Phase
 1. Planning Phase
 
-markdown
+```
+
+```markdown
+```
+
 ## Planning Phase Activities
 ### Input:
 - Business requirements
@@ -236,7 +256,9 @@ markdown
 - Budget estimation
 2. Requirements Analysis Phase
 
-markdown
+```markdown
+```
+
 ## Requirements Analysis
 ### Types of Requirements:
 1. **Functional Requirements**
@@ -261,7 +283,9 @@ markdown
 - User Stories (for Agile)
 3. Design Phase
 
-markdown
+```markdown
+```
+
 ## Design Phase Components
 ### High-Level Design (HLD):
 - System architecture
@@ -282,7 +306,9 @@ markdown
 - Style guides
 4. Development Phase
 
-markdown
+```markdown
+```
+
 ## Development Activities
 ### Coding Standards:
 - Code conventions
@@ -302,7 +328,9 @@ markdown
 - Peer code reviews
 5. Testing Phase (Our Focus)
 
-markdown
+```markdown
+```
+
 ## Testing in SDLC
 ### Testing Objectives:
 - Validate requirements
@@ -324,7 +352,9 @@ markdown
 - Test summary report
 6. Deployment Phase
 
-markdown
+```markdown
+```
+
 ## Deployment Strategies
 ### Deployment Types:
 1. **Big Bang Deployment**
@@ -349,7 +379,9 @@ markdown
 - Data migration plans
 7. Maintenance Phase
 
-markdown
+```markdown
+```
+
 ## Maintenance Types
 ### Corrective Maintenance:
 - Fix bugs found in production
@@ -368,7 +400,9 @@ markdown
 - Code refactoring, optimization
 Ngày 2: STLC - Software Testing Life Cycle
 Phase 1: Requirement Analysis
-markdown
+```markdown
+```
+
 ## Requirement Analysis for Testing
 ### Activities:
 1. **Analyze Requirements**
@@ -396,7 +430,9 @@ markdown
 - Test scope document
 - Risk assessment report
 Phase 2: Test Planning
-markdown
+```markdown
+```
+
 ## Test Planning Components
 ### Test Strategy:
 - Testing approach
@@ -538,10 +574,14 @@ Automation coverage > 70%
 
 UAT sign-off obtained
 
-text
+```text
+
+```
 
 ##### **Phase 3: Test Case Development**
 ```markdown
+```
+
 ## Test Case Development Process
 ### Step 1: Identify Test Scenarios
 - Based on requirements
@@ -659,10 +699,14 @@ Uses test data from users.json
 
 Part of smoke test suite
 
-text
+```text
+
+```
 
 ##### **Phase 4: Test Environment Setup**
 ```markdown
+```
+
 ## Test Environment Configuration
 ### Hardware Requirements:
 - Server: 8GB RAM, 4 CPU cores
@@ -697,7 +741,10 @@ text
 ☐ Monitoring tools configured
 ☐ Backup systems ready
 Phase 5: Test Execution
-markdown
+
+```markdown
+```
+
 ## Test Execution Process
 ### Daily Test Execution Workflow:
 7:00 AM - Check Environment
@@ -730,7 +777,9 @@ markdown
 ├── Coordinate with developers
 └── Update test metrics
 
-text
+```text
+
+```
 
 ### **Test Execution Status Codes:**
 ```yaml
@@ -748,7 +797,11 @@ Severity Levels:
   - Medium: Minor issue, workaround exists
   - Low: Cosmetic, no functional impact
 Phase 6: Test Closure
-markdown
+```
+
+```markdown
+```
+
 ## Test Closure Activities
 ### Test Summary Report:
 TEST SUMMARY REPORT
@@ -848,10 +901,14 @@ Development Lead: ___________ Date: _________
 
 Product Owner: ______________ Date: _________
 
-text
+```text
+
+```
 
 ### **Test Metrics và KPIs**
 ```markdown
+```
+
 ## QA Metrics Dashboard
 ### Quality Metrics:
 1. **Defect Density**
@@ -895,7 +952,8 @@ TIẾP THEO: AGILE/SCRUM CHI TIẾT CHO TESTER
 🎯 PHẦN 1: AGILE/SCRUM CHO TESTER - HIỂU SÂU, ÁP DỤNG ĐÚNG
 1.1 Agile Mindset cho Tester
 Tư Duy Agile vs Waterfall
-text
+
+```text
 WATERFALL (TRUYỀN THỐNG):
 Requirements → Design → Development → Testing → Deployment
 │                                                            │
@@ -906,7 +964,9 @@ Sprint 1 (2 tuần): Requirements → Design → Dev → Test → Demo
 Sprint 2 (2 tuần): Requirements → Design → Dev → Test → Demo
 Sprint 3 (2 tuần): Requirements → Design → Dev → Test → Demo
 12 Principles of Agile áp dụng cho Testing
-yaml
+```
+
+```yaml
 1. Ưu tiên cao nhất: Thỏa mãn khách hàng
    → Tester: Test từ user perspective, không chỉ technical
 
@@ -944,7 +1004,11 @@ yaml
     → Tester: Retrospective để cải tiến process testing
 1.2 Scrum Framework cho Tester
 Vai Trò Của Tester Trong Scrum Team
-markdown
+```
+
+```markdown
+```
+
 ## Tester trong Scrum Team
 
 ### Traditional QA vs Agile Tester:
@@ -968,7 +1032,9 @@ Light documentation
 
 Collaborative role
 
-text
+```text
+
+```
 
 ### Vai Trò Chi Tiết:
 1. **Quality Advocate**
@@ -1001,7 +1067,9 @@ text
    - Provide release readiness
 Scrum Events cho Tester
 1. Sprint Planning
-markdown
+```markdown
+```
+
 ## Sprint Planning - Tester's Checklist
 
 ### Before Sprint Planning:
@@ -1042,7 +1110,7 @@ Automation: 8 hours (viết mới)
 
 Total: 12 hours = 3 story points
 
-text
+```text
 
 2. **Define Acceptance Criteria**
 SMART Acceptance Criteria:
@@ -1064,7 +1132,9 @@ THEN redirect đến Google auth page
 AND user có thể login với Google account
 AND redirect về application dashboard
 
-text
+```
+
+```text
 
 3. **Identify Testing Tasks**
 Testing Tasks Breakdown:
@@ -1084,7 +1154,9 @@ Regression testing (2h)
 Bug verification (2h)
 Total: 17 hours
 
-text
+```
+
+```text
 
 4. **Define Definition of Done (DoD)**
 Sample DoD Checklist:
@@ -1098,9 +1170,15 @@ Sample DoD Checklist:
 ☐ Performance requirements met
 ☐ Deployed to staging environment
 
-text
+```
+
+```text
 2. Daily Standup
-markdown
+```
+
+```markdown
+```
+
 ## Daily Standup - Tester's Report Template
 
 ### Thời Gian: 15 phút mỗi ngày
@@ -1134,7 +1212,9 @@ Cần access đến test Google account
 
 Staging environment chưa ready
 
-text
+```text
+
+```
 
 #### Day 5 of Sprint:
 Hôm qua:
@@ -1161,7 +1241,9 @@ Bug #123 chưa fixed, blocking automation
 
 Cần clarification về discount calculation
 
-text
+```text
+
+```
 
 #### Day 9 of Sprint (Near Sprint End):
 Hôm qua:
@@ -1188,7 +1270,9 @@ Blockers:
 
 Performance test environment down
 
-text
+```text
+
+```
 
 ### Tips for Effective Standup:
 1. **BE CONCISE**: Nói ngắn gọn, focus trên blockers
@@ -1196,7 +1280,9 @@ text
 3. **BE SOLUTION-ORIENTED**: Đề xuất giải pháp
 4. **LISTEN ACTIVELY**: Giúp teammates khi có thể
 3. Sprint Review
-markdown
+```markdown
+```
+
 ## Sprint Review - Tester's Preparation
 
 ### Before Sprint Review:
@@ -1241,7 +1327,9 @@ Automation progress
 
 Feedback & Questions (3-5 phút)
 
-text
+```text
+
+```
 
 #### Demo Best Practices:
 1. **SHOW, DON'T TELL**: Demo thực tế, không chỉ nói
@@ -1288,9 +1376,13 @@ Performance: < 2s response time
 
 Any questions about the testing?"
 
-text
+```text
 4. Sprint Retrospective
-markdown
+```
+
+```markdown
+```
+
 ## Sprint Retrospective - Tester's Contribution
 
 ### Retrospective Format:
@@ -1326,7 +1418,9 @@ Summary
 
 Appreciations
 
-text
+```text
+
+```
 
 ### Tester's Retrospective Inputs:
 
@@ -1337,7 +1431,9 @@ text
 ✅ Quick bug turnaround time
 ✅ Effective test case reviews
 
-text
+```text
+
+```
 
 #### What Could Be Improved?
 🚧 Areas for Improvement:
@@ -1374,7 +1470,9 @@ Impact: Reduced confidence in results
 
 Solution: Daily automation health checks
 
-text
+```text
+
+```
 
 #### Action Items for Next Sprint:
 ACTION PLAN:
@@ -1419,7 +1517,9 @@ Deadline: Sprint 3, Day 7
 
 Success Metric: < 5% flaky tests
 
-text
+```text
+
+```
 
 ### Retrospective Techniques:
 Start, Stop, Continue
@@ -1458,10 +1558,14 @@ Lacked: Điều gì thiếu sót?
 
 Longed For: Điều gì bạn mong muốn?
 
-text
+```text
 1.3 Agile Testing Quadrants
 Quadrant 1: Technology-Facing Tests that Support Team
-markdown
+```
+
+```markdown
+```
+
 ## QUADRANT 1: Technology-Facing Tests
 
 ### Purpose:
@@ -1490,7 +1594,9 @@ markdown
 - Collaborate trên API contract testing
 - Ensure integration points tested
 Quadrant 2: Business-Facing Tests that Support Team
-markdown
+```markdown
+```
+
 ## QUADRANT 2: Business-Facing Tests
 
 ### Purpose:
@@ -1520,7 +1626,9 @@ markdown
 - Create behavior examples
 - Conduct usability reviews
 Quadrant 3: Business-Facing Tests that Critique Product
-markdown
+```markdown
+```
+
 ## QUADRANT 3: Business-Facing Critique Tests
 
 ### Purpose:
@@ -1555,7 +1663,9 @@ markdown
 - Provide UX/accessibility feedback
 - Document real-world scenarios
 Quadrant 4: Technology-Facing Tests that Critique Product
-markdown
+```markdown
+```
+
 ## QUADRANT 4: Technology-Facing Critique Tests
 
 ### Purpose:
@@ -1594,17 +1704,23 @@ markdown
 - Monitor production performance
 1.4 Agile Testing Practices
 Test Pyramid trong Agile
-markdown
+```markdown
+```
+
 ## TEST PYRAMID - AGILE TESTING STRATEGY
 
 ### Lý Tưởng: Nhiều ở đáy, ít ở đỉnh
-text
+```text
     /\
    /  \      Manual / Exploratory (5%)
   /----\     E2E / UI Tests (10%)
  /______\    Integration / API Tests (15%)
 /________\   Unit Tests (70%)
-text
+```
+
+```text
+
+```
 
 ### Chi Tiết Từng Layer:
 
@@ -1630,7 +1746,9 @@ Frequency: Run on every commit
 Responsibility: Developers
 Tools: Jest, JUnit, pytest
 
-text
+```text
+
+```
 
 #### Layer 2: Integration Tests (15%)
 Characteristics:
@@ -1664,7 +1782,9 @@ Frequency: Run on PR builds
 Responsibility: Dev + QA collaboration
 Tools: Postman, REST Assured, TestContainers
 
-text
+```text
+
+```
 
 #### Layer 3: E2E / UI Tests (10%)
 Characteristics:
@@ -1698,7 +1818,9 @@ Frequency: Run nightly
 Responsibility: QA Automation
 Tools: Playwright, Cypress, Appium
 
-text
+```text
+
+```
 
 #### Layer 4: Manual / Exploratory Tests (5%)
 Characteristics:
@@ -1732,10 +1854,14 @@ Shared: Findings với team
 Responsibility: QA Team + Business Users
 Tools: Session-based test management
 
-text
+```text
+
+```
 
 #### **Shift-Left Testing**
 ```markdown
+```
+
 ## SHIFT-LEFT TESTING - TEST EARLY, TEST OFTEN
 
 ### Traditional vs Shift-Left:
@@ -1749,7 +1875,10 @@ SHIFT-LEFT:
 ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
 Testing happens throughout the lifecycle
 
-text
+
+```text
+
+```
 
 ### Shift-Left Activities:
 
@@ -1772,7 +1901,9 @@ Clear acceptance criteria
 
 Initial test plan
 
-text
+```text
+
+```
 
 #### Phase 2: Design Phase
 Testing Activities:
@@ -1793,7 +1924,9 @@ Test data requirements
 
 Automation approach
 
-text
+```text
+
+```
 
 #### Phase 3: Development Phase
 Testing Activities:
@@ -1814,7 +1947,9 @@ Automated test scripts
 
 Continuous feedback
 
-text
+```text
+
+```
 
 #### Phase 4: Testing Phase
 Testing Activities:
@@ -1835,7 +1970,9 @@ Bug reports
 
 Quality metrics
 
-text
+```text
+
+```
 
 #### Phase 5: Deployment Phase
 Testing Activities:
@@ -1856,7 +1993,9 @@ Production monitoring dashboard
 
 User feedback analysis
 
-text
+```text
+
+```
 
 ### Benefits of Shift-Left:
 Early Bug Detection
@@ -1895,10 +2034,14 @@ Fewer production bugs
 
 Lower support costs
 
-text
+```text
+
+```
 
 #### **Behavior-Driven Development (BDD)**
 ```markdown
+```
+
 ## BDD - COLLABORATIVE TESTING APPROACH
 
 ### BDD Process:
@@ -1923,10 +2066,15 @@ Develop features to pass tests
 VERIFY:
 Tests pass, feature complete
 
-text
+
+```text
+
+```
 
 ### Gherkin Syntax Chi Tiết:
 ```gherkin
+```
+
 # FILE: login.feature
 Feature: User Login
   As a registered user
@@ -1961,7 +2109,8 @@ Feature: User Login
       | admin      | admin dashboard    |
       | moderator  | moderation panel   |
 BDD Tools Stack:
-text
+
+```text
 WRITING SPECS:
 - Cucumber (Java/Ruby/JavaScript)
 - SpecFlow (.NET)
@@ -1977,7 +2126,9 @@ COLLABORATION:
 - Jira cho tracking
 - Git cho version control
 Tester's Role in BDD:
-text
+```
+
+```text
 1. **Facilitator**
    - Organize 3-amigo meetings
    - Ensure all perspectives considered
@@ -2000,7 +2151,11 @@ text
 🎯 PHẦN 2: CÁC CẤP ĐỘ KIỂM THỬ CHI TIẾT
 2.1 Unit Testing - Developer's Responsibility
 Unit Testing Best Practices cho Tester Review
-markdown
+```
+
+```markdown
+```
+
 ## UNIT TESTING REVIEW CHECKLIST
 
 ### Test Coverage Requirements:
@@ -2022,7 +2177,9 @@ Path Coverage: % execution paths tested
 
 Condition Coverage: % boolean conditions tested
 
-text
+```text
+
+```
 
 ### Unit Test Characteristics Checklist:
 ✅ Fast
@@ -2065,7 +2222,9 @@ Not as afterthought
 
 Part of TDD/BDD process
 
-text
+```text
+
+```
 
 ### Unit Test Patterns Review:
 ```typescript
@@ -2101,7 +2260,9 @@ describe('UserService', () => {
   });
 });
 Tester's Unit Test Review Questions:
-text
+```
+
+```text
 1. COVERAGE:
    - What is the current code coverage?
    - Are critical paths covered?
@@ -2123,7 +2284,11 @@ text
    - Boundary conditions covered?
 2.2 Integration Testing - Tester's Primary Focus
 Types of Integration Testing
-markdown
+```
+
+```markdown
+```
+
 ## INTEGRATION TESTING TYPES
 
 ### 1. Big Bang Integration
@@ -2132,7 +2297,9 @@ When to use: Small systems, under 5 modules
 Pros: Simple, one-time effort
 Cons: Hard to debug, late detection
 
-text
+```text
+
+```
 
 ### 2. Incremental Integration
 2.1 Top-Down Integration:
@@ -2159,7 +2326,9 @@ Test middle layer first
 
 Most practical approach
 
-text
+```text
+
+```
 
 ### 3. Continuous Integration
 Integrate frequently (multiple times/day)
@@ -2170,10 +2339,14 @@ Immediate feedback
 
 Modern Agile approach
 
-text
+```text
+
+```
 
 #### **Integration Test Strategy Template**
 ```markdown
+```
+
 # INTEGRATION TEST STRATEGY
 
 ## 1. Integration Points Identification
@@ -2209,7 +2382,10 @@ Backend API ↔ Message Queue
 
 Backend API ↔ External Services
 
-text
+
+```text
+
+```
 
 ## 2. Test Approach
 ### 2.1 API Integration Testing
@@ -2227,7 +2403,9 @@ Response body structure
 
 Error handling
 
-text
+```text
+
+```
 
 ### 2.2 Database Integration Testing
 Focus: Data persistence và retrieval
@@ -2244,7 +2422,9 @@ Constraints
 
 Indexes performance
 
-text
+```text
+
+```
 
 ### 2.3 External Service Integration
 Focus: Third-party service integration
@@ -2260,7 +2440,9 @@ Rate limiting
 
 Authentication
 
-text
+```text
+
+```
 
 ### 2.4 Message Queue Integration
 Focus: Asynchronous communication
@@ -2275,7 +2457,9 @@ Retry mechanisms
 
 Dead letter queues
 
-text
+```text
+
+```
 
 ## 3. Test Environment
 Staging Environment:
@@ -2296,7 +2480,9 @@ Production data anonymization
 
 Data refresh procedures
 
-text
+```text
+
+```
 
 ## 4. Test Cases Design
 ### 4.1 Happy Path Scenarios
@@ -2308,7 +2494,9 @@ Data persistence verification
 
 State consistency check
 
-text
+```text
+
+```
 
 ### 4.2 Error Scenarios
 Invalid input → Proper error response
@@ -2319,7 +2507,9 @@ Network timeout → Retry mechanism
 
 Data corruption → Recovery procedures
 
-text
+```text
+
+```
 
 ### 4.3 Performance Scenarios
 Load testing integration points
@@ -2328,7 +2518,9 @@ Concurrent access handling
 
 Response time SLAs
 
-text
+```text
+
+```
 
 ## 5. Automation Strategy
 Priority 1 (Automate):
@@ -2351,7 +2543,9 @@ Exploratory integration testing
 
 One-time integration validation
 
-text
+```text
+
+```
 
 ## 6. Entry/Exit Criteria
 Entry Criteria:
@@ -2374,7 +2568,9 @@ Performance SLAs met
 
 Documentation updated
 
-text
+```text
+
+```
 
 ## 7. Risk Mitigation
 High Risk: Payment gateway integration
@@ -2389,9 +2585,11 @@ Low Risk: Internal API changes
 
 Mitigation: Contract testing, backward compatibility
 
-text
+```text
 API Integration Testing Chi Tiết
-typescript
+```
+
+```typescript
 // API Integration Test Example - Playwright
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
@@ -2460,7 +2658,9 @@ test.describe('User API Integration Tests', () => {
   });
 });
 Database Integration Testing
-typescript
+```
+
+```typescript
 // Database Integration Test Example
 import { test, expect } from '@playwright/test';
 import { Pool } from 'pg';
@@ -2538,7 +2738,11 @@ test.describe('Database Integration Tests', () => {
 });
 2.3 System Testing - End-to-End Validation
 System Test Strategy
-markdown
+```
+
+```markdown
+```
+
 # SYSTEM TESTING STRATEGY
 
 ## 1. Test Scope
@@ -2562,7 +2766,9 @@ Performance/stress testing (separate)
 
 Security penetration testing
 
-text
+```text
+
+```
 
 ## 2. Test Environment
 Production-like Environment:
@@ -2577,7 +2783,9 @@ Network: Similar configuration
 
 Third-party services: Sandbox environments
 
-text
+```text
+
+```
 
 ## 3. Test Types
 ### 3.1 Functional System Testing
@@ -2591,7 +2799,9 @@ Business rules validation
 
 Workflow completeness
 
-text
+```text
+
+```
 
 ### 3.2 Regression System Testing
 Focus: Existing functionality preservation
@@ -2604,7 +2814,9 @@ High-risk areas
 
 Frequently used features
 
-text
+```text
+
+```
 
 ### 3.3 Smoke/Sanity Testing
 Focus: Basic functionality verification
@@ -2617,7 +2829,9 @@ Basic navigation
 
 Core features
 
-text
+```text
+
+```
 
 ### 3.4 User Interface Testing
 Focus: UI consistency và usability
@@ -2632,7 +2846,9 @@ Accessibility compliance
 
 User experience
 
-text
+```text
+
+```
 
 ## 4. Test Case Design
 ### 4.1 Business Process Flows
@@ -2652,7 +2868,9 @@ Order confirmation
 
 Order tracking
 
-text
+```text
+
+```
 
 ### 4.2 Cross-Functional Scenarios
 Example: User Management
@@ -2667,7 +2885,9 @@ Reset password (forgot password)
 
 Delete account
 
-text
+```text
+
+```
 
 ### 4.3 Data Flow Testing
 Example: Order Processing
@@ -2682,7 +2902,9 @@ Shipping notification → Email service
 
 Analytics tracking → Analytics platform
 
-text
+```text
+
+```
 
 ## 5. Test Data Management
 Production-like Data:
@@ -2703,7 +2925,9 @@ Boundary value data
 
 Invalid data for negative testing
 
-text
+```text
+
+```
 
 ## 6. Defect Management
 Defect Classification:
@@ -2726,7 +2950,9 @@ Severity/Priority classification
 
 Root cause analysis
 
-text
+```text
+
+```
 
 ## 7. Exit Criteria
 Mandatory:
@@ -2745,9 +2971,11 @@ Performance SLAs met
 
 Documentation complete
 
-text
+```text
 E2E Test Automation Framework
-typescript
+```
+
+```typescript
 // System/E2E Test Framework Structure
 project/
 ├── src/
@@ -2777,7 +3005,11 @@ project/
 ├── package.json
 └── README.md
 
-text
+```
+
+```text
+
+```
 
 ```typescript
 // Example: Complete Purchase Flow Test
@@ -2947,7 +3179,11 @@ test.describe('E-commerce Purchase Flow - System Test', () => {
 });
 2.4 Acceptance Testing - Business Validation
 User Acceptance Testing (UAT) Process
-markdown
+```
+
+```markdown
+```
+
 # USER ACCEPTANCE TESTING (UAT) GUIDE
 
 ## 1. UAT Objectives
@@ -2971,7 +3207,9 @@ Data integrity maintained
 
 Performance acceptable for business use
 
-text
+```text
+
+```
 
 ## 2. UAT Participants
 Core Team:
@@ -2992,7 +3230,9 @@ QA Engineers (Test environment support)
 
 DevOps (Environment management)
 
-text
+```text
+
+```
 
 ## 3. UAT Preparation
 ### 3.1 Test Environment
@@ -3013,7 +3253,9 @@ Checklist:
 ☐ Training materials prepared
 ☐ Support channels established
 
-text
+```text
+
+```
 
 ### 3.2 Test Scenarios
 Business Process Scenarios:
@@ -3028,7 +3270,7 @@ Reporting và analytics
 
 Scenario Template:
 
-text
+```text
 Scenario: Monthly Sales Report Generation
 Given: Sales data for current month
 When: Finance manager generates monthly report
@@ -3037,7 +3279,11 @@ Then: Report includes:
      - Top 10 products
      - Comparison với previous month
      - Export to Excel functionality
-text
+```
+
+```text
+
+```
 
 ### 3.3 UAT Test Cases
 Characteristics:
@@ -3052,7 +3298,7 @@ Measurable success criteria
 
 Example UAT Test Case:
 
-text
+```text
 UAT-TC-001: Process Customer Refund
 Business Process: Customer Service → Refund Processing
 Preconditions: 
@@ -3075,7 +3321,11 @@ Success Criteria:
 ✅ Accounting records updated
 ✅ Inventory adjusted if applicable
 ✅ Customer satisfaction survey triggered
-text
+```
+
+```text
+
+```
 
 ## 4. UAT Execution
 ### 4.1 UAT Sessions
@@ -3092,7 +3342,9 @@ Debrief (30 mins): Issues, feedback
 
 Documentation (15 mins): Defects, notes
 
-text
+```text
+
+```
 
 ### 4.2 Defect Management
 UAT Defect Workflow:
@@ -3119,7 +3371,9 @@ Medium: Workaround exists
 
 Low: Cosmetic/minor issue
 
-text
+```text
+
+```
 
 ### 4.3 UAT Metrics
 Tracking Metrics:
@@ -3136,7 +3390,7 @@ Key Issues/Blockers
 
 Daily Status Report:
 
-text
+```text
 UAT Status - Day 3
 ------------------
 Test Execution:
@@ -3157,7 +3411,11 @@ Blockers:
 Next Steps:
 - Focus on critical payment fix
 - Schedule additional session for reporting
-text
+```
+
+```text
+
+```
 
 ## 5. UAT Sign-off
 ### 5.1 Exit Criteria
@@ -3180,7 +3438,9 @@ Sign-off Checklist:
 ☐ Go/No-go decision made
 ☐ Production deployment plan reviewed
 
-text
+```text
+
+```
 
 ### 5.2 UAT Report
 UAT SUMMARY REPORT
@@ -3234,7 +3494,9 @@ QA Lead: ________________________
 
 Date: ___________________________
 
-text
+```text
+
+```
 
 ## 6. Post-UAT Activities
 Production Deployment Support:
@@ -3261,12 +3523,16 @@ Lessons learned documentation
 
 Process improvements for next release
 
-text
+```text
 BUG REPORTING NÂNG CAO - HỆ THỐNG CHUYÊN NGHIỆP
 🎯 PHẦN 1: BUG REPORTING NÂNG CAO
 1.1 Phân Cấp Bug Chuyên Nghiệp
 Severity vs Priority Matrix Chi Tiết
-markdown
+```
+
+```markdown
+```
+
 ## SEVERITY & PRIORITY CLASSIFICATION MATRIX
 
 ### SEVERITY (Mức độ nghiêm trọng kỹ thuật)
@@ -3312,7 +3578,9 @@ Message không chính xác
 
 Issues cosmetic
 
-text
+```text
+
+```
 
 ### PRIORITY (Mức độ ưu tiên kinh doanh)
 P0 - URGENT:
@@ -3347,7 +3615,9 @@ Nice-to-have improvements
 
 Không có timeline cụ thể
 
-text
+```text
+
+```
 
 ### DECISION MATRIX
 Severity →	P0 (URGENT)	P1 (HIGH)	P2 (MEDIUM)	P3 (LOW)
@@ -3355,7 +3625,9 @@ CRITICAL	Luôn luôn P0	Không áp dụng	Không áp dụng	Không áp dụng
 MAJOR	Tùy tình huống	Thường là P1	Tùy tình huống	Không áp dụng
 MINOR	Hiếm khi	Hiếm khi	Thường là P2	Tùy tình huống
 TRIVIAL	Không bao giờ	Không bao giờ	Hiếm khi	Thường là P3
-text
+```text
+
+```
 
 ### REAL-WORLD EXAMPLES
 Thanh toán thất bại 100% users → Critical, P0
@@ -3368,12 +3640,16 @@ Typo trên FAQ page → Trivial, P3
 
 Memory leak sau 24h chạy → Major, P0 (production)
 
-text
+```text
+
+```
 
 ### **1.2 Bug Report Template Chuyên Nghiệp**
 
 #### **Comprehensive Bug Report Template**
 ```markdown
+```
+
 # BUG REPORT TEMPLATE - PROFESSIONAL GRADE
 
 ## BUG ID & TRACKING
@@ -3405,7 +3681,10 @@ text
 ☐ Race Condition
 ☐ Edge Case Scenario
 
-text
+
+```text
+
+```
 
 ## ENVIRONMENT DETAILS
 ### System Environment
@@ -3417,7 +3696,9 @@ Deployment Date: [YYYY-MM-DD]
 
 Commit Hash: [abc123def456]
 
-text
+```text
+
+```
 
 ### Client Environment
 Browser: [Chrome 98.0.4758.102]
@@ -3434,7 +3715,9 @@ Locale: [vi-VN/en-US]
 
 Timezone: [GMT+7]
 
-text
+```text
+
+```
 
 ### Test Data
 User ID: [123456]
@@ -3445,20 +3728,26 @@ Test Data Set: [Regression_Data_V3]
 
 Session ID: [session_abc123xyz789]
 
-text
+```text
+
+```
 
 ## PROBLEM DESCRIPTION
 ### Executive Summary
 [1-2 câu mô tả vấn đề cho stakeholders]
 Ví dụ: "Checkout process fails for premium users applying discount codes, causing order abandonment."
 
-text
+```text
+
+```
 
 ### Detailed Description
 [Chi tiết kỹ thuật cho developers]
 Ví dụ: "When a premium user applies a discount code during checkout, the system incorrectly calculates the final amount, displaying negative total for orders above $100."
 
-text
+```text
+
+```
 
 ### Business Impact
 Customer Impact: [Giảm trải nghiệm, tăng tỷ lệ bỏ giỏ hàng]
@@ -3469,7 +3758,9 @@ Brand Impact: [Ảnh hưởng uy tín]
 
 Support Impact: [Tăng ticket support]
 
-text
+```text
+
+```
 
 ## REPRODUCTION STEPS
 ### Minimal Reproduction Case
@@ -3485,7 +3776,9 @@ Nhấn "Apply Discount"
 
 Quan sát Total Amount
 
-text
+```text
+
+```
 
 ### Step-by-Step Details
 | Step | Action | Expected Result | Actual Result | Evidence |
@@ -3503,7 +3796,9 @@ text
 ❌ Premium user với discount > product value - Fails
 ❌ Multiple discounts combination - Fails
 
-text
+```text
+
+```
 
 ## EVIDENCE COLLECTION
 ### Visual Evidence
@@ -3523,7 +3818,9 @@ Format: MP4, 1920x1080, 30fps
 
 Size: 5.2MB
 
-text
+```text
+
+```
 
 ### Technical Evidence
 ```json
@@ -3549,7 +3846,9 @@ text
     }
   }
 }
-javascript
+```
+
+```javascript
 // Console Logs
 console.error("Discount calculation error: amount exceeds limit");
 // Stack Trace
@@ -3557,13 +3856,17 @@ Error: Negative total not allowed
     at calculateFinalTotal (checkout.js:45)
     at applyDiscount (checkout.js:78)
     at handleCheckout (checkout.js:112)
-sql
+```
+
+```sql
 -- Database State
 SELECT * FROM orders WHERE user_id = 'user_456';
 -- Result: Order với negative amount
 DEBUGGING INFORMATION
 Code Analysis
-javascript
+```
+
+```javascript
 // Suspect Code Snippet
 function calculateFinalTotal(original, discount) {
   // BUG: Không validate discount amount
@@ -3574,44 +3877,60 @@ function calculateFinalTotal(original, discount) {
   // return final < 0 ? 0 : final; ✅
 }
 Log Analysis
-text
+```
+
+```text
 2024-01-15 14:30:22 ERROR [CheckoutService] - Negative total calculated
 User: user_456, Cart: cart_123, Original: 999, Discount: 200, Final: -201
 Session: abc123, IP: 192.168.1.100, User-Agent: Chrome/98.0
 Monitoring Metrics
-text
+```
+
+```text
 - Error Rate: Tăng từ 0.1% lên 2.3%
 - Affected Users: 15% premium users
 - Timeframe: 14:00-15:00 15/01/2024
 - Business Impact: ~$5,000 lost revenue
 ROOT CAUSE ANALYSIS
 Immediate Cause
-text
+```
+
+```text
 [What directly caused the bug]
 Ví dụ: "Hàm calculateFinalTotal không validate discount amount vượt quá original total."
 Underlying Cause
-text
+```
+
+```text
 [Why the bug was introduced]
 Ví dụ: "Missing test case cho scenario discount > product value. Code review missed edge case."
 Systemic Issues
-text
+```
+
+```text
 [Process gaps that allowed bug]
 Ví dụ: "Test coverage không bao gồm boundary values cho discount calculation. Thiếu unit tests cho edge cases."
 WORKAROUND & MITIGATION
 Immediate Workaround
-text
+```
+
+```text
 [Cho support team/user]
 1. Remove discount code khỏi checkout
 2. Complete order với full price
 3. Apply refund manual $200 sau khi order complete
 4. Hoặc split thành 2 orders nhỏ hơn
 Temporary Fix
-text
+```
+
+```text
 [Quick fix cho production]
 1. Disable discount codes cho orders > $500
 2. Add validation trên frontend: discount không vượt quá 50% order value
 Customer Communication
-text
+```
+
+```text
 Template cho Support Team:
 "Hi [Customer],
 We've identified an issue with discount calculation for high-value orders. 
@@ -3621,7 +3940,9 @@ Our team is working on a fix. In the meantime, you can:
 We apologize for the inconvenience."
 SOLUTION & FIX
 Proposed Fix
-javascript
+```
+
+```javascript
 // Frontend Fix
 function validateDiscount(original, discount) {
   if (discount > original) {
@@ -3640,7 +3961,9 @@ async applyDiscount(@Body() data) {
   // ... continue calculation
 }
 Testing Strategy
-text
+```
+
+```text
 Test Cases cần thêm:
 1. Discount amount = 0
 2. Discount amount = original total
@@ -3649,7 +3972,9 @@ Test Cases cần thêm:
 5. Discount amount = 80.01% original total (boundary+)
 6. Multiple discounts cumulative > original total
 Rollout Plan
-text
+```
+
+```text
 Phase 1: Hotfix validation (2 hours)
 Phase 2: Deploy to staging, run regression (4 hours)  
 Phase 3: Canary deploy 5% users (2 hours)
@@ -3657,20 +3982,26 @@ Phase 4: Full deploy, monitor 24h
 Phase 5: Update test automation suite
 IMPACT ANALYSIS
 Technical Debt Created
-text
+```
+
+```text
 - [ ] Need to update API documentation
 - [ ] Need to update client SDKs
 - [ ] Need to inform third-party integrations
 - [ ] Need to update monitoring alerts
 Regression Risk
-text
+```
+
+```text
 High Risk Areas:
 1. Discount calculation for all user types
 2. Order total validation
 3. Tax calculation after discount
 4. Shipping cost calculation
 Dependencies
-text
+```
+
+```text
 Services Affected:
 - Checkout Service (Primary)
 - Pricing Service
@@ -3679,14 +4010,18 @@ Services Affected:
 - Notification Service (refund emails)
 METRICS & MONITORING
 Success Metrics
-text
+```
+
+```text
 Post-fix Monitoring:
 - Error rate < 0.1%
 - Discount usage rate stable
 - No negative order amounts
 - Customer satisfaction scores
 Alert Configuration
-text
+```
+
+```text
 New Alerts Needed:
 1. Alert khi discount > 80% order value
 2. Alert khi order amount negative
@@ -3705,7 +4040,9 @@ Database Dump
 Code Diff Patch
 
 NOTES & COMMENTS
-text
+```
+
+```text
 [Space for discussion, questions, additional context]
 - Related to previous bug BUG-123 về discount calculation
 - Need to coordinate với Marketing team về discount campaigns
@@ -3717,7 +4054,11 @@ Dev Lead: _________________ [Date]
 
 Product Owner: _____________ [Date]
 
-text
+```
+
+```text
+
+```
 
 ### **1.3 Bug Triage Process**
 
@@ -3758,7 +4099,11 @@ graph TD
     Y -->|No| Z[Reopen Bug]
     Z --> B
 Daily Bug Triage Meeting Template
-markdown
+```
+
+```markdown
+```
+
 # DAILY BUG TRIAGE MEETING - TEMPLATE
 
 ## Meeting Details
@@ -3781,7 +4126,9 @@ Priority: P0 (Urgent)
 Assignee: Frontend Team
 ETA: Today EOD
 
-text
+```text
+
+```
 
 ### BUG-458: Checkout amount wrong  
 Assessment: Major - Revenue impact
@@ -3790,7 +4137,9 @@ Priority: P1 (High)
 Assignee: Backend Team
 ETA: 2 days
 
-text
+```text
+
+```
 
 ### BUG-459: Typo in welcome email
 Assessment: Trivial - No functional impact
@@ -3798,7 +4147,9 @@ Priority: P3 (Low)
 Assignee: Copywriter
 ETA: Next sprint
 
-text
+```text
+
+```
 
 ## Bug Status Review
 ### Fixed & Ready for Verification
@@ -3838,7 +4189,9 @@ Fix rate: 1.8/day (improving)
 
 Avg time to fix: 2.3 days
 
-text
+```text
+
+```
 
 ## Action Items
 1. ✅ Dev Lead: Assign BUG-457 to frontend team
@@ -3851,7 +4204,9 @@ text
 - Focus: Safari fix verification, checkout regression
 1.4 Bug Metrics & Analytics
 Bug Dashboard Metrics
-markdown
+```markdown
+```
+
 # BUG ANALYTICS DASHBOARD
 
 ## Key Performance Indicators (KPIs)
@@ -3871,7 +4226,9 @@ Formula: (Bugs Found in Testing / Total Bugs) × 100
 Target: > 85%
 Current: 88% ✅
 
-text
+```text
+
+```
 
 ### Efficiency Metrics
 Mean Time To Detect (MTTD)
@@ -3887,7 +4244,9 @@ Formula: (Bugs Fixed / Total Bugs) × 100
 Target: > 90%
 Current: 92% ✅
 
-text
+```text
+
+```
 
 ### Trend Analysis
 ```sql
@@ -3903,7 +4262,11 @@ WHERE created_at >= NOW() - INTERVAL '12 weeks'
 GROUP BY DATE_TRUNC('week', created_at)
 ORDER BY week DESC;
 Bug Heat Map Analysis
-markdown
+```
+
+```markdown
+```
+
 # BUG HEAT MAP ANALYSIS
 
 ## By Module/Component
@@ -3913,7 +4276,9 @@ Login	1	3	4	8	🟡 Stable
 Search	0	2	6	8	🟢 Decreasing
 Payment	3	4	2	9	🔴 Increasing
 Profile	0	1	5	6	🟢 Decreasing
-text
+```text
+
+```
 
 ## By Root Cause Category
 Category	Count	% of Total	Action Needed
@@ -3924,7 +4289,9 @@ Data Issues	5	12.5%	Data validation
 Configuration	4	10%	Config management
 Performance	3	7.5%	Load testing
 Security	2	5%	Security audit
-text
+```text
+
+```
 
 ## By Environment
 Environment	Bugs Found	Cost per Fix	ROI of Testing
@@ -3932,7 +4299,9 @@ Development	15	$100	High ROI
 Testing	18	$1,000	Medium ROI
 Staging	5	$5,000	Critical ROI
 Production	2	$50,000	Emergency ROI
-text
+```text
+
+```
 
 ## Bug Prevention Recommendations
 Checkout Module (High Risk)
@@ -3959,12 +4328,16 @@ Implement data quality checks
 
 Regular data audits
 
-text
+```text
+
+```
 
 ### **1.5 Advanced Bug Workflows**
 
 #### **Security Bug Handling**
 ```markdown
+```
+
 # SECURITY BUG HANDLING PROCEDURE
 
 ## Classification Levels
@@ -4004,7 +4377,10 @@ Informational disclosure
 
 Best practice violations
 
-text
+
+```text
+
+```
 
 ## Handling Procedure
 ### Step 1: Initial Response (0-2 hours)
@@ -4026,7 +4402,9 @@ Implement temporary mitigation
 
 Monitor for exploitation attempts
 
-text
+```text
+
+```
 
 ### Step 2: Investigation (2-24 hours)
 Technical Analysis:
@@ -4047,7 +4425,9 @@ Customer notification requirements
 
 Regulatory reporting obligations
 
-text
+```text
+
+```
 
 ### Step 3: Remediation (1-7 days)
 Fix Development:
@@ -4066,7 +4446,9 @@ Backward compatibility considerations
 
 Rollback planning
 
-text
+```text
+
+```
 
 ### Step 4: Post-Mortem (1 week)
 Analysis:
@@ -4087,10 +4469,14 @@ Process changes
 
 Monitoring enhancements
 
-text
+```text
+
+```
 
 ## Communication Template
 ```markdown
+```
+
 # SECURITY INCIDENT COMMUNICATION
 
 ## Internal (Immediate)
@@ -4107,7 +4493,10 @@ Risk: Data exposure
 
 Action: Immediate investigation required
 
-text
+
+```text
+
+```
 
 ## External (If Required)
 TO: Affected Customers
@@ -4127,9 +4516,13 @@ Timeline: [When it was fixed]
 
 Contact: [Support information]
 
-text
+```text
 Production Bug Escalation
-markdown
+```
+
+```markdown
+```
+
 # PRODUCTION BUG ESCALATION MATRIX
 
 ## Escalation Levels
@@ -4165,7 +4558,9 @@ Scope: System outage, security breach
 
 Duration: Ongoing until resolved
 
-text
+```text
+
+```
 
 ## Escalation Triggers
 AUTOMATIC ESCALATION:
@@ -4188,7 +4583,9 @@ Data loss/corruption
 
 Compliance violation
 
-text
+```text
+
+```
 
 ## Communication Protocol
 ESCALATION CHAIN:
@@ -4216,9 +4613,11 @@ Customer Support: Immediately
 Product Management: Within 30 minutes
 
 Executive Team: Within 1 hour (Level 3+)
-text
+```text
 
 ---
+
+```
 
 # **🎯 PHẦN 2: CHỌN CÔNG NGHỆ STACK CHI TIẾT**
 
@@ -4227,6 +4626,8 @@ text
 ### **Playwright vs Cypress vs Selenium: Comprehensive Analysis**
 
 ```markdown
+```
+
 # AUTOMATION FRAMEWORK COMPARISON MATRIX
 
 ## EXECUTIVE SUMMARY
@@ -4238,7 +4639,10 @@ Cypress: Best for JavaScript/React teams, developer experience
 
 Selenium: Best for enterprise, legacy systems, multi-language
 
-text
+
+```text
+
+```
 
 ## DETAILED COMPARISON TABLE
 | Criteria | Playwright | Cypress | Selenium |
@@ -4260,7 +4664,7 @@ text
 | **Best For** | Modern apps, TypeScript | JavaScript apps, fast feedback | Enterprise, multi-language |
 Technical Deep Dive
 Architecture Comparison
-typescript
+```typescript
 // PLAYWRIGHT ARCHITECTURE
 // Client ↔ Playwright Server ↔ Browser(s)
 // Advantages: Parallel execution, multiple contexts
@@ -4278,7 +4682,9 @@ typescript
 Code Comparison - Same Test in 3 Frameworks
 Test Scenario: Login with valid credentials
 
-typescript
+```
+
+```typescript
 // ========== PLAYWRIGHT ==========
 import { test, expect } from '@playwright/test';
 
@@ -4336,7 +4742,11 @@ async function loginTest() {
   }
 }
 Performance Benchmark
-markdown
+```
+
+```markdown
+```
+
 ## PERFORMANCE COMPARISON (100 Test Scenarios)
 
 ### Execution Time:
@@ -4358,7 +4768,9 @@ Total: 7 minutes 30 seconds
 
 Average: 4.5 seconds/test
 
-text
+```text
+
+```
 
 ### Resource Usage:
 Memory Consumption (peak):
@@ -4377,14 +4789,18 @@ Cypress: 65%
 
 Selenium: 75%
 
-text
+```text
+
+```
 
 ### Stability (Flaky Test Rate):
 Playwright: 2% flaky tests
 Cypress: 5% flaky tests
 Selenium: 15% flaky tests
 
-text
+```text
+
+```
 
 ## RECOMMENDATION MATRIX BY USE CASE
 ### Use Case 1: Modern Web Application (React/Vue/Next.js)
@@ -4399,7 +4815,9 @@ Built-in mobile emulation
 
 Fast parallel execution
 
-text
+```text
+
+```
 
 ### Use Case 2: Enterprise Legacy System
 RECOMMENDATION: Selenium
@@ -4413,7 +4831,9 @@ Cross-browser requirements
 
 Large enterprise community
 
-text
+```text
+
+```
 
 ### Use Case 3: Startup with JavaScript Team
 RECOMMENDATION: Cypress
@@ -4427,7 +4847,9 @@ Strong community support
 
 Easy debugging
 
-text
+```text
+
+```
 
 ### Use Case 4: Full-Stack Testing (API + UI)
 RECOMMENDATION: Playwright
@@ -4441,7 +4863,9 @@ Unified testing approach
 
 Single framework for all tests
 
-text
+```text
+
+```
 
 ### Use Case 5: Cross-Platform (Web + Mobile)
 RECOMMENDATION: Playwright + Appium
@@ -4455,10 +4879,15 @@ Can share test logic
 
 Industry standard combination
 
-text
+```text
 2.2 CI/CD Setup Chi Tiết
 GitHub Actions CI/CD Pipeline
-yaml
+
+```
+
+```yaml
+```
+
 # .github/workflows/playwright-tests.yml
 name: Playwright Tests
 
@@ -4659,7 +5088,10 @@ jobs:
           -H "Content-Type: application/json" \
           -d "{\"repo\":\"${{ github.repository }}\",\"status\":\"${{ job.status }}\"}"
 Docker Setup for Test Environment
-dockerfile
+
+```dockerfile
+```
+
 # Dockerfile.test
 FROM mcr.microsoft.com/playwright:v1.40.0-focal
 
@@ -4686,7 +5118,10 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
 
 # Default command
 CMD ["npm", "test"]
-yaml
+
+```yaml
+```
+
 # docker-compose.test.yml
 version: '3.8'
 
@@ -4769,7 +5204,8 @@ networks:
 volumes:
   test-db-data:
 Advanced CI/CD Configuration
-typescript
+
+```typescript
 // playwright.config.ts - Advanced Configuration
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
@@ -4944,7 +5380,11 @@ export default defineConfig({
 });
 2.3 Test Environment Strategy
 Multi-Environment Test Strategy
-yaml
+```
+
+```yaml
+```
+
 # environments.yaml
 environments:
   local:
@@ -4991,7 +5431,7 @@ environments:
       - "stable_only"
       - "monitoring_enabled"
 Test Data Management Strategy
-typescript
+```typescript
 // test-data-manager.ts
 export class TestDataManager {
   private static instance: TestDataManager;
@@ -5052,7 +5492,9 @@ Workflow có hệ thống từ report đến closure
 Metrics tracking để cải tiến process
 
 Technology Stack Recommendations:
-text
+```
+
+```text
 CHOICE MATRIX:
 - Startup/Modern Stack → Playwright + TypeScript
 - Enterprise/Legacy → Selenium + Java
@@ -5066,7 +5508,11 @@ CI/CD SETUP:
 - Allure reporting cho visibilitPERFORMANCE TESTING STRATEGY CHI TIẾT
 🎯 1. PERFORMANCE TESTING STRATEGY
 1.1 Performance Testing Pyramid
-markdown
+```
+
+```markdown
+```
+
 ## PERFORMANCE TESTING PYRAMID
 
 ### Level 1: Unit Performance (70%)
@@ -5075,7 +5521,9 @@ Focus: Individual function/method performance
 Frequency: On every commit
 Threshold: < 100ms per operation
 
-text
+```text
+
+```
 
 ### Level 2: API Performance (20%)
 Tools: k6, Gatling, JMeter
@@ -5089,7 +5537,9 @@ P99: < 500ms
 
 Error rate: < 1%
 
-text
+```text
+
+```
 
 ### Level 3: End-to-End Performance (10%)
 Tools: Playwright, Cypress với performance APIs
@@ -5103,11 +5553,15 @@ Time to Interactive: < 5 seconds
 
 Lighthouse scores: > 90
 
-text
+```text
+
+```
 
 ### **1.2 Performance Testing Types & Strategy**
 
 ```yaml
+```
+
 # performance-testing-strategy.yaml
 performance_tests:
   load_testing:
@@ -5163,7 +5617,8 @@ performance_tests:
       - scaling_time: "< 2 minutes"
       - performance_improvement: "Linear with resources"
 1.3 k6 Performance Test Implementation
-javascript
+
+```javascript
 // tests/performance/ecommerce-scenarios.js
 import http from 'k6/http';
 import { check, sleep, group, fail } from 'k6';
@@ -5374,7 +5829,11 @@ export function handleSummary(data) {
   };
 }
 1.4 Performance Test CI/CD Pipeline
-yaml
+```
+
+```yaml
+```
+
 # .github/workflows/performance-tests.yml
 name: Performance Tests
 
@@ -5548,7 +6007,9 @@ jobs:
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}🔒 2. SECURITY TESTING INTEGRATION
 2.1 Security Testing Strategy
-markdown
+```markdown
+```
+
 # SECURITY TESTING STRATEGY
 
 ## Security Testing Pyramid
@@ -5582,7 +6043,9 @@ Red Team Exercises
 
 Incident Response Testing
 
-text
+```text
+
+```
 
 ## Security Testing Tools Stack
 SAST Tools:
@@ -5621,11 +6084,11 @@ Checkov (cloud security)
 
 Trivy (container scanning)
 
-text
-
 ### **2.2 OWASP ZAP Security Testing Integration**
 
 ```yaml
+```
+
 # zap-config.yaml
 env:
   target_url: "https://staging.example.com"
@@ -5686,7 +6149,8 @@ reporting:
   format: ["html", "json", "md"]
   output_dir: "./zap-reports"
   template: "traditional-html"
-javascript
+
+```javascript
 // security-test.js - Playwright với security checks
 import { test, expect } from '@playwright/test';
 import { SecurityScanner } from './utils/security-scanner';
@@ -5859,7 +6323,11 @@ test.describe('Security Tests', () => {
   });
 });
 2.3 CI/CD Security Pipeline
-yaml
+```
+
+```yaml
+```
+
 # .github/workflows/security-scanning.yml
 name: Security Scanning
 
@@ -6017,7 +6485,9 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 📊 3. TEST DATA MANAGEMENT AUTOMATION
 3.1 Test Data Strategy Framework
-yaml
+```yaml
+```
+
 # test-data-strategy.yaml
 test_data_strategy:
   principles:
@@ -6086,8 +6556,11 @@ test_data_strategy:
       transaction_rollback: "For unit tests"
       truncate_tables: "For integration tests"
       database_reset: "For full test suites"
-      snapshot_restore: "For large databases"3.2 Test Data Factory Implementation
-typescript
+      snapshot_restore: "For large databases"
+
+### **3.2 Test Data Factory Implementation**
+
+```typescript
 // src/test-data/factories/user.factory.ts
 import { faker } from '@faker-js/faker';
 import { Factory } from 'fishery';
@@ -6288,7 +6761,9 @@ export class TestDataManager {
   }
 }
 3.3 Test Data Automation with TestContainers
-typescript
+```
+
+```typescript
 // src/test-data/database.setup.ts
 import { GenericContainer, StartedTestContainer, Wait } from 'testcontainers';
 import { Pool } from 'pg';
@@ -6524,7 +6999,9 @@ export async function createTestProduct(productData?: Partial<Product>): Promise
   return dataManager.create('products', product);
 }📈 4. MONITORING & ALERTING CHO AUTOMATION TESTS
 4.1 Test Monitoring Dashboard
-typescript
+```
+
+```typescript
 // src/monitoring/test-monitor.ts
 import { EventEmitter } from 'events';
 import { createLogger, transports, format } from 'winston';
@@ -7021,7 +7498,11 @@ export const test = baseTest.extend({
 });
 
 export { expect };4.2 Grafana Dashboard Configuration
-yaml
+```
+
+```yaml
+```
+
 # grafana/dashboards/test-monitoring.yaml
 apiVersion: 1
 
@@ -7184,7 +7665,9 @@ dashboard:
         tags: 'deployment'
         iconColor: 'red'
 4.3 Alert Rules Configuration
-yaml
+```yaml
+```
+
 # prometheus/alert-rules.yaml
 groups:
   - name: test_automation_alerts
@@ -7310,7 +7793,7 @@ groups:
             Investigate for memory leaks.
 TỔNG KẾT & RECOMMENDATIONS
 Performance Testing:
-text
+```text
 KEY TAKEAWAYS:
 1. Implement testing pyramid: 70% unit, 20% API, 10% E2E
 2. Use k6 for performance testing - modern, developer-friendly
@@ -7324,7 +7807,9 @@ RECOMMENDED TOOLS:
 - Browser Performance: Playwright/Lighthouse
 - Monitoring: Grafana + InfluxDB/Prometheus
 Security Testing:
-text
+```
+
+```text
 KEY TAKEAWAYS:
 1. Shift-left security testing
 2. Combine SAST, DAST, SCA, và IAST
@@ -7339,7 +7824,9 @@ RECOMMENDED TOOLS:
 - Container Security: Trivy
 - Infrastructure: Checkov, Terrascan
 Test Data Management:
-text
+```
+
+```text
 KEY TAKEAWAYS:
 1. Use TestContainers cho database testing
 2. Implement data factories với Faker
@@ -7353,7 +7840,9 @@ RECOMMENDED PATTERNS:
 - Repository Pattern cho data access
 - Singleton Pattern cho test data manager
 Monitoring & Alerting:
-text
+```
+
+```text
 KEY TAKEAWAYS:
 1. Track key metrics: pass rate, duration, flakiness
 2. Implement real-time monitoring với Grafana
@@ -7369,7 +7858,9 @@ RECOMMENDED METRICS:
 - Resource Usage (CPU, Memory)
 - Browser/Device Performance
 Next Steps Implementation:
-yaml
+```
+
+```yaml
 Week 1-2: Foundation
   - Setup k6 performance tests
   - Implement basic test data factories
@@ -7388,4 +7879,5 @@ Week 5-6: Optimization
 Week 7-8: Scaling
   - Setup distributed performance testing
   - Implement chaos engineering tests
-  - Create self-healing test infrastructurey
+  - Create self-healing test infrastructure
+```
