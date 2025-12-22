@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flaky Test Combat Handbook with Playwright</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .problem-section {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #2196f3;
+        }
+
+        .solution-section {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 5px solid #4caf50;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .definition strong {
+            color: #2196f3;
+            font-size: 1.1em;
+        }
+
+        .causes-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .causes-list li {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .causes-list .icon {
+            font-size: 2em;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .causes-list .text {
+            flex: 1;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .symptoms {
+            margin-top: 25px;
+        }
+
+        .symptom-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .symptom-item strong {
+            color: #e74c3c;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .solution-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .solution-item h3 {
+            color: #4caf50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vs-comparison {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        .vs-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .vs-item .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .vs-item.bad {
+            color: #e74c3c;
+        }
+
+        .vs-item.good {
+            color: #4caf50;
+        }
+
+        .vs-label {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #7f8c8d;
+            margin: 0 20px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .code-block code {
+            color: #ecf0f1;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .summary-table th {
+            background: #34495e;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .summary-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .summary-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .key-takeaways {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        .key-takeaways h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .key-takeaways li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧩 Flaky Test Combat Handbook</h1>
+            <p>with Playwright - Complete Guide</p>
+        </div>
+
+        <div class="main-content">
+            <!-- PROBLEM SECTION -->
+            <div class="section problem-section">
+                <h2>🚨 PROBLEM: WHAT IS A FLAKY TEST?</h2>
+                
+                <div class="definition">
+                    <strong>Flaky Test</strong> = A test that runs randomly: sometimes passes, sometimes fails without changing code.
+                    <br><br>
+                    🎭 <em>Visual: Two theatrical masks - one red ❌ (failing) and one green ✅ (passing) with a question mark, indicating inconsistency.</em>
+                </div>
+
+                <h3>🔍 5 Common Causes</h3>
+                <ul class="causes-list">
+                    <li>
+                        <span class="icon">⏱️</span>
+                        <span class="text">Insufficient Timing</span>
+                    </li>
+                    <li>
+                        <span class="icon">📊</span>
+                        <span class="text">Dynamic Data Dependency</span>
+                    </li>
+                    <li>
+                        <span class="icon">⚡</span>
+                        <span class="text">Race Condition</span>
+                    </li>
+                    <li>
+                        <span class="icon">🧹</span>
+                        <span class="text">Unclean State</span>
+                    </li>
+                    <li>
+                        <span class="icon">🌐</span>
+                        <span class="text">External API</span>
+                    </li>
+                </ul>
+
+                <div class="symptoms">
+                    <h3>📈 Symptoms</h3>
+                    <div class="symptom-item">
+                        <strong>🔄 Rerun Behavior</strong>
+                        "Rerun" passes, CI/CD is sometimes green 🟢, sometimes red 🔴
+                    </div>
+                    <div class="symptom-item">
+                        <strong>😫 Team Impact</strong>
+                        Causes difficult debugging, reduces confidence in test results and CI/CD
+                    </div>
+                    <div class="symptom-item">
+                        <strong>💻 Environment Difference</strong>
+                        Tests run stably locally ✅ but fail in CI environment ❌
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOLUTION SECTION -->
+            <div class="section solution-section">
+                <h2>✅ SOLUTION: HANDLING WITH PLAYWRIGHT</h2>
+
+                <div class="solution-item">
+                    <h3>🎯 Use Auto-Wait Mechanism</h3>
+                    <div class="vs-comparison">
+                        <div class="vs-item bad">
+                            <div class="icon">❌</div>
+                            <div>waitForTimeout</div>
+                            <div>⏰ Hard-coded delay</div>
+                        </div>
+                        <div class="vs-label">VS</div>
+                        <div class="vs-item good">
+                            <div class="icon">✅</div>
+                            <div>expect().toBeVisible()</div>
+                            <div>🔍 Smart auto-wait</div>
+                        </div>
+                    </div>
+                    <p><strong>Replace</strong> <code>waitForTimeout</code> with smart wait commands like <code>expect(locator).toBeVisible()</code></p>
+                </div>
+
+                <div class="solution-item">
+                    <h3>🎭 Mock API to Eliminate Dependencies</h3>
+                    <p><strong>Use</strong> <code>page.route()</code> to mock API responses, helping tests run faster and more stably.</p>
+                    <div class="code-block">
+                        <code>await page.route('/api/endpoint', route => {<br>
+&nbsp;&nbsp;route.fulfill({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;status: 200,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;body: JSON.stringify({ success: true })<br>
+&nbsp;&nbsp;});<br>
+});</code>
+                    </div>
+                </div>
+
+                <div class="solution-item">
+                    <h3>📹 Record "Trace" to Debug When Tests Fail</h3>
+                    <p><strong>Configure</strong> <code>trace: "on-first-retry"</code> to review each test step like a video.</p>
+                    <div class="code-block">
+                        <code>export default defineConfig({<br>
+&nbsp;&nbsp;use: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;trace: 'on-first-retry', 🔄<br>
+&nbsp;&nbsp;&nbsp;&nbsp;video: 'retain-on-failure',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;screenshot: 'only-on-failure'<br>
+&nbsp;&nbsp;}<br>
+});</code>
+                    </div>
+                </div>
+
+                <div class="solution-item">
+                    <h3>🎯 Additional Best Practices</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✅ Use stable locators (role-based, test-id)</li>
+                        <li>✅ Clean state before each test</li>
+                        <li>✅ Set appropriate timeouts</li>
+                        <li>✅ Handle async properly</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUMMARY TABLE -->
+        <table class="summary-table">
+            <thead>
+                <tr>
+                    <th>Problem</th>
+                    <th>Solution</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>⏱️ Insufficient Timing</td>
+                    <td>✅ Use Auto-Wait (<code>expect().toBeVisible()</code>)</td>
+                </tr>
+                <tr>
+                    <td>📊 Dynamic Data Dependency</td>
+                    <td>✅ Mock API with <code>page.route()</code></td>
+                </tr>
+                <tr>
+                    <td>⚡ Race Condition</td>
+                    <td>✅ Sequential execution, proper async handling</td>
+                </tr>
+                <tr>
+                    <td>🧹 Unclean State</td>
+                    <td>✅ Clean state in <code>beforeEach</code></td>
+                </tr>
+                <tr>
+                    <td>🌐 External API</td>
+                    <td>✅ Mock external services</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways">
+            <h2>📝 Key Takeaways</h2>
+            <ul>
+                <li><strong>Flaky tests</strong> are tests that randomly pass/fail without code changes</li>
+                <li><strong>5 main causes:</strong> Timing, Dynamic Data, Race Conditions, Unclean State, External APIs</li>
+                <li><strong>Playwright solutions:</strong> Auto-wait, API mocking, Trace recording</li>
+                <li><strong>Best practices:</strong> Stable locators, clean state, appropriate timeouts</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+
