@@ -1372,3 +1372,801 @@ Chat application testing requires a completely different mindset from traditiona
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [Real-time Systems Testing Guide](https://www.guru99.com/real-time-testing.html)
 
+---
+
+# 🗺️ LỘ TRÌNH HỌC ỨNG DỤNG CHAT TỪ CON SỐ 0 ĐẾN CHUYÊN GIA QA/SDET (TIẾNG VIỆT)
+
+## 🎯 PHẦN 0: THIẾT LẬP TƯ DUY ĐÚNG - CHAT KHÁC WEB THÔNG THƯỜNG
+
+### Sự Khác Biệt Cốt Lõi: Một Ví Dụ Thực Tế
+
+Hãy tưởng tượng bạn có hai cách để liên lạc với đồng nghiệp:
+
+| Giao Tiếp Thông Thường (HTTP) | Giao Tiếp Real-time (WebSocket) |
+|:---|:---|
+| Giống như gửi email: Bạn viết thư → gửi đi → chờ đợi → đồng nghiệp nhận được → họ viết thư trả lời → gửi lại → bạn nhận được. Mỗi lần trao đổi là một quy trình độc lập. | Giống như gọi điện thoại: Bạn nhấc máy → thiết lập cuộc gọi → giữ đường dây mở → nói chuyện qua lại ngay lập tức → khi xong thì tắt máy. Kết nối được duy trì. |
+
+### Bảng So Sánh Kỹ Thuật Chi Tiết
+
+| Tiêu Chí | Web Thông Thường (HTTP) | Chat Real-time | Ý Nghĩa Trong Kiểm Thử |
+|:---|:---|:---|:---|
+| **Mô hình** | Request/Response (Client luôn chủ động) | Persistent Connection (Kết nối liên tục, 2 chiều) | Thay vì test API endpoint, bạn test kết nối và luồng sự kiện |
+| **Trạng thái** | Stateless (Mỗi request độc lập) | Stateful (Server biết client nào đang kết nối) | Cần test duy trì trạng thái user trong room, session timeout |
+| **Đơn vị đo** | TPS (Transactions Per Second) | Concurrent Connections + Messages Per Second | 10,000 TPS ≠ 10,000 user chat cùng lúc. Chat cần giữ 10,000 kết nối đồng thời |
+| **Độ trễ** | Page Load Time (vài giây) | Message Latency (vài trăm mili giây) | Người dùng nhận thấy ngay nếu tin nhắn chậm 1-2 giây |
+| **Giao thức** | HTTP/HTTPS | WebSocket (ws://, wss://), thường qua Socket.IO | Công cụ test phải hỗ trợ WebSocket, không dùng được tool HTTP thông thường |
+
+**Ví dụ thực tế về sự khác biệt:**
+
+- Khi bạn vào Facebook, trình duyệt gửi 1 request để lấy news feed.
+- Khi bạn chat trên Messenger, trình duyệt mở 1 kết nối WebSocket và giữ nó trong nhiều giờ, qua đó nhận được tin nhắn mới ngay lập tức mà không cần refresh.
+
+---
+
+## 🔧 PHẦN 1: NỀN TẢNG WEB SOCKET & SOCKET.IO (3-4 TUẦN)
+
+### Tuần 1: WebSocket - Hiểu Từ Gốc Rễ
+
+#### 1.1. Lifecycle của WebSocket (Vòng Đời Kết Nối)
+
+**QUÁ TRÌNH HANDSHAKE (BẮT TAY):**
+
+```javascript
+// Client gửi HTTP request đặc biệt
+GET /chat HTTP/1.1
+Host: server.example.com
+Upgrade: websocket          // "Tôi muốn nâng cấp lên WebSocket"
+Connection: Upgrade
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+Sec-WebSocket-Version: 13
+
+// Server trả lời
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket          // "Đồng ý nâng cấp!"
+Connection: Upgrade
+Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+
+// Từ đây, kết nối đã "nâng cấp" từ HTTP sang WebSocket
+// Client và server có thể gửi/nhận data tự do
+```
+
+**Ví dụ thực tế để hiểu Handshake:**
+
+- Giống như bạn gọi cho khách sạn: "Alo, tôi muốn đặt phòng" (HTTP request)
+- Lễ tân trả lời: "Vâng, tôi chuyển máy cho bộ phận đặt phòng" (101 Switching Protocols)
+- Sau đó bạn nói chuyện trực tiếp với nhân viên đặt phòng mà không cần thông qua lễ tân nữa (WebSocket connection)
+
+#### 1.2. Cấu trúc một Frame WebSocket
+
+Mỗi tin nhắn qua WebSocket được đóng gói trong "frame":
+
+```
+0                   1                   2                   3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-------+-+-------------+-------------------------------+
+|F|R|R|R| opcode|M| Payload len |    Extended payload length    |
+|I|S|S|S|  (4)  |A|     (7)     |             (16/64)           |
+|N|V|V|V|       |S|             |   (if payload len==126/127)   |
+| |1|2|3|       |K|             |                               |
++-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +
+|     Extended payload length continued, if payload len == 127  |
++ - - - - - - - - - - - - - - - +-------------------------------+
+|                               |Masking-key, if MASK set to 1  |
++-------------------------------+-------------------------------+
+| Masking-key (continued)       |          Payload Data         |
++-------------------------------- - - - - - - - - - - - - - - - +
+:                     Payload Data continued ...                :
++ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
+|                     Payload Data continued ...                |
++---------------------------------------------------------------+
+```
+
+**Ý nghĩa thực tế:**
+
+- **FIN bit**: Cho biết đây là frame cuối cùng của message
+- **Opcode**: 1 = text, 2 = binary (gửi file, hình ảnh)
+- **Mask**: Client phải mask payload để bảo mật
+- **Payload length**: Độ dài thực tế của dữ liệu
+
+**Ví dụ debug thực tế:**
+
+1. Mở Chrome DevTools (F12)
+2. Vào tab Network → WS (WebSocket)
+3. Click vào một kết nối WebSocket
+4. Bạn sẽ thấy các frame được hiển thị real-time:
+
+```
+▼ Frame 45 (sent from client, 15 bytes)
+  Message: {"type":"chat","text":"Hello!"}
+
+▼ Frame 46 (received from server, 32 bytes)  
+  Message: {"type":"chat","from":"user123","text":"Hi there!"}
+```
+
+---
+
+### Tuần 2: Socket.IO - Thư Viện "Thông Minh" Hơn WebSocket Thuần
+
+#### 2.1. Tại Sao Cần Socket.IO?
+
+**Vấn đề với WebSocket thuần:**
+
+- ❌ Không tự reconnect: Nếu mạng yếu, kết nối đứt → user phải refresh trang
+- ❌ Không fallback: Trường hợp firewall chặn WebSocket → ứng dụng không hoạt động
+- ❌ Không có room/namespace: Phải tự implement cơ chế nhóm chat
+
+**Giải pháp Socket.IO:**
+
+```javascript
+// Server đơn giản nhất với Socket.IO
+const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+
+// Khi có client kết nối
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
+  
+  // Gửi message riêng cho user này
+  socket.emit('welcome', { message: 'Chào mừng!' });
+  
+  // Khi client gửi 'chat message'
+  socket.on('chat message', (msg) => {
+    console.log('Message from', socket.id, ':', msg);
+    
+    // Gửi tin nhắn cho TẤT CẢ client đang kết nối
+    io.emit('chat message', {
+      from: socket.id,
+      text: msg,
+      timestamp: new Date()
+    });
+  });
+  
+  // Khi client ngắt kết nối
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id);
+  });
+});
+
+server.listen(3000, () => {
+  console.log('Server running on port 3000');
+});
+```
+
+#### 2.2. Cơ Chế Fallback Thực Tế - Socket.IO "Linh Hoạt"
+
+```
+Client muốn kết nối tới Server
+         ↓
+Thử kết nối WebSocket (ws://)
+         ↓
+    [Thành công?]
+         ↓
+     /        \
+   YES        NO (bị chặn/firewall)
+    ↓           ↓
+Dùng WebSocket  Thử HTTP Long-Polling
+                ↓
+           [Thành công?]
+                ↓
+            /        \
+          YES        NO
+           ↓           ↓
+    Dùng Long-Polling  Lỗi kết nối
+```
+
+**Ví dụ thực tế về fallback:**
+
+- Bạn dùng chat app trong tòa nhà văn phòng (firewall nghiêm ngặt)
+- Ứng dụng tự động chuyển sang chế độ "compatible" (long-polling)
+- Bạn vẫn chat được, nhưng độ trễ cao hơn (1-2 giây thay vì vài trăm ms)
+- Khi về nhà, ứng dụng tự động nâng cấp lên WebSocket
+
+#### 2.3. Các Khái Niệm Quan Trọng Trong Socket.IO
+
+**a) Namespace (Không gian tên):**
+
+```javascript
+// Tạo namespace riêng cho admin
+const adminNamespace = io.of('/admin');
+
+adminNamespace.on('connection', (socket) => {
+  // Chỉ những client kết nối đến '/admin' mới vào được đây
+  socket.emit('adminLog', 'Welcome to admin panel');
+});
+
+// Client kết nối đến namespace
+const socket = io('http://localhost:3000/admin');
+```
+
+**Ví dụ thực tế:** Giống như một tòa nhà có nhiều phòng ban:
+
+- `/` - Lobby chung (chat công khai)
+- `/admin` - Phòng admin (quản lý user, xóa tin nhắn)
+- `/support` - Phòng hỗ trợ khách hàng
+
+**b) Room (Phòng chat):**
+
+```javascript
+// User tham gia phòng
+socket.on('join room', (roomId) => {
+  // Rời tất cả phòng trước đó
+  socket.leaveAll();
+  
+  // Tham gia phòng mới
+  socket.join(roomId);
+  console.log(`User ${socket.id} joined room ${roomId}`);
+  
+  // Thông báo cho mọi người trong phòng (TRỪ người vừa join)
+  socket.to(roomId).emit('user joined', {
+    userId: socket.id,
+    roomId: roomId
+  });
+});
+
+// Gửi tin nhắn đến 1 phòng cụ thể
+socket.on('send to room', (data) => {
+  // Chỉ gửi đến user trong room 'data.roomId'
+  io.to(data.roomId).emit('new message', {
+    from: socket.id,
+    text: data.text,
+    room: data.roomId
+  });
+});
+```
+
+**Ví dụ thực tế về room:**
+
+- Slack: Mỗi channel (#general, #random) là một room
+- Zoom: Mỗi phòng họp là một room
+- Game online: Mỗi phòng chơi là một room
+
+**c) Broadcast (Phát sóng):**
+
+```javascript
+// 1. Gửi cho tất cả client (kể cả người gửi)
+io.emit('event', data);
+
+// 2. Gửi cho tất cả client (TRỪ người gửi)
+socket.broadcast.emit('event', data);
+
+// 3. Gửi cho tất cả client trong namespace (TRỪ người gửi)
+socket.broadcast.to('roomName').emit('event', data);
+
+// 4. Gửi cho tất cả client trong room (kể cả người gửi)
+io.to('roomName').emit('event', data);
+```
+
+---
+
+### Tuần 3-4: Xây Dựng Ứng Dụng Chat Thực Tế
+
+#### 3.1. Ứng Dụng Chat Đầy Đủ Tính Năng
+
+**Server (server.js):**
+
+```javascript
+// server.js - Server hoàn chỉnh
+const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
+const cors = require('cors');
+
+const app = express();
+app.use(cors());
+app.use(express.static('public'));
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  },
+  // Cấu hình quan trọng cho production
+  pingTimeout: 60000, // 60 giây không phản hồi thì timeout
+  pingInterval: 25000, // Mỗi 25 giây gửi ping một lần
+});
+
+// Lưu trữ tạm thời
+const users = new Map(); // socket.id → user info
+const rooms = new Map(); // roomId → { users: [], messages: [] }
+
+io.on('connection', (socket) => {
+  console.log('New connection:', socket.id);
+  
+  // 1. XÁC THỰC USER
+  socket.on('authenticate', (authData) => {
+    // Trong thực tế: verify JWT token
+    const user = {
+      id: socket.id,
+      username: authData.username,
+      joinedAt: new Date()
+    };
+    
+    users.set(socket.id, user);
+    socket.emit('authenticated', { success: true, user });
+    
+    // Thông báo có user mới (cho mọi người trừ user này)
+    socket.broadcast.emit('user online', user);
+  });
+  
+  // 2. THAM GIA/THOÁT PHÒNG
+  socket.on('join room', (roomId) => {
+    const user = users.get(socket.id);
+    
+    // Rời phòng cũ (nếu có)
+    if (socket.rooms.size > 1) {
+      const oldRoom = Array.from(socket.rooms).find(r => r !== socket.id);
+      if (oldRoom) {
+        socket.leave(oldRoom);
+        socket.to(oldRoom).emit('user left', {
+          userId: socket.id,
+          username: user.username
+        });
+      }
+    }
+    
+    // Tham gia phòng mới
+    socket.join(roomId);
+    
+    // Khởi tạo phòng nếu chưa có
+    if (!rooms.has(roomId)) {
+      rooms.set(roomId, {
+        id: roomId,
+        users: new Set(),
+        messages: []
+      });
+    }
+    
+    const room = rooms.get(roomId);
+    room.users.add(socket.id);
+    
+    // Gửi lịch sử chat cho user mới
+    socket.emit('room history', {
+      roomId,
+      messages: room.messages.slice(-50) // 50 tin nhắn gần nhất
+    });
+    
+    // Thông báo cho phòng
+    socket.to(roomId).emit('user joined', {
+      userId: socket.id,
+      username: user.username,
+      roomId
+    });
+  });
+  
+  // 3. GỬI TIN NHẮN
+  socket.on('send message', (data) => {
+    const user = users.get(socket.id);
+    const { roomId, text } = data;
+    
+    const message = {
+      id: Date.now().toString(),
+      from: socket.id,
+      username: user.username,
+      text,
+      timestamp: new Date(),
+      roomId
+    };
+    
+    // Lưu vào lịch sử phòng
+    const room = rooms.get(roomId);
+    if (room) {
+      room.messages.push(message);
+      
+      // Giới hạn lịch sử (1000 tin nhắn mỗi phòng)
+      if (room.messages.length > 1000) {
+        room.messages = room.messages.slice(-1000);
+      }
+    }
+    
+    // Gửi đến tất cả user trong phòng
+    io.to(roomId).emit('new message', message);
+    
+    // Log để debug
+    console.log(`[${roomId}] ${user.username}: ${text}`);
+  });
+  
+  // 4. TYPING INDICATOR (đang gõ...)
+  socket.on('typing', (roomId) => {
+    const user = users.get(socket.id);
+    socket.to(roomId).emit('user typing', {
+      userId: socket.id,
+      username: user.username
+    });
+  });
+  
+  // 5. XỬ LÝ NGẮT KẾT NỐI
+  socket.on('disconnect', (reason) => {
+    const user = users.get(socket.id);
+    console.log(`User disconnected: ${socket.id}, reason: ${reason}`);
+    
+    if (user) {
+      // Thông báo user offline
+      io.emit('user offline', { userId: socket.id });
+      
+      // Xóa khỏi tất cả phòng
+      rooms.forEach((room, roomId) => {
+        if (room.users.has(socket.id)) {
+          room.users.delete(socket.id);
+          io.to(roomId).emit('user left', {
+            userId: socket.id,
+            username: user.username
+          });
+        }
+      });
+      
+      users.delete(socket.id);
+    }
+  });
+});
+
+// API để lấy thông tin server
+app.get('/api/stats', (req, res) => {
+  res.json({
+    totalConnections: io.engine.clientsCount,
+    totalUsers: users.size,
+    totalRooms: rooms.size,
+    uptime: process.uptime()
+  });
+});
+
+server.listen(3000, () => {
+  console.log('Server running at http://localhost:3000');
+  console.log('WebSocket endpoint: ws://localhost:3000');
+});
+```
+
+#### 3.2. Client HTML/JS Đầy Đủ
+
+```html
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real-time Chat App</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; }
+    
+    #app {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    
+    .auth-section, .chat-section {
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .room-list {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0;
+    }
+    
+    .room-btn {
+      padding: 8px 16px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .room-btn.active {
+      background: #2E7D32;
+    }
+    
+    .chat-container {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .messages {
+      flex: 3;
+      height: 400px;
+      overflow-y: auto;
+      background: white;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    
+    .users {
+      flex: 1;
+      background: white;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    
+    .message {
+      margin: 10px 0;
+      padding: 8px;
+      background: #e3f2fd;
+      border-radius: 5px;
+    }
+    
+    .message.own {
+      background: #c8e6c9;
+      text-align: right;
+    }
+    
+    .typing-indicator {
+      font-style: italic;
+      color: #666;
+      font-size: 0.9em;
+    }
+    
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Phần xác thực -->
+    <div class="auth-section" id="authSection">
+      <h2>Đăng nhập vào Chat</h2>
+      <input type="text" id="usernameInput" placeholder="Tên của bạn">
+      <button onclick="login()">Vào Chat</button>
+    </div>
+    
+    <!-- Phần chat (ẩn lúc đầu) -->
+    <div class="chat-section" id="chatSection" style="display: none;">
+      <h2>Chat Room</h2>
+      
+      <!-- Danh sách phòng -->
+      <div class="room-list">
+        <button class="room-btn active" onclick="joinRoom('general')">#general</button>
+        <button class="room-btn" onclick="joinRoom('random')">#random</button>
+        <button class="room-btn" onclick="joinRoom('support')">#support</button>
+      </div>
+      
+      <!-- Khu vực chat -->
+      <div class="chat-container">
+        <!-- Tin nhắn -->
+        <div class="messages" id="messages">
+          <div class="message system">Chào mừng đến với chat!</div>
+        </div>
+        
+        <!-- Danh sách user online -->
+        <div class="users" id="usersList">
+          <h3>Online Users (<span id="onlineCount">0</span>)</h3>
+          <div id="users"></div>
+        </div>
+      </div>
+      
+      <!-- Input tin nhắn -->
+      <div style="margin-top: 20px;">
+        <div id="typingIndicator" class="typing-indicator"></div>
+        <div style="display: flex; gap: 10px;">
+          <input type="text" id="messageInput" placeholder="Nhập tin nhắn..." 
+                 onkeyup="handleTyping(event)"
+                 onkeypress="if(event.key=='Enter') sendMessage()">
+          <button onclick="sendMessage()" style="width: auto;">Gửi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    let socket;
+    let currentUser = null;
+    let currentRoom = 'general';
+    let typingTimeout = null;
+    
+    // Hàm đăng nhập
+    function login() {
+      const username = document.getElementById('usernameInput').value.trim();
+      if (!username) return alert('Vui lòng nhập tên');
+      
+      // Kết nối Socket.IO
+      socket = io('http://localhost:3000');
+      
+      // Lắng nghe các sự kiện
+      socket.on('connect', () => {
+        console.log('Connected with ID:', socket.id);
+        
+        // Gửi thông tin xác thực
+        socket.emit('authenticate', { username });
+      });
+      
+      socket.on('authenticated', (data) => {
+        if (data.success) {
+          currentUser = data.user;
+          
+          // Hiển thị giao diện chat
+          document.getElementById('authSection').style.display = 'none';
+          document.getElementById('chatSection').style.display = 'block';
+          
+          // Tham gia phòng mặc định
+          joinRoom('general');
+          
+          // Hiển thị thông báo
+          addSystemMessage(`Bạn đã đăng nhập với tên: ${username}`);
+        }
+      });
+      
+      socket.on('user online', (user) => {
+        addSystemMessage(`${user.username} đã online`);
+        updateOnlineUsers();
+      });
+      
+      socket.on('user offline', (data) => {
+        addSystemMessage(`User ${data.userId} đã offline`);
+        updateOnlineUsers();
+      });
+      
+      socket.on('room history', (data) => {
+        // Hiển thị lịch sử chat
+        const messagesDiv = document.getElementById('messages');
+        messagesDiv.innerHTML = '';
+        
+        data.messages.forEach(msg => {
+          addMessage(msg, msg.from === socket.id);
+        });
+        
+        // Cuộn xuống dưới cùng
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      });
+      
+      socket.on('new message', (message) => {
+        addMessage(message, message.from === socket.id);
+      });
+      
+      socket.on('user joined', (data) => {
+        if (data.roomId === currentRoom) {
+          addSystemMessage(`${data.username} đã tham gia phòng`);
+        }
+      });
+      
+      socket.on('user left', (data) => {
+        if (currentRoom === data.roomId) {
+          addSystemMessage(`${data.username} đã rời phòng`);
+        }
+      });
+      
+      socket.on('user typing', (data) => {
+        if (data.userId !== socket.id) {
+          const indicator = document.getElementById('typingIndicator');
+          indicator.textContent = `${data.username} đang nhập...`;
+          
+          // Clear sau 2 giây
+          clearTimeout(typingTimeout);
+          typingTimeout = setTimeout(() => {
+            indicator.textContent = '';
+          }, 2000);
+        }
+      });
+      
+      socket.on('disconnect', (reason) => {
+        addSystemMessage(`Mất kết nối: ${reason}. Đang thử kết nối lại...`);
+      });
+      
+      socket.on('connect_error', (error) => {
+        console.error('Connection error:', error);
+        addSystemMessage('Lỗi kết nối đến server');
+      });
+    }
+    
+    // Tham gia phòng
+    function joinRoom(roomId) {
+      if (socket && currentRoom !== roomId) {
+        // Cập nhật UI
+        document.querySelectorAll('.room-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        
+        // Gửi yêu cầu tham gia phòng
+        socket.emit('join room', roomId);
+        currentRoom = roomId;
+        
+        // Clear messages
+        document.getElementById('messages').innerHTML = 
+          `<div class="message system">Đã tham gia phòng: ${roomId}</div>`;
+      }
+    }
+    
+    // Gửi tin nhắn
+    function sendMessage() {
+      const input = document.getElementById('messageInput');
+      const text = input.value.trim();
+      
+      if (text && socket) {
+        socket.emit('send message', {
+          roomId: currentRoom,
+          text: text
+        });
+        
+        input.value = '';
+      }
+    }
+    
+    // Xử lý typing indicator
+    function handleTyping(event) {
+      if (event.key === 'Enter') {
+        sendMessage();
+      } else if (socket) {
+        socket.emit('typing', currentRoom);
+      }
+    }
+    
+    // Thêm tin nhắn vào UI
+    function addMessage(message, isOwn = false) {
+      const messagesDiv = document.getElementById('messages');
+      const messageDiv = document.createElement('div');
+      
+      messageDiv.className = `message ${isOwn ? 'own' : ''}`;
+      messageDiv.innerHTML = `
+        <strong>${message.username || 'Unknown'}</strong>
+        <span style="font-size: 0.8em; color: #666;">
+          (${new Date(message.timestamp).toLocaleTimeString()})
+        </span>
+        <div>${message.text}</div>
+      `;
+      
+      messagesDiv.appendChild(messageDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+    
+    function addSystemMessage(text) {
+      const messagesDiv = document.getElementById('messages');
+      const messageDiv = document.createElement('div');
+      
+      messageDiv.className = 'message system';
+      messageDiv.textContent = text;
+      
+      messagesDiv.appendChild(messageDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+    
+    function updateOnlineUsers() {
+      // Trong thực tế, server sẽ gửi danh sách user
+      // Ở đây chỉ minh họa
+      console.log('Updating online users...');
+    }
+  </script>
+</body>
+</html>
+```
+
+### Bài Tập Thực Hành Tuần 3-4
+
+#### Bài tập 1: Chạy ứng dụng cơ bản
+
+1. Cài đặt Node.js
+2. Tạo thư mục `chat-app`
+3. Chạy `npm init -y`
+4. Cài đặt dependencies: `npm install express socket.io cors`
+5. Copy code `server.js` vào
+6. Tạo thư mục `public`, copy file `index.html` vào
+7. Chạy `node server.js`
+8. Mở 2 tab trình duyệt ở `http://localhost:3000`
+9. Test chat giữa 2 tab
+
+#### Bài tập 2: Thêm tính năng
+
+- Thêm nút "Create Room" để tạo phòng mới
+- Thêm tính năng gửi hình ảnh (dùng base64)
+- Thêm notification sound khi có tin nhắn mới
+- Thêm chức năng "seen" (đã xem)
+
+#### Bài tập 3: Debug với DevTools
+
+1. Mở DevTools → Network → WS
+2. Quan sát handshake WebSocket
+3. Xem các frame message được gửi/nhận
+4. Thử tắt WiFi để xem Socket.IO reconnect thế nào
+5. Check memory usage trong tab Memory
+
