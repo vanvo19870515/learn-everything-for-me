@@ -63,11 +63,8 @@ nav:
       - QA APIs Security Testing: security-testing-apis.md
       - QA/SDET Transition Roadmap: qa-sdet-roadmap.md
       - QA & Automation Roadmap: qa-roadmap.md
-      - Core Principles Framework: sdet-framework-foundation.md
-      - SDET Framework Introduction: playwright-sdet-framework-intro.md
-      - QA Load Test with K6: k6_performance_testing.md
-      - QA K6 Grafana roadmap detail: k6-grafana-very-detail.md
-      - QA APIs Security Testing: security-testing-apis.md
+      - QA Core Principles Framework Roadmap: sdet-framework-foundation.md
+      - SDET Framework Introduction (Example): playwright-sdet-framework-intro.md
       - QA n8n roadmap: n8n-road-map.md
   - Data Resources:
       - Elasticsearch Roadmap: elasticsearch-roadmap.md
