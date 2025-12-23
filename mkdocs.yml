@@ -56,6 +56,10 @@ nav:
   - SQL Resources:
       - SQL Roadmap: sql-roadmap.md
   - QA Resources:
+      - QA Chat Application Roadmap: Chat_Application_QA_Roadmap.md
+      - QA Load Test with K6: k6_performance_testing.md
+      - QA K6 Grafana roadmap detail: k6-grafana-very-detail.md
+      - QA APIs Security Testing: security-testing-apis.md
       - QA/SDET Transition Roadmap: qa-sdet-roadmap.md
       - QA & Automation Roadmap: qa-roadmap.md
       - Core Principles Framework: sdet-framework-foundation.md
