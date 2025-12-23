@@ -337,61 +337,77 @@ graph TD
 
 #### Detailed Metric Explanations
 
-**1. Concurrent Connections** ⭐ Most Important!
+**1. Concurrent Connections** 
+
+⭐ Most Important!
+
 - **What it means**: How many users are connected simultaneously
 - **Why it matters**: Each connection consumes server resources (memory, file descriptors)
 - **How to measure**: Count active WebSocket connections
-- **Example**: 
+- **Example**:
+  
   - ✅ Good: 10,000 concurrent connections, stable
   - ❌ Bad: 5,000 concurrent connections, server crashes
 
 **2. Message Throughput (msg/sec)**
+
 - **What it means**: How many messages can be processed per second
 - **Why it matters**: Chat apps need to handle message bursts
 - **How to measure**: Messages sent ÷ time
 - **Example**:
+  
   - ✅ Good: 50,000 msg/sec (1 user sends → 10,000 receive = 10,001 messages processed)
   - ❌ Bad: 1,000 msg/sec, messages queued and delayed
 
 **3. Message Latency (p95 / p99)**
+
 - **What it means**: Time from sending to receiving
 - **Why it matters**: Users expect instant delivery
 - **How to measure**: 
   - p95: 95% of messages delivered within X ms
   - p99: 99% of messages delivered within Y ms
 - **Example**:
+  
   - ✅ Good: p95 = 50ms, p99 = 100ms
   - ❌ Bad: p95 = 5000ms (5 seconds delay!)
 
 **4. Drop Rate**
+
 - **What it means**: Percentage of connections that fail/disconnect
 - **Why it matters**: Dropped connections = bad user experience
 - **How to measure**: (Failed connections / Total attempts) × 100
 - **Example**:
+  
   - ✅ Good: Drop rate < 0.1%
   - ❌ Bad: Drop rate > 5%
 
 **5. Reconnect Rate**
+
 - **What it means**: How quickly users can reconnect after disconnection
 - **Why it matters**: Network issues happen, users need quick recovery
 - **How to measure**: Time from disconnect to reconnect
 - **Example**:
+  
   - ✅ Good: Reconnect in < 2 seconds
   - ❌ Bad: Reconnect takes 30+ seconds
 
 **6. Queue Backlog**
+
 - **What it means**: Messages waiting to be processed
 - **Why it matters**: Growing backlog = system can't keep up
 - **How to measure**: Number of messages in queue
 - **Example**:
+  
   - ✅ Good: Queue size < 100 messages
   - ❌ Bad: Queue size > 10,000 messages (messages delayed)
 
 **7. Server CPU / Memory**
+
 - **What it means**: Resource usage on server
 - **Why it matters**: High usage = potential crashes
 - **How to measure**: Monitor server metrics
 - **Example**:
+  
   - ✅ Good: CPU < 70%, Memory stable
   - ❌ Bad: CPU > 95%, Memory constantly increasing (memory leak!)
 
@@ -567,6 +583,7 @@ export default function () {
 ```
 
 **What to Look For:**
+
 - ✅ **Good**: 9,950+ connections succeed (< 0.5% failure)
 - ❌ **Bad**: Only 5,000 connections succeed (50% failure)
 - 🔍 **Debug**: Check server logs for "connection refused" or "timeout"
@@ -620,6 +637,7 @@ export default function () {
 ```
 
 **What to Look For:**
+
 - ✅ **Good**: Memory usage stays flat, all connections remain active
 - ❌ **Bad**: Memory usage increases over time (memory leak!)
 - ❌ **Bad**: Connections drop over time (zombie connections)
@@ -673,6 +691,7 @@ export default function () {
 ```
 
 **What to Look For:**
+
 - ✅ **Good**: Rate limiting kicks in, messages queued properly
 - ❌ **Bad**: Server crashes or messages lost
 - 🔍 **Debug**: Check server logs for "rate limit exceeded" or "queue full"
