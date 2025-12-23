@@ -2170,3 +2170,436 @@ server.listen(3000, () => {
 4. Thử tắt WiFi để xem Socket.IO reconnect thế nào
 5. Check memory usage trong tab Memory
 
+---
+
+## 🔒 PHẦN 2: SECURITY TESTING CHO CHAT (Bổ Sung)
+
+### Security Test Framework - Code Example
+
+Dưới đây là một framework mẫu để test security cho chat application:
+
+```javascript
+// security-test-framework.js
+class ChatSecurityTest {
+  constructor() {
+    this.testCategories = {
+      authentication: [],
+      authorization: [],
+      dataProtection: [],
+      infrastructure: []
+    };
+    
+    this.results = {
+      passed: 0,
+      failed: 0,
+      warnings: 0,
+      vulnerabilities: []
+    };
+  }
+  
+  runAllTests() {
+    console.log('🔒 BẮT ĐẦU SECURITY TESTING');
+    
+    this.testAuthentication();
+    this.testAuthorization();
+    this.testDataProtection();
+    this.testInfrastructure();
+    
+    this.generateSecurityReport();
+  }
+  
+  testAuthentication() {
+    console.log('\n=== AUTHENTICATION TESTS ===');
+    
+    const tests = [
+      {
+        name: 'Token Validation',
+        description: 'Verify JWT tokens are properly validated',
+        test: async () => {
+          // Test với token hết hạn
+          const expiredToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...';
+          const result = await authenticateWithToken(expiredToken);
+          return result.success === false;
+        },
+        severity: 'HIGH'
+      },
+      {
+        name: 'Token Replay Prevention',
+        description: 'Prevent reuse of the same token',
+        test: async () => {
+          const token = await getValidToken();
+          
+          // Sử dụng token nhiều lần
+          const result1 = await authenticateWithToken(token);
+          const result2 = await authenticateWithToken(token);
+          
+          return result1.success && result2.success === false;
+        },
+        severity: 'MEDIUM'
+      },
+      {
+        name: 'Brute Force Protection',
+        description: 'Rate limiting on authentication attempts',
+        test: async () => {
+          const attempts = [];
+          for (let i = 0; i < 10; i++) {
+            attempts.push(authenticateWithToken('invalid_token'));
+          }
+          
+          const results = await Promise.all(attempts);
+          const blockedAttempts = results.filter(r => r.blocked === true);
+          
+          return blockedAttempts.length >= 5; // Ít nhất 5 lần bị block
+        },
+        severity: 'HIGH'
+      }
+    ];
+    
+    this.executeTests(tests, 'authentication');
+  }
+  
+  testAuthorization() {
+    console.log('\n=== AUTHORIZATION TESTS ===');
+    
+    const tests = [
+      {
+        name: 'Room Access Control',
+        description: 'Users cannot access rooms they are not members of',
+        test: async () => {
+          // User A thử join room của User B
+          const userAToken = await getTokenForUser('user_a');
+          const userBRoom = 'private_room_user_b';
+          
+          const ws = await connectWebSocket(userAToken);
+          const result = await joinRoom(ws, userBRoom);
+          
+          return result.success === false;
+        },
+        severity: 'HIGH'
+      },
+      {
+        name: 'Message Access Control',
+        description: 'Users cannot read messages from private conversations',
+        test: async () => {
+          const userAToken = await getTokenForUser('user_a');
+          const messageId = 'private_msg_user_b_to_user_c';
+          
+          const result = await getMessage(messageId, userAToken);
+          
+          return result.success === false;
+        },
+        severity: 'HIGH'
+      },
+      {
+        name: 'Admin Privilege Escalation',
+        description: 'Regular users cannot perform admin actions',
+        test: async () => {
+          const regularUserToken = await getTokenForUser('regular_user');
+          
+          // Thử delete message (admin action)
+          const result = await deleteMessage('any_message_id', regularUserToken);
+          
+          return result.success === false;
+        },
+        severity: 'CRITICAL'
+      }
+    ];
+    
+    this.executeTests(tests, 'authorization');
+  }
+  
+  testDataProtection() {
+    console.log('\n=== DATA PROTECTION TESTS ===');
+    
+    const tests = [
+      {
+        name: 'End-to-End Encryption',
+        description: 'Messages encrypted client-side',
+        test: async () => {
+          const message = 'Sensitive information';
+          const encrypted = await encryptMessage(message);
+          
+          // Server chỉ thấy ciphertext
+          const serverSees = await sendMessageThroughServer(encrypted);
+          
+          return serverSees.plaintext !== message;
+        },
+        severity: 'HIGH'
+      },
+      {
+        name: 'Data at Rest Encryption',
+        description: 'Database stores encrypted messages',
+        test: async () => {
+          // Query database directly
+          const dbResult = await queryDatabase('SELECT content FROM messages LIMIT 1');
+          const messageContent = dbResult.rows[0].content;
+          
+          // Nội dung phải là ciphertext, không phải plaintext
+          return this.looksLikeCiphertext(messageContent);
+        },
+        severity: 'MEDIUM'
+      },
+      {
+        name: 'Logging Security',
+        description: 'Sensitive data not logged in plaintext',
+        test: async () => {
+          const sensitiveMessage = 'Credit card: 4111-1111-1111-1111';
+          await sendMessage(sensitiveMessage);
+          
+          // Check application logs
+          const logs = await getApplicationLogs();
+          const containsSensitiveData = logs.some(log => 
+            log.includes('4111-1111-1111-1111')
+          );
+          
+          return !containsSensitiveData;
+        },
+        severity: 'HIGH'
+      }
+    ];
+    
+    this.executeTests(tests, 'dataProtection');
+  }
+  
+  testInfrastructure() {
+    console.log('\n=== INFRASTRUCTURE TESTS ===');
+    
+    const tests = [
+      {
+        name: 'WebSocket Security (WSS)',
+        description: 'WebSocket connections use TLS',
+        test: async () => {
+          const response = await fetch('http://localhost:3000/socket.io/');
+          const usesWSS = response.url.startsWith('wss://');
+          
+          return usesWSS;
+        },
+        severity: 'HIGH'
+      },
+      {
+        name: 'CORS Configuration',
+        description: 'Proper CORS headers to prevent CSRF',
+        test: async () => {
+          const response = await fetch('http://localhost:3000/', {
+            headers: { Origin: 'http://malicious-site.com' }
+          });
+          
+          const corsHeader = response.headers.get('Access-Control-Allow-Origin');
+          return corsHeader !== '*'; // Không được phép tất cả domains
+        },
+        severity: 'MEDIUM'
+      },
+      {
+        name: 'DDoS Protection',
+        description: 'Rate limiting on WebSocket connections',
+        test: async () => {
+          const connections = [];
+          for (let i = 0; i < 100; i++) {
+            connections.push(connectWebSocket());
+          }
+          
+          const results = await Promise.allSettled(connections);
+          const rejected = results.filter(r => r.status === 'rejected');
+          
+          return rejected.length > 0; // Một số phải bị reject
+        },
+        severity: 'HIGH'
+      }
+    ];
+    
+    this.executeTests(tests, 'infrastructure');
+  }
+  
+  async executeTests(testCases, category) {
+    for (const testCase of testCases) {
+      try {
+        console.log(`\nRunning: ${testCase.name}`);
+        console.log(`Description: ${testCase.description}`);
+        
+        const result = await testCase.test();
+        
+        if (result) {
+          console.log(`✅ PASSED: ${testCase.name}`);
+          this.results.passed++;
+        } else {
+          console.log(`❌ FAILED: ${testCase.name}`);
+          this.results.failed++;
+          
+          this.results.vulnerabilities.push({
+            category,
+            name: testCase.name,
+            severity: testCase.severity,
+            description: testCase.description
+          });
+        }
+      } catch (error) {
+        console.log(`⚠️ ERROR in ${testCase.name}:`, error.message);
+        this.results.warnings++;
+      }
+    }
+  }
+  
+  generateSecurityReport() {
+    console.log('\n' + '='.repeat(50));
+    console.log('🔒 SECURITY TEST REPORT');
+    console.log('='.repeat(50));
+    
+    console.log(`\n📊 Summary:`);
+    console.log(`Passed: ${this.results.passed}`);
+    console.log(`Failed: ${this.results.failed}`);
+    console.log(`Warnings: ${this.results.warnings}`);
+    
+    if (this.results.vulnerabilities.length > 0) {
+      console.log(`\n⚠️ VULNERABILITIES FOUND:`);
+      
+      // Nhóm theo severity
+      const bySeverity = this.results.vulnerabilities.reduce((acc, vuln) => {
+        acc[vuln.severity] = acc[vuln.severity] || [];
+        acc[vuln.severity].push(vuln);
+        return acc;
+      }, {});
+      
+      // In theo thứ tự severity
+      const severityOrder = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'];
+      
+      severityOrder.forEach(severity => {
+        if (bySeverity[severity]) {
+          console.log(`\n${'='.repeat(30)}`);
+          console.log(`${severity} SEVERITY (${bySeverity[severity].length} found)`);
+          console.log('='.repeat(30));
+          
+          bySeverity[severity].forEach((vuln, index) => {
+            console.log(`\n${index + 1}. ${vuln.name}`);
+            console.log(`   Category: ${vuln.category}`);
+            console.log(`   Description: ${vuln.description}`);
+          });
+        }
+      });
+    }
+    
+    // Recommendations
+    console.log(`\n💡 RECOMMENDATIONS:`);
+    
+    const recommendations = [];
+    
+    if (this.results.vulnerabilities.some(v => v.severity === 'CRITICAL')) {
+      recommendations.push({
+        priority: 'IMMEDIATE',
+        action: 'Fix critical vulnerabilities before deployment',
+        details: 'Critical vulnerabilities can lead to complete system compromise'
+      });
+    }
+    
+    if (this.results.vulnerabilities.some(v => v.category === 'authentication')) {
+      recommendations.push({
+        priority: 'HIGH',
+        action: 'Review and strengthen authentication mechanisms',
+        details: 'Authentication vulnerabilities are primary attack vectors'
+      });
+    }
+    
+    if (this.results.failed > this.results.passed) {
+      recommendations.push({
+        priority: 'HIGH',
+        action: 'Conduct comprehensive security review',
+        details: 'High failure rate indicates systemic security issues'
+      });
+    }
+    
+    recommendations.forEach(rec => {
+      console.log(`\n[${rec.priority}] ${rec.action}`);
+      console.log(`   ${rec.details}`);
+    });
+    
+    // Overall assessment
+    const securityScore = this.calculateSecurityScore();
+    console.log(`\n🎯 OVERALL SECURITY SCORE: ${securityScore}/100`);
+    
+    if (securityScore >= 90) {
+      console.log('Status: EXCELLENT - Ready for production');
+    } else if (securityScore >= 70) {
+      console.log('Status: GOOD - Address high severity issues');
+    } else if (securityScore >= 50) {
+      console.log('Status: FAIR - Significant improvements needed');
+    } else {
+      console.log('Status: POOR - Not production ready');
+    }
+  }
+  
+  calculateSecurityScore() {
+    const totalTests = this.results.passed + this.results.failed;
+    if (totalTests === 0) return 0;
+    
+    let score = (this.results.passed / totalTests) * 100;
+    
+    // Penalties for severity
+    const severityPenalties = {
+      'CRITICAL': 20,
+      'HIGH': 10,
+      'MEDIUM': 5,
+      'LOW': 2
+    };
+    
+    this.results.vulnerabilities.forEach(vuln => {
+      score -= severityPenalties[vuln.severity] || 0;
+    });
+    
+    return Math.max(0, Math.min(100, Math.round(score)));
+  }
+  
+  looksLikeCiphertext(text) {
+    // Đơn giản kiểm tra xem có phải ciphertext không
+    return text && text.length > 32 && /[A-Za-z0-9+/=]{32,}/.test(text);
+  }
+}
+
+// Helper functions (giả lập)
+async function authenticateWithToken(token) {
+  // Giả lập authentication
+  return { success: token !== 'invalid_token', blocked: false };
+}
+
+async function getTokenForUser(username) {
+  return `token_for_${username}`;
+}
+
+async function connectWebSocket(token) {
+  // Giả lập WebSocket connection
+  return { connected: true };
+}
+
+async function joinRoom(ws, roomId) {
+  // Giả lập join room
+  return { success: roomId.startsWith('private_') === false };
+}
+
+// Chạy security tests
+const securityTest = new ChatSecurityTest();
+securityTest.runAllTests();
+```
+
+---
+
+## 🚀 KẾT LUẬN VÀ LỘ TRÌNH TIẾP THEO
+
+### Tổng Kết Lộ Trình Đã Học
+
+| Thời Gian | Nội Dung | Kết Quả |
+|:---|:---|:---|
+| **Tháng 1-2** | Nắm vững WebSocket, Socket.IO, xây dựng ứng dụng chat cơ bản | Hiểu rõ real-time concepts, có thể build chat app đơn giản |
+| **Tháng 3-4** | Hiểu sâu về performance testing với k6, các metrics đặc thù | Viết được performance test scripts, đo được các metrics quan trọng |
+| **Tháng 5-6** | Thực hành 5 kịch bản test thực tế, phân tích kết quả | Thành thạo các test scenarios: spike, soak, burst |
+| **Tháng 7-8** | Security testing, optimization, trở thành QA/SDET chuyên sâu | Master security testing, có thể consult với backend/security teams |
+
+### 📈 Tiếp Theo
+
+Sau khi hoàn thành lộ trình này, bạn có thể:
+
+- ✅ **Thiết kế Performance Test** cho các ứng dụng real-time khác (gaming, collaboration tools)
+- ✅ **Đào sâu vào Security Testing** với OWASP Top 10 cho WebSocket
+- ✅ **Học thêm về Distributed Systems** (message queues, load balancing)
+- ✅ **Mở rộng sang Mobile Chat Testing** (native apps, push notifications)
+- ✅ **Trở thành Consultant** về Real-time Application Testing
+
+**Chúc bạn thành công trên con đường trở thành QA/SDET chuyên gia về Chat Application! 🎉**
+
