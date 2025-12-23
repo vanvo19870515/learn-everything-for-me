@@ -2,6 +2,8 @@
 
 ## 📊 Mind Map Overview
 
+![QA Roadmap for Chat App](unnamed.png)
+
 ```mermaid
 mindmap
   root((Chat Application<br/>QA Roadmap))
