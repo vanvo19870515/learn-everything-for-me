@@ -2172,17 +2172,2684 @@ server.listen(3000, () => {
 
 ---
 
-## 🔒 PHẦN 2: SECURITY TESTING CHO CHAT (Bổ Sung)
+## ⚡ PHẦN 2: KIỂM THỬ HIỆU NĂNG CHO CHAT - CHI TIẾT
 
-### Security Test Framework - Code Example
+### 📊 CHƯƠNG 1: CÁC METRICS ĐẶC THÙ CỦA CHAT APPLICATION
 
-Dưới đây là một framework mẫu để test security cho chat application:
+#### 1.1. Concurrent Connections vs TPS: Hiểu Sai Là Thất Bại
+
+Ví dụ thực tế để phân biệt:
+
+- **Web bán hàng (E-commerce)**: 10,000 TPS có nghĩa 10,000 giao dịch/giây (mua hàng, xem sản phẩm). Mỗi giao dịch kéo dài 0.1-0.5 giây.
+
+- **Chat application**: 10,000 Concurrent Connections có nghĩa 10,000 người online cùng lúc, mỗi người giữ kết nối 30 phút đến 8 giờ.
 
 ```javascript
-// security-test-framework.js
+// Đo lường thực tế trong code
+class ChatMetrics {
+  constructor() {
+    // METRICS QUAN TRỌNG
+    this.metrics = {
+      // 1. Số kết nối đồng thời
+      concurrentConnections: 0,
+      
+      // 2. Thông lượng tin nhắn
+      messagesPerSecond: {
+        current: 0,
+        max: 0,
+        history: [] // Lưu mỗi giây
+      },
+      
+      // 3. Độ trễ tin nhắn (milisecond)
+      messageLatency: {
+        p50: 0,   // 50% tin nhắn dưới giá trị này
+        p95: 0,   // 95% tin nhắn dưới giá trị này
+        p99: 0,   // 99% tin nhắn dưới giá trị này
+        p999: 0,  // 99.9% tin nhắn dưới giá trị này
+        samples: [] // Mẫu độ trễ thực tế
+      },
+      
+      // 4. Tỷ lệ thất bại
+      failureRates: {
+        connection: 0,    // % kết nối thất bại
+        authentication: 0, // % xác thực thất bại
+        messageSend: 0,   // % gửi tin thất bại
+        messageReceive: 0 // % nhận tin thất bại
+      },
+      
+      // 5. Tỷ lệ reconnect
+      reconnectStats: {
+        attempts: 0,
+        successes: 0,
+        avgTime: 0, // Thời gian reconnect trung bình
+        failures: 0
+      },
+      
+      // 6. Tài nguyên server
+      serverResources: {
+        memoryUsage: 0,    // MB
+        cpuUsage: 0,       // %
+        activeThreads: 0,
+        queueBacklog: 0    // Số tin nhắn chờ xử lý
+      }
+    };
+  }
+  
+  // Ví dụ tính độ trễ p95
+  calculateLatencyPercentiles() {
+    const sortedLatencies = [...this.metrics.messageLatency.samples].sort((a, b) => a - b);
+    
+    this.metrics.messageLatency.p50 = this.getPercentile(sortedLatencies, 50);
+    this.metrics.messageLatency.p95 = this.getPercentile(sortedLatencies, 95);
+    this.metrics.messageLatency.p99 = this.getPercentile(sortedLatencies, 99);
+    this.metrics.messageLatency.p999 = this.getPercentile(sortedLatencies, 99.9);
+    
+    console.log(`Độ trễ p95: ${this.metrics.messageLatency.p95}ms`);
+    console.log(`Độ trễ p99: ${this.metrics.messageLatency.p99}ms`);
+  }
+  
+  getPercentile(sortedArray, percentile) {
+    const index = Math.ceil((percentile / 100) * sortedArray.length) - 1;
+    return sortedArray[Math.max(0, index)] || 0;
+  }
+}
+```
+
+#### 1.2. Tại Sao p95/p99 Quan Trọng Hơn Average?
+
+Ví dụ thực tế từ production:
+
+```javascript
+// Giả sử có 100 tin nhắn với độ trễ:
+const latencies = [
+  10, 12, 15, 18, 20,  // 95 tin nhắn đầu: 10-20ms
+  150, 200, 300, 500, 1000  // 5 tin nhắn cuối: rất chậm
+];
+
+// Tính toán:
+const average = latencies.reduce((a, b) => a + b) / latencies.length; // 72.5ms
+const p95 = 20;  // 95% tin nhắn dưới 20ms
+const p99 = 150; // 99% tin nhắn dưới 150ms
+
+console.log("Nếu chỉ nhìn average (72.5ms): 'Ồ, tốt quá!'");
+console.log("Nhưng thực tế: 5% user thấy độ trễ 150ms-1000ms → sẽ complaint!");
+```
+
+**Bài học**: Trong chat, chỉ cần 5% tin nhắn chậm là đủ để user cảm thấy ứng dụng "lag", "chậm".
+
+---
+
+### 🛠️ CHƯƠNG 2: K6 - CÔNG CỤ TEST WEB SOCKET SIÊU MẠNH
+
+#### 2.1. Cài Đặt Chi Tiết Từng Bước
+
+```bash
+# Bước 1: Cài đặt k6 (macOS với Homebrew)
+brew install k6
+
+# Bước 2: Kiểm tra phiên bản
+k6 version
+
+# Bước 3: Tạo thư mục dự án
+mkdir k6-chat-tests
+cd k6-chat-tests
+
+# Bước 4: Khởi tạo npm project (không bắt buộc nhưng khuyến khích)
+npm init -y
+
+# Bước 5: Cài đặt thư viện hỗ trợ WebSocket cho k6
+npm install k6 k6/websockets --save
+
+# Bước 6: Cấu hình Visual Studio Code để debug k6
+# Tạo file .vscode/launch.json
+mkdir .vscode
+cat > .vscode/launch.json << EOF
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "K6 Debug",
+      "runtimeExecutable": "k6",
+      "args": ["run", "--verbose", "\${file}"],
+      "console": "integratedTerminal"
+    }
+  ]
+}
+EOF
+```
+
+#### 2.2. Script K6 Cơ Bản Cho WebSocket
+
+```javascript
+// test-websocket-basic.js
+import { WebSocket } from 'k6/ws';
+import { check, sleep } from 'k6';
+import { Counter, Trend, Rate } from 'k6/metrics';
+
+// 1. Định nghĩa custom metrics
+const messageLatency = new Trend('message_latency_ms');
+const connectionErrors = new Counter('connection_errors');
+const messageErrors = new Counter('message_errors');
+const successRate = new Rate('success_rate');
+
+// 2. Cấu hình test
+export const options = {
+  stages: [
+    // Giai đoạn 1: Tăng từ 0 đến 100 user trong 30 giây
+    { duration: '30s', target: 100 },
+    
+    // Giai đoạn 2: Giữ 100 user trong 1 phút
+    { duration: '1m', target: 100 },
+    
+    // Giai đoạn 3: Tăng lên 500 user trong 1 phút
+    { duration: '1m', target: 500 },
+    
+    // Giai đoạn 4: Giảm về 0 trong 30 giây
+    { duration: '30s', target: 0 }
+  ],
+  
+  // Ngưỡng thất bại
+  thresholds: {
+    message_latency_ms: ['p(95) < 100', 'p(99) < 250'],
+    connection_errors: ['count < 10'],
+    success_rate: ['rate > 0.95']
+  },
+  
+  // Thời gian timeout
+  timeouts: {
+    connect: '10s',    // Timeout kết nối
+    handshake: '5s',   // Timeout handshake WebSocket
+    message: '30s'     // Timeout gửi/nhận message
+  }
+};
+
+// 3. Hàm chính - mỗi VU (Virtual User) chạy hàm này
+export default function () {
+  const url = 'ws://localhost:3000';
+  const params = {
+    headers: {
+      'User-Agent': 'k6-websocket-test/1.0'
+    }
+  };
+  
+  // 3.1. Mở kết nối WebSocket
+  console.log(`[VU ${__VU}] Đang kết nối đến ${url}...`);
+  const ws = WebSocket.connect(url, params, (socket) => {
+    // Callback khi kết nối thành công
+    
+    // 3.2. Lắng nghe tin nhắn từ server
+    socket.on('open', () => {
+      console.log(`[VU ${__VU}] Đã kết nối, socket ID: ${socket.id}`);
+      
+      // Gửi tin nhắn đầu tiên (authentication)
+      const authMessage = JSON.stringify({
+        type: 'auth',
+        username: `test_user_${__VU}`,
+        timestamp: Date.now()
+      });
+      
+      socket.send(authMessage);
+      console.log(`[VU ${__VU}] Đã gửi auth message`);
+    });
+    
+    // 3.3. Xử lý tin nhắn nhận được
+    socket.on('message', (data) => {
+      const endTime = Date.now();
+      const message = JSON.parse(data);
+      
+      // Tính độ trễ nếu message có startTime
+      if (message.startTime) {
+        const latency = endTime - message.startTime;
+        messageLatency.add(latency);
+        
+        console.log(`[VU ${__VU}] Nhận message sau ${latency}ms:`, 
+                   message.type || 'unknown');
+      }
+      
+      // Kiểm tra loại message
+      const checks = check(data, {
+        'message is valid JSON': () => {
+          try {
+            JSON.parse(data);
+            return true;
+          } catch {
+            return false;
+          }
+        },
+        'has message type': () => message.type !== undefined,
+        'auth success if auth response': () => {
+          if (message.type === 'auth_response') {
+            return message.success === true;
+          }
+          return true;
+        }
+      });
+      
+      if (!checks) {
+        messageErrors.add(1);
+      }
+      
+      successRate.add(checks);
+    });
+    
+    // 3.4. Xử lý lỗi
+    socket.on('error', (error) => {
+      console.error(`[VU ${__VU}] Lỗi WebSocket:`, error);
+      connectionErrors.add(1);
+    });
+    
+    // 3.5. Xử lý đóng kết nối
+    socket.on('close', () => {
+      console.log(`[VU ${__VU}] Đã ngắt kết nối`);
+    });
+    
+    // 3.6. Gửi tin nhắn định kỳ (simulate chat)
+    let messageCount = 0;
+    const interval = setInterval(() => {
+      if (messageCount < 10) { // Mỗi user gửi 10 tin nhắn
+        const chatMessage = JSON.stringify({
+          type: 'chat',
+          text: `Tin nhắn thứ ${messageCount + 1} từ VU ${__VU}`,
+          startTime: Date.now(),
+          room: 'general'
+        });
+        
+        socket.send(chatMessage);
+        messageCount++;
+      } else {
+        clearInterval(interval);
+        socket.close();
+      }
+    }, 2000); // Gửi mỗi 2 giây
+  });
+  
+  // Kiểm tra kết nối thành công
+  const connectionCheck = check(ws, {
+    'websocket connection is open': (w) => w && w.readyState === 1
+  });
+  
+  if (!connectionCheck) {
+    connectionErrors.add(1);
+    console.error(`[VU ${__VU}] Kết nối thất bại`);
+  }
+  
+  // Đợi một chút trước khi kết thúc
+  sleep(1);
+}
+```
+
+#### 2.3. Chạy Test và Phân Tích Kết Quả
+
+```bash
+# Chạy test với output chi tiết
+k6 run --out json=results.json --summary-export=summary.json test-websocket-basic.js
+
+# Chạy với ảnh hưởng thấp đến hệ thống
+k6 run --paused test-websocket-basic.js
+
+# Chạy và xuất kết quả dạng dashboard
+k6 run --out dashboard=period=5s test-websocket-basic.js
+
+# Chạy với tags để filter kết quả
+k6 run --tag testtype=websocket --tag env=staging test-websocket-basic.js
+```
+
+**File cấu hình k6 chi tiết** (`k6.config.js`):
+
+```javascript
+// k6.config.js - Cấu hình nâng cao
+export const sharedOptions = {
+  // Cấu hình execution
+  batch: 20,                     // Số VU tạo cùng lúc
+  batchPerHost: 10,              // Số VU trên mỗi host
+  rps: 100,                      // Request per second tối đa
+  
+  // Cấu hình hệ thống
+  systemTags: ['proto', 'subproto', 'status', 'method', 'url', 'name', 'group', 'check', 'error', 'error_code', 'tls_version', 'ocsp_status'],
+  
+  // Blacklist/IP whitelist
+  blacklistIPs: ['10.0.0.0/8', '192.168.0.0/16'],
+  
+  // User Agent
+  userAgent: 'k6-load-test/v1.0',
+  
+  // Timeouts
+  setupTimeout: '60s',
+  teardownTimeout: '60s',
+  
+  // SSL/TLS
+  tlsCipherSuites: [
+    'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256',
+    'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384'
+  ],
+  tlsVersion: {
+    min: 'tls1.2',
+    max: 'tls1.3'
+  },
+  
+  // Debug
+  debug: false,
+  insecureSkipTLSVerify: false,
+  throw: true
+};
+
+export function getScenario(name, target, duration, stages) {
+  return {
+    executor: 'ramping-vus',
+    startVUs: 0,
+    stages: stages || [
+      { duration: '30s', target: target * 0.1 },
+      { duration: '1m', target: target * 0.5 },
+      { duration: '2m', target: target },
+      { duration: '1m', target: target * 0.2 },
+      { duration: '30s', target: 0 }
+    ],
+    gracefulRampDown: '30s',
+    tags: { scenario: name }
+  };
+}
+```
+
+---
+
+### 🔥 CHƯƠNG 3: 5 KỊCH BẢN TEST THỰC TẾ VỚI CODE ĐẦY ĐỦ
+
+#### Kịch Bản 1: Spike Test - "Tin Hot Lan Truyền"
+
+```javascript
+// test-spike-connections.js
+import { WebSocket } from 'k6/ws';
+import { check } from 'k6';
+import { Trend, Counter, Rate } from 'k6/metrics';
+
+const spikeLatency = new Trend('spike_message_latency');
+const spikeErrors = new Counter('spike_connection_errors');
+const spikeSuccess = new Rate('spike_success_rate');
+
+export const options = {
+  scenarios: {
+    spike_scenario: {
+      executor: 'per-vu-iterations',
+      vus: 10000,           // 10,000 user ảo
+      iterations: 1,        // Mỗi user chỉ kết nối 1 lần
+      maxDuration: '2m',    // Tất cả phải hoàn thành trong 2 phút
+      gracefulStop: '30s'
+    }
+  },
+  thresholds: {
+    spike_message_latency: ['p(95) < 500'], // Cho phép chậm hơn bình thường
+    spike_success_rate: ['rate > 0.85']     // 85% thành công là đạt
+  }
+};
+
+export default function () {
+  const url = 'ws://localhost:3000';
+  
+  // Thêm random delay để simulate user vào không cùng lúc
+  const randomDelay = Math.random() * 1000;
+  sleep(randomDelay / 1000);
+  
+  const ws = WebSocket.connect(url, null, (socket) => {
+    let connected = false;
+    
+    socket.on('open', () => {
+      connected = true;
+      console.log(`[SPIKE] VU ${__VU} connected`);
+      
+      // Gửi ngay 1 tin nhắn
+      const message = {
+        type: 'spike_message',
+        content: 'Có tin HOT!',
+        vu: __VU,
+        timestamp: Date.now()
+      };
+      
+      socket.send(JSON.stringify(message));
+      
+      // Đóng kết nối ngay sau khi gửi (simulate user xem rồi out)
+      setTimeout(() => {
+        socket.close();
+      }, 5000);
+    });
+    
+    socket.setTimeout(() => {
+      if (!connected) {
+        console.error(`[SPIKE] VU ${__VU} timeout khi kết nối`);
+        spikeErrors.add(1);
+        socket.close();
+      }
+    }, 5000);
+    
+    socket.on('message', (data) => {
+      const endTime = Date.now();
+      const msg = JSON.parse(data);
+      
+      if (msg.timestamp) {
+        const latency = endTime - msg.timestamp;
+        spikeLatency.add(latency);
+        
+        // Log nếu quá chậm
+        if (latency > 1000) {
+          console.warn(`[SPIKE] VU ${__VU} nhận message chậm: ${latency}ms`);
+        }
+      }
+    });
+  });
+  
+  check(ws, {
+    'spike connection successful': (w) => w && w.readyState === 1
+  });
+}
+```
+
+**Phân tích kết quả Spike Test:**
+
+```javascript
+// analyze-spike-results.js
+function analyzeSpikeTest(results) {
+  const analysis = {
+    // 1. Phân tích kết nối
+    connectionAnalysis: {
+      totalAttempts: results.metrics.vus.values.count,
+      successfulConnections: results.metrics.spike_success_rate.values.rate * results.metrics.vus.values.count,
+      failureRate: 1 - results.metrics.spike_success_rate.values.rate,
+      peakConnectionsPerSecond: calculatePeakConnections(results),
+      
+      // Phân loại lỗi
+      errorBreakdown: {
+        handshakeTimeout: countErrorsByType(results, 'handshake_timeout'),
+        authenticationFailed: countErrorsByType(results, 'auth_failed'),
+        serverOverload: countErrorsByType(results, 'server_busy'),
+        networkError: countErrorsByType(results, 'network_error')
+      }
+    },
+    
+    // 2. Phân tích độ trễ
+    latencyAnalysis: {
+      p50: results.metrics.spike_message_latency.values['p(50)'],
+      p95: results.metrics.spike_message_latency.values['p(95)'],
+      p99: results.metrics.spike_message_latency.values['p(99)'],
+      maxLatency: results.metrics.spike_message_latency.values.max,
+      
+      // Phân bố độ trễ
+      latencyDistribution: {
+        under100ms: calculatePercentageUnder(results, 100),
+        under500ms: calculatePercentageUnder(results, 500),
+        under1000ms: calculatePercentageUnder(results, 1000),
+        over1000ms: calculatePercentageOver(results, 1000)
+      }
+    },
+    
+    // 3. Phân tích tài nguyên server
+    serverResourceAnalysis: {
+      // Dữ liệu từ monitoring server
+      cpuPeak: getServerMetric('cpu_peak'),
+      memoryPeak: getServerMetric('memory_peak'),
+      threadPoolExhaustion: checkThreadPoolExhaustion(results),
+      
+      // Connection tracking
+      connectionsPerSecond: calculateConnectionsTimeSeries(results),
+      messagesPerSecond: calculateMessagesTimeSeries(results)
+    },
+    
+    // 4. Đề xuất cải thiện
+    recommendations: []
+  };
+  
+  // Tự động đề xuất dựa trên kết quả
+  if (analysis.connectionAnalysis.failureRate > 0.15) {
+    analysis.recommendations.push({
+      severity: 'HIGH',
+      issue: 'Tỷ lệ kết nối thất bại quá cao (>15%)',
+      suggestion: '1. Tăng timeout handshake\n2. Scale horizontal thêm server\n3. Optimize authentication flow'
+    });
+  }
+  
+  if (analysis.latencyAnalysis.p95 > 500) {
+    analysis.recommendations.push({
+      severity: 'MEDIUM',
+      issue: 'Độ trễ p95 > 500ms',
+      suggestion: '1. Review message queue\n2. Optimize database queries\n3. Cache tin nhắn gần đây'
+    });
+  }
+  
+  return analysis;
+}
+
+// Ví dụ kết quả phân tích
+const sampleResults = {
+  metrics: {
+    spike_success_rate: { values: { rate: 0.87 } },
+    spike_message_latency: { 
+      values: { 
+        'p(50)': 120,
+        'p(95)': 450,
+        'p(99)': 1200,
+        max: 3500
+      }
+    },
+    vus: { values: { count: 10000 } }
+  }
+};
+
+console.log('Kết quả phân tích Spike Test:');
+console.log(JSON.stringify(analyzeSpikeTest(sampleResults), null, 2));
+```
+
+#### Kịch Bản 2: Soak Test - "Chat Qua Đêm"
+
+```javascript
+// test-soak-8hours.js
+import { WebSocket } from 'k6/ws';
+import { check, sleep } from 'k6';
+import { Trend, Gauge, Counter } from 'k6/metrics';
+
+// Metrics cho soak test
+const memoryUsage = new Gauge('memory_usage_mb');
+const activeConnections = new Gauge('active_connections');
+const messageLatencyLong = new Trend('long_term_latency');
+const reconnectCount = new Counter('reconnect_attempts');
+
+export const options = {
+  scenarios: {
+    soak_scenario: {
+      executor: 'constant-vus',
+      vus: 1000,           // 1000 user liên tục
+      duration: '8h',      // Chạy 8 giờ
+      gracefulStop: '5m',
+      
+      // Tags đặc biệt
+      tags: { test_type: 'soak', duration: '8h' }
+    }
+  },
+  
+  // Thresholds cho soak test
+  thresholds: {
+    long_term_latency: ['p(95) < 200'], // Phải ổn định lâu dài
+    memory_usage_mb: ['value < 1024'],  // Memory < 1GB
+    reconnect_attempts: ['count < 50']   // Ít hơn 50 lần reconnect
+  },
+  
+  // Cấu hình hệ thống
+  systemTags: ['vu', 'iter', 'url', 'name', 'check', 'error', 'status'],
+  teardownTimeout: '10m'
+};
+
+// Hàm lấy memory usage từ server (giả lập)
+function fetchServerMetrics() {
+  // Trong thực tế, gọi API metrics của server
+  return {
+    memory: Math.random() * 500 + 300, // 300-800 MB
+    connections: 950 + Math.random() * 100, // 950-1050 connections
+    cpu: Math.random() * 30 + 20 // 20-50%
+  };
+}
+
+export default function () {
+  const url = 'ws://localhost:3000';
+  let reconnectAttempts = 0;
+  let lastMessageTime = Date.now();
+  
+  function connectWebSocket() {
+    console.log(`[SOAK] VU ${__VU} đang kết nối (attempt ${reconnectAttempts + 1})`);
+    
+    const ws = WebSocket.connect(url, null, (socket) => {
+      let isAlive = true;
+      
+      // Heartbeat interval
+      const heartbeatInterval = setInterval(() => {
+        if (isAlive) {
+          socket.ping();
+          lastMessageTime = Date.now();
+        }
+      }, 30000); // 30 giây 1 lần
+      
+      socket.on('open', () => {
+        console.log(`[SOAK] VU ${__VU} connected`);
+        
+        // Authentication
+        socket.send(JSON.stringify({
+          type: 'auth',
+          username: `soak_user_${__VU}`,
+          userId: __VU
+        }));
+        
+        // Join room
+        socket.send(JSON.stringify({
+          type: 'join',
+          room: 'general'
+        }));
+      });
+      
+      socket.on('message', (data) => {
+        const message = JSON.parse(data);
+        lastMessageTime = Date.now();
+        
+        // Ghi nhận độ trễ
+        if (message.sentAt) {
+          const latency = Date.now() - message.sentAt;
+          messageLatencyLong.add(latency);
+        }
+        
+        // Phản hồi nếu là ping
+        if (message.type === 'ping') {
+          socket.send(JSON.stringify({
+            type: 'pong',
+            timestamp: Date.now()
+          }));
+        }
+        
+        // Gửi tin nhắn ngẫu nhiên
+        if (Math.random() > 0.7) { // 30% khả năng
+          setTimeout(() => {
+            if (isAlive) {
+              socket.send(JSON.stringify({
+                type: 'chat',
+                text: `Message from soak user ${__VU} at ${new Date().toISOString()}`,
+                sentAt: Date.now()
+              }));
+            }
+          }, Math.random() * 10000); // Random 0-10 giây
+        }
+      });
+      
+      socket.on('pong', () => {
+        isAlive = true;
+      });
+      
+      socket.on('error', (error) => {
+        console.error(`[SOAK] VU ${__VU} error:`, error);
+        clearInterval(heartbeatInterval);
+        isAlive = false;
+        
+        // Thử reconnect sau 5 giây
+        setTimeout(() => {
+          reconnectAttempts++;
+          reconnectCount.add(1);
+          connectWebSocket();
+        }, 5000);
+      });
+      
+      socket.on('close', () => {
+        console.log(`[SOAK] VU ${__VU} disconnected`);
+        clearInterval(heartbeatInterval);
+        isAlive = false;
+      });
+      
+      // Check timeout (không có message trong 2 phút)
+      setInterval(() => {
+        if (Date.now() - lastMessageTime > 120000) { // 2 phút
+          console.warn(`[SOAK] VU ${__VU} timeout, reconnecting...`);
+          socket.close();
+        }
+      }, 60000); // Check mỗi phút
+    });
+    
+    // Kiểm tra kết nối
+    check(ws, {
+      'soak connection established': (w) => w && w.readyState === 1
+    });
+    
+    // Lấy server metrics định kỳ
+    setInterval(() => {
+      const metrics = fetchServerMetrics();
+      memoryUsage.add(metrics.memory);
+      activeConnections.add(metrics.connections);
+      
+      // Log nếu memory cao
+      if (metrics.memory > 800) {
+        console.warn(`[SOAK] Memory usage high: ${metrics.memory}MB`);
+      }
+    }, 60000); // Mỗi phút
+  }
+  
+  // Bắt đầu kết nối
+  connectWebSocket();
+  
+  // Giữ VU sống trong toàn bộ test
+  while (true) {
+    sleep(60); // Sleep 60 giây
+  }
+}
+
+// Setup và teardown
+export function setup() {
+  console.log('🚀 Bắt đầu Soak Test 8 giờ');
+  console.log('Thời gian bắt đầu:', new Date().toISOString());
+  console.log('Số VU:', options.scenarios.soak_scenario.vus);
+  
+  return {
+    startTime: Date.now(),
+    testId: `soak_test_${Date.now()}`
+  };
+}
+
+export function teardown(data) {
+  const duration = Date.now() - data.startTime;
+  const hours = (duration / (1000 * 60 * 60)).toFixed(2);
+  
+  console.log('✅ Kết thúc Soak Test');
+  console.log('Thời gian kết thúc:', new Date().toISOString());
+  console.log(`Tổng thời gian chạy: ${hours} giờ`);
+  console.log(`Test ID: ${data.testId}`);
+  
+  // Generate report
+  generateSoakTestReport(data);
+}
+
+function generateSoakTestReport(data) {
+  const report = {
+    testId: data.testId,
+    duration: '8 hours',
+    vus: 1000,
+    summary: {
+      // Các metrics quan trọng sẽ được điền sau khi test xong
+      averageLatency: 'N/A',
+      maxMemoryUsage: 'N/A',
+      totalReconnects: 'N/A',
+      successRate: 'N/A'
+    },
+    findings: [],
+    recommendations: []
+  };
+  
+  console.log('📊 Soak Test Report:', JSON.stringify(report, null, 2));
+}
+```
+
+**Phân tích Memory Leak trong Soak Test:**
+
+```javascript
+// memory-leak-detector.js
+class MemoryLeakDetector {
+  constructor() {
+    this.samples = [];
+    this.leakThreshold = 0.1; // 10% increase per hour
+  }
+  
+  addSample(memoryUsage, timestamp) {
+    this.samples.push({ memory: memoryUsage, time: timestamp });
+    
+    // Giữ 100 mẫu gần nhất
+    if (this.samples.length > 100) {
+      this.samples.shift();
+    }
+    
+    // Phát hiện leak nếu có đủ samples
+    if (this.samples.length >= 10) {
+      this.detectLeak();
+    }
+  }
+  
+  detectLeak() {
+    const firstHour = this.samples.slice(0, 20); // Giả sử 20 samples = 1 giờ
+    const lastHour = this.samples.slice(-20);
+    
+    const avgFirstHour = this.calculateAverage(firstHour);
+    const avgLastHour = this.calculateAverage(lastHour);
+    
+    const increasePercentage = (avgLastHour - avgFirstHour) / avgFirstHour;
+    
+    if (increasePercentage > this.leakThreshold) {
+      console.error(`⚠️ PHÁT HIỆN MEMORY LEAK!`);
+      console.error(`Memory tăng ${(increasePercentage * 100).toFixed(2)}% sau 1 giờ`);
+      console.error(`Từ ${avgFirstHour.toFixed(2)}MB lên ${avgLastHour.toFixed(2)}MB`);
+      
+      // Phân tích pattern
+      this.analyzeLeakPattern();
+    }
+  }
+  
+  analyzeLeakPattern() {
+    // Phân tích xem leak xảy ra khi nào
+    const timestamps = this.samples.map(s => s.time);
+    const memories = this.samples.map(s => s.memory);
+    
+    // Tìm correlation với số lượng tin nhắn
+    console.log('🔍 Phân tích pattern leak:');
+    console.log('- Memory tăng đều hay đột biến?');
+    console.log('- Có trùng với peak traffic không?');
+    console.log('- Có connection nào không được cleanup?');
+  }
+  
+  calculateAverage(samples) {
+    return samples.reduce((sum, s) => sum + s.memory, 0) / samples.length;
+  }
+}
+
+// Sử dụng trong test
+const leakDetector = new MemoryLeakDetector();
+
+// Trong vòng lặp chính của soak test
+setInterval(() => {
+  const metrics = fetchServerMetrics();
+  leakDetector.addSample(metrics.memory, Date.now());
+}, 300000); // Mỗi 5 phút
+```
+
+#### Kịch Bản 3: Burst Message Test - "Spam Tin Nhắn"
+
+```javascript
+// test-burst-messages.js
+import { WebSocket } from 'k6/ws';
+import { check, sleep } from 'k6';
+import { Rate, Counter, Trend, Gauge } from 'k6/metrics';
+
+const burstSuccess = new Rate('burst_success_rate');
+const rateLimitHits = new Counter('rate_limit_hits');
+const queueBacklog = new Gauge('queue_backlog');
+const burstLatency = new Trend('burst_message_latency');
+
+export const options = {
+  scenarios: {
+    burst_scenario: {
+      executor: 'constant-vus',
+      vus: 50,              // 50 user spam
+      duration: '5m',       // Spam trong 5 phút
+      
+      // Mỗi VU sẽ gửi rất nhiều message
+      exec: 'burstMessageSend'
+    },
+    
+    // Thêm scenario cho normal users bị ảnh hưởng
+    normal_users: {
+      executor: 'constant-vus',
+      vus: 100,             // 100 user bình thường
+      duration: '5m',
+      exec: 'normalUserBehavior',
+      startTime: '1m'       // Bắt đầu sau 1 phút
+    }
+  }
+};
+
+// User spam tin nhắn
+export function burstMessageSend() {
+  const url = 'ws://localhost:3000';
+  const ws = WebSocket.connect(url, null, (socket) => {
+    socket.on('open', () => {
+      console.log(`[BURST] Spammer ${__VU} connected`);
+      
+      // Authentication
+      socket.send(JSON.stringify({
+        type: 'auth',
+        username: `spammer_${__VU}`
+      }));
+      
+      // Bắt đầu spam
+      let messageCount = 0;
+      const spamInterval = setInterval(() => {
+        if (messageCount < 1000) { // Mỗi spammer gửi tối đa 1000 tin
+          const message = {
+            type: 'chat',
+            text: `SPAM ${messageCount} từ spammer ${__VU}`,
+            timestamp: Date.now(),
+            room: 'general'
+          };
+          
+          socket.send(JSON.stringify(message));
+          messageCount++;
+          
+          // Theo dõi rate
+          if (messageCount % 100 === 0) {
+            console.log(`[BURST] Spammer ${__VU} đã gửi ${messageCount} tin`);
+          }
+        } else {
+          clearInterval(spamInterval);
+          socket.close();
+        }
+      }, 10); // Gửi mỗi 10ms = 100 msg/giây
+    });
+    
+    socket.on('message', (data) => {
+      const response = JSON.parse(data);
+      
+      // Check rate limit response
+      if (response.type === 'rate_limit_exceeded') {
+        rateLimitHits.add(1);
+        console.log(`[BURST] Spammer ${__VU} bị rate limit`);
+      }
+      
+      // Tính latency
+      if (response.originalTimestamp) {
+        const latency = Date.now() - response.originalTimestamp;
+        burstLatency.add(latency);
+        
+        burstSuccess.add(latency < 1000); // Thành công nếu < 1s
+      }
+    });
+    
+    socket.on('error', (error) => {
+      console.error(`[BURST] Spammer ${__VU} error:`, error);
+      burstSuccess.add(false);
+    });
+  });
+}
+
+// User bình thường bị ảnh hưởng
+export function normalUserBehavior() {
+  const url = 'ws://localhost:3000';
+  const ws = WebSocket.connect(url, null, (socket) => {
+    socket.on('open', () => {
+      console.log(`[NORMAL] User ${__VU} connected`);
+      
+      // Authentication và join room
+      socket.send(JSON.stringify({
+        type: 'auth',
+        username: `normal_user_${__VU}`
+      }));
+      
+      socket.send(JSON.stringify({
+        type: 'join',
+        room: 'general'
+      }));
+      
+      // Gửi tin nhắn bình thường
+      setInterval(() => {
+        const message = {
+          type: 'chat',
+          text: `Tin nhắn bình thường từ user ${__VU}`,
+          timestamp: Date.now(),
+          room: 'general'
+        };
+        
+        socket.send(JSON.stringify(message));
+      }, 5000); // Mỗi 5 giây
+    });
+    
+    socket.on('message', (data) => {
+      const message = JSON.parse(data);
+      
+      // Đo độ trễ cho user bình thường
+      if (message.timestamp && message.type === 'chat') {
+        const latency = Date.now() - message.timestamp;
+        
+        // Cảnh báo nếu độ trễ cao
+        if (latency > 2000) {
+          console.error(`[NORMAL] User ${__VU} nhận tin chậm: ${latency}ms`);
+          console.error(`Nội dung: ${message.text.substring(0, 50)}...`);
+        }
+      }
+    });
+  });
+}
+
+export function setup() {
+  console.log('🚀 Bắt đầu Burst Message Test');
+  console.log('50 spammer sẽ gửi 100 msg/giây');
+  console.log('100 normal user sẽ bị ảnh hưởng');
+  
+  return {
+    startTime: Date.now(),
+    expectedMessages: 50 * 100 * 300 // 50 spammer * 100 msg/s * 300s
+  };
+}
+
+export function teardown(data) {
+  console.log('✅ Kết thúc Burst Test');
+  console.log(`Tổng số tin nhắn dự kiến: ${data.expectedMessages}`);
+  
+  // Phân tích impact lên normal users
+  analyzeImpactOnNormalUsers();
+}
+
+function analyzeImpactOnNormalUsers() {
+  // Phân tích xem spam ảnh hưởng thế nào đến user bình thường
+  console.log('📊 Phân tích impact của spam:');
+  console.log('1. Độ trễ của normal users tăng bao nhiêu?');
+  console.log('2. Có tin nhắn nào bị mất không?');
+  console.log('3. Rate limiting có hoạt động không?');
+  console.log('4. Message queue có bị quá tải?');
+}
+```
+
+#### Kịch Bản 4: Reconnection Stress Test - "Mạng Chập Chờn"
+
+```javascript
+// test-reconnection-stress.js
+import { WebSocket } from 'k6/ws';
+import { check, sleep } from 'k6';
+import { Trend, Rate, Counter } from 'k6/metrics';
+
+const reconnectTime = new Trend('reconnect_time_ms');
+const reconnectSuccess = new Rate('reconnect_success_rate');
+const sessionLoss = new Counter('session_loss_count');
+const messageLoss = new Counter('message_loss_count');
+
+export const options = {
+  scenarios: {
+    reconnection_stress: {
+      executor: 'per-vu-iterations',
+      vus: 500,
+      iterations: 10,       // Mỗi VU reconnect 10 lần
+      maxDuration: '10m',
+      
+      // Tags
+      tags: { test_type: 'reconnection' }
+    }
+  },
+  thresholds: {
+    reconnect_time_ms: ['p(95) < 5000'], // Reconnect < 5s
+    reconnect_success_rate: ['rate > 0.98'], // 98% thành công
+    session_loss_count: ['count < 10']       // Ít hơn 10 session bị mất
+  }
+};
+
+export default function () {
+  const url = 'ws://localhost:3000';
+  const userId = `user_${__VU}_${__ITER}`;
+  let sessionId = null;
+  let messagesSent = [];
+  let messagesReceived = [];
+  
+  function connectWithReconnect() {
+    const startTime = Date.now();
+    
+    console.log(`[RECONNECT] ${userId} đang kết nối...`);
+    
+    const ws = WebSocket.connect(url, null, (socket) => {
+      let connected = false;
+      
+      socket.on('open', () => {
+        connected = true;
+        const connectTime = Date.now() - startTime;
+        reconnectTime.add(connectTime);
+        
+        console.log(`[RECONNECT] ${userId} connected in ${connectTime}ms`);
+        
+        // Authentication
+        socket.send(JSON.stringify({
+          type: 'auth',
+          username: userId,
+          sessionId: sessionId, // Gửi sessionId cũ nếu có
+          timestamp: Date.now()
+        }));
+      });
+      
+      socket.on('message', (data) => {
+        const message = JSON.parse(data);
+        
+        if (message.type === 'auth_response') {
+          if (message.success) {
+            reconnectSuccess.add(true);
+            sessionId = message.newSessionId || sessionId;
+            
+            console.log(`[RECONNECT] ${userId} authenticated, session: ${sessionId}`);
+            
+            // Kiểm tra message loss
+            checkMessageLoss(messagesSent, messagesReceived);
+            
+            // Gửi test message
+            const testMsg = {
+              type: 'test',
+              content: `Test từ ${userId} sau reconnect`,
+              messageId: `msg_${Date.now()}_${__VU}`,
+              timestamp: Date.now()
+            };
+            
+            messagesSent.push(testMsg);
+            socket.send(JSON.stringify(testMsg));
+            
+            // Đóng kết nối ngay (để test reconnect lần sau)
+            setTimeout(() => {
+              socket.close();
+            }, 1000);
+            
+          } else {
+            reconnectSuccess.add(false);
+            console.error(`[RECONNECT] ${userId} auth failed`);
+          }
+        }
+        
+        // Lưu message nhận được
+        if (message.type === 'test_response') {
+          messagesReceived.push(message);
+        }
+      });
+      
+      socket.on('error', (error) => {
+        console.error(`[RECONNECT] ${userId} error:`, error.message);
+        reconnectSuccess.add(false);
+      });
+      
+      socket.on('close', () => {
+        console.log(`[RECONNECT] ${userId} disconnected`);
+        
+        // Simulate network instability - random delay trước khi reconnect
+        const delay = Math.random() * 3000; // 0-3 giây
+        setTimeout(() => {
+          if (__ITER < 9) { // Chỉ reconnect 9 lần
+            connectWithReconnect();
+          }
+        }, delay);
+      });
+      
+      // Timeout
+      socket.setTimeout(() => {
+        if (!connected) {
+          console.error(`[RECONNECT] ${userId} connection timeout`);
+          socket.close();
+        }
+      }, 10000);
+    });
+    
+    check(ws, {
+      'reconnection attempt initiated': (w) => w !== null
+    });
+  }
+  
+  // Bắt đầu lần kết nối đầu tiên
+  connectWithReconnect();
+  
+  // Giữ VU sống đủ lâu
+  sleep(60);
+}
+
+function checkMessageLoss(sent, received) {
+  const sentIds = sent.map(m => m.messageId);
+  const receivedIds = received.map(m => m.originalMessageId);
+  
+  const lostMessages = sentIds.filter(id => !receivedIds.includes(id));
+  
+  if (lostMessages.length > 0) {
+    console.error(`[RECONNECT] Mất ${lostMessages.length} tin nhắn:`, lostMessages);
+    messageLoss.add(lostMessages.length);
+    
+    // Phân tích nguyên nhân
+    analyzeMessageLoss(sent, received);
+  }
+}
+
+function analyzeMessageLoss(sent, received) {
+  console.log('🔍 Phân tích message loss:');
+  console.log(`- Sent: ${sent.length} messages`);
+  console.log(`- Received: ${received.length} messages`);
+  
+  // Kiểm tra pattern
+  const lastSent = sent.slice(-5);
+  const lastReceived = received.slice(-5);
+  
+  console.log('5 tin nhắn gửi cuối:', lastSent.map(m => m.messageId));
+  console.log('5 tin nhắn nhận cuối:', lastReceived.map(m => m.originalMessageId));
+  
+  // Gợi ý nguyên nhân
+  if (sent.length > 0 && received.length === 0) {
+    console.log('⚠️ Có thể do:');
+    console.log('1. Message queue bị xóa khi reconnect');
+    console.log('2. Session không được khôi phục đúng');
+    console.log('3. Server không xử lý offline messages');
+  }
+}
+
+export function setup() {
+  console.log('🚀 Bắt đầu Reconnection Stress Test');
+  console.log('500 VUs, mỗi VU reconnect 10 lần');
+  console.log('Tổng số reconnect dự kiến: 5000');
+  
+  return {
+    startTime: Date.now(),
+    totalVUs: 500,
+    reconnectsPerVU: 10
+  };
+}
+
+export function teardown(data) {
+  const duration = Date.now() - data.startTime;
+  const expectedReconnects = data.totalVUs * data.reconnectsPerVU;
+  
+  console.log('✅ Kết thúc Reconnection Test');
+  console.log(`Thời gian chạy: ${(duration / 1000).toFixed(2)}s`);
+  console.log(`Số reconnect dự kiến: ${expectedReconnects}`);
+  
+  // Đề xuất cải thiện
+  suggestReconnectionImprovements();
+}
+
+function suggestReconnectionImprovements() {
+  console.log('💡 Đề xuất cải thiện reconnect:');
+  console.log('1. Implement exponential backoff cho reconnect');
+  console.log('2. Lưu tin nhắn offline khi disconnect');
+  console.log('3. Dùng session tokens thay vì connection-based auth');
+  console.log('4. Optimize handshake process');
+  console.log('5. Thêm health checks thường xuyên');
+}
+```
+
+#### Kịch Bản 5: Mixed Real-World Scenario - "Mô Phỏng Thực Tế"
+
+```javascript
+// test-mixed-realworld.js
+import { WebSocket } from 'k6/ws';
+import { check, sleep } from 'k6';
+import { Trend, Rate, Counter, Gauge } from 'k6/metrics';
+
+// Tất cả metrics
+const metrics = {
+  latency: new Trend('message_latency_ms'),
+  success: new Rate('success_rate'),
+  errors: new Counter('total_errors'),
+  connections: new Gauge('active_connections'),
+  cpu: new Gauge('server_cpu_percent'),
+  memory: new Gauge('server_memory_mb'),
+  throughput: new Trend('messages_per_second'),
+  userSatisfaction: new Rate('user_satisfaction')
+};
+
+// User profiles
+const USER_PROFILES = {
+  ACTIVE_CHATTER: {
+    weight: 0.3, // 30% users
+    behavior: 'active',
+    messageInterval: [1000, 5000], // 1-5 giây
+    onlineDuration: [300000, 1800000] // 5-30 phút
+  },
+  OBSERVER: {
+    weight: 0.5, // 50% users
+    behavior: 'observer',
+    messageInterval: [30000, 120000], // 30-120 giây
+    onlineDuration: [600000, 3600000] // 10-60 phút
+  },
+  SPAMMER: {
+    weight: 0.1, // 10% users
+    behavior: 'spammer',
+    messageInterval: [100, 1000], // 0.1-1 giây
+    onlineDuration: [120000, 600000] // 2-10 phút
+  },
+  UNSTABLE_NETWORK: {
+    weight: 0.1, // 10% users
+    behavior: 'unstable',
+    messageInterval: [2000, 10000],
+    onlineDuration: [180000, 900000], // 3-15 phút
+    disconnectProbability: 0.1 // 10% chance disconnect
+  }
+};
+
+export const options = {
+  scenarios: {
+    // Scenario 1: Ramp up buổi sáng
+    morning_ramp_up: {
+      executor: 'ramping-vus',
+      startVUs: 10,
+      stages: [
+        { duration: '5m', target: 1000 }, // 6:00-6:05
+        { duration: '15m', target: 5000 }, // 6:05-6:20
+        { duration: '10m', target: 8000 }  // 6:20-6:30
+      ],
+      startTime: '0s',
+      gracefulRampDown: '2m',
+      exec: 'userBehavior',
+      tags: { period: 'morning', time: '6:00-6:30' }
+    },
+    
+    // Scenario 2: Giờ cao điểm
+    peak_hours: {
+      executor: 'constant-vus',
+      vus: 10000,
+      duration: '2h',
+      startTime: '30m',
+      exec: 'userBehavior',
+      tags: { period: 'peak', time: '6:30-8:30' }
+    },
+    
+    // Scenario 3: Sự kiện đặc biệt (live stream)
+    special_event: {
+      executor: 'ramping-arrival-rate',
+      startRate: 100,
+      timeUnit: '1s',
+      stages: [
+        { target: 1000, duration: '30s' },  // Spike nhanh
+        { target: 5000, duration: '1m' },
+        { target: 20000, duration: '2m' },  // Peak event
+        { target: 1000, duration: '1m' }    // Giảm dần
+      ],
+      preAllocatedVUs: 5000,
+      maxVUs: 25000,
+      startTime: '3h',
+      exec: 'eventParticipant',
+      tags: { period: 'event', type: 'live_stream' }
+    },
+    
+    // Scenario 4: Buổi tối
+    evening_slow: {
+      executor: 'ramping-vus',
+      startVUs: 5000,
+      stages: [
+        { duration: '1h', target: 2000 },
+        { duration: '2h', target: 500 }
+      ],
+      startTime: '5h',
+      exec: 'userBehavior',
+      tags: { period: 'evening', time: '20:00-23:00' }
+    }
+  },
+  
+  // Thresholds tổng hợp
+  thresholds: {
+    'message_latency_ms{period:morning}': ['p(95) < 100'],
+    'message_latency_ms{period:peak}': ['p(95) < 150'],
+    'message_latency_ms{period:event}': ['p(95) < 200'],
+    'success_rate': ['rate > 0.99'],
+    'active_connections': ['value < 25000']
+  },
+  
+  // Tags toàn cục
+  tags: {
+    project: 'chat_application',
+    environment: 'staging',
+    test_type: 'mixed_realworld'
+  }
+};
+
+// Hành vi user bình thường
+export function userBehavior() {
+  const profile = selectUserProfile();
+  const userId = `user_${__VU}_${__ITER}`;
+  const duration = randomBetween(...profile.onlineDuration);
+  const endTime = Date.now() + duration;
+  
+  console.log(`[${profile.behavior.toUpperCase()}] ${userId} online for ${duration/1000}s`);
+  
+  connectAndChat(userId, profile, endTime);
+}
+
+// Hành vi tham gia event
+export function eventParticipant() {
+  const userId = `event_user_${__VU}`;
+  const profile = {
+    behavior: 'event_participant',
+    messageInterval: [500, 2000], // Rất active
+    reactions: ['like', 'heart', 'laugh', 'wow']
+  };
+  
+  console.log(`[EVENT] ${userId} joining live stream`);
+  
+  const ws = connectWebSocket(userId);
+  let messageCount = 0;
+  const endTime = Date.now() + 300000; // 5 phút
+  
+  // Join event room
+  ws.send(JSON.stringify({
+    type: 'join_event',
+    eventId: 'live_stream_123',
+    userId: userId
+  }));
+  
+  // Gửi message và reactions
+  const interval = setInterval(() => {
+    if (Date.now() > endTime) {
+      clearInterval(interval);
+      ws.close();
+      return;
+    }
+    
+    // 70% tin nhắn, 30% reaction
+    if (Math.random() > 0.3) {
+      const message = {
+        type: 'event_chat',
+        text: generateEventMessage(),
+        eventId: 'live_stream_123',
+        timestamp: Date.now()
+      };
+      ws.send(JSON.stringify(message));
+      messageCount++;
+    } else {
+      const reaction = {
+        type: 'reaction',
+        reaction: profile.reactions[Math.floor(Math.random() * profile.reactions.length)],
+        targetMessageId: `msg_${Math.floor(Math.random() * 1000)}`,
+        timestamp: Date.now()
+      };
+      ws.send(JSON.stringify(reaction));
+    }
+    
+    // Log progress
+    if (messageCount % 50 === 0) {
+      console.log(`[EVENT] ${userId} đã gửi ${messageCount} tin`);
+    }
+  }, randomBetween(...profile.messageInterval));
+}
+
+// Helper functions
+function selectUserProfile() {
+  const rand = Math.random();
+  let cumulative = 0;
+  
+  for (const [name, profile] of Object.entries(USER_PROFILES)) {
+    cumulative += profile.weight;
+    if (rand <= cumulative) {
+      return { ...profile, name };
+    }
+  }
+  
+  return USER_PROFILES.OBSERVER;
+}
+
+function connectAndChat(userId, profile, endTime) {
+  const ws = connectWebSocket(userId);
+  let isConnected = true;
+  
+  // Authentication
+  ws.send(JSON.stringify({
+    type: 'auth',
+    username: userId,
+    profile: profile.name
+  }));
+  
+  // Join random room
+  const rooms = ['general', 'random', 'support', 'tech', 'music'];
+  const room = rooms[Math.floor(Math.random() * rooms.length)];
+  ws.send(JSON.stringify({
+    type: 'join',
+    room: room
+  }));
+  
+  console.log(`[${profile.name}] ${userId} joined ${room}`);
+  
+  // Chat loop
+  const chatInterval = setInterval(() => {
+    if (!isConnected || Date.now() > endTime) {
+      clearInterval(chatInterval);
+      ws.close();
+      return;
+    }
+    
+    // Simulate network issues for unstable users
+    if (profile.name === 'UNSTABLE_NETWORK' && Math.random() < profile.disconnectProbability) {
+      console.log(`[UNSTABLE] ${userId} simulating network drop`);
+      ws.close();
+      isConnected = false;
+      
+      // Reconnect after delay
+      setTimeout(() => {
+        console.log(`[UNSTABLE] ${userId} reconnecting...`);
+        connectAndChat(userId, profile, endTime);
+      }, randomBetween(2000, 10000));
+      
+      return;
+    }
+    
+    // Send message based on profile
+    const message = {
+      type: 'chat',
+      text: generateMessage(profile.behavior),
+      room: room,
+      timestamp: Date.now(),
+      userId: userId
+    };
+    
+    ws.send(JSON.stringify(message));
+    metrics.throughput.add(1);
+    
+  }, randomBetween(...profile.messageInterval));
+  
+  // Handle messages
+  ws.on('message', (data) => {
+    const message = JSON.parse(data);
+    
+    // Calculate latency
+    if (message.originalTimestamp) {
+      const latency = Date.now() - message.originalTimestamp;
+      metrics.latency.add(latency);
+      
+      // User satisfaction (latency < 200ms = satisfied)
+      metrics.userSatisfaction.add(latency < 200);
+    }
+    
+    // Check for errors
+    if (message.type === 'error') {
+      metrics.errors.add(1);
+      console.error(`[${profile.name}] ${userId} error:`, message);
+    }
+  });
+  
+  ws.on('error', (error) => {
+    console.error(`[${profile.name}] ${userId} connection error:`, error);
+    metrics.errors.add(1);
+    isConnected = false;
+  });
+  
+  ws.on('close', () => {
+    console.log(`[${profile.name}] ${userId} disconnected`);
+    isConnected = false;
+  });
+}
+
+function connectWebSocket(userId) {
+  const url = 'ws://localhost:3000';
+  
+  const ws = WebSocket.connect(url, {
+    headers: {
+      'X-User-ID': userId,
+      'X-Client-Version': '1.0.0'
+    }
+  }, (socket) => {
+    metrics.connections.add(1);
+    
+    socket.on('open', () => {
+      metrics.success.add(true);
+    });
+  });
+  
+  return ws;
+}
+
+function generateMessage(behavior) {
+  const messages = {
+    active: [
+      "Hello mọi người!",
+      "Ai online không?",
+      "Hôm nay thế nào?",
+      "Có tin gì mới không?",
+      "Tôi đồng ý với bạn!",
+      "Bạn nghĩ sao về điều này?"
+    ],
+    observer: [
+      "...",
+      "ok",
+      "hi",
+      "👍",
+      "👌",
+      "😂"
+    ],
+    spammer: [
+      "BUY NOW! LIMITED OFFER!",
+      "CLICK HERE: http://spam.com",
+      "EARN $1000 DAILY!!!",
+      "FREE BITCOINS!",
+      "URGENT MESSAGE!"
+    ]
+  };
+  
+  const list = messages[behavior] || messages.observer;
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+function generateEventMessage() {
+  const messages = [
+    "WOW AMAZING! 🔥",
+    "LOVE THIS! ❤️",
+    "GO GO GO! 🚀",
+    "BEST STREAM EVER!",
+    "THANK YOU! 🙏",
+    "HYPEEEE! 🎉",
+    "OMGGGG! 😱",
+    "LET'S GOOO! 💪"
+  ];
+  
+  return messages[Math.floor(Math.random() * messages.length)];
+}
+
+function randomBetween(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Setup và teardown chi tiết
+export function setup() {
+  console.log('🚀 BẮT ĐẦU MIXED REAL-WORLD TEST');
+  console.log('📅 Lịch trình:');
+  console.log('  6:00-6:30  - Morning ramp up');
+  console.log('  6:30-8:30  - Peak hours');
+  console.log('  9:00-9:05  - Special event (live stream)');
+  console.log('  20:00-23:00 - Evening slow period');
+  
+  console.log('👥 User profiles:');
+  Object.entries(USER_PROFILES).forEach(([name, profile]) => {
+    console.log(`  ${name}: ${profile.weight * 100}% - ${profile.behavior}`);
+  });
+  
+  return {
+    startTime: Date.now(),
+    testId: `mixed_test_${Date.now()}`,
+    expectedPattern: 'simulated_24h_compressed'
+  };
+}
+
+export function teardown(data) {
+  const duration = Date.now() - data.startTime;
+  const hours = (duration / (1000 * 60 * 60)).toFixed(1);
+  
+  console.log('✅ KẾT THÚC MIXED REAL-WORLD TEST');
+  console.log(`⏱️  Tổng thời gian: ${hours} giờ`);
+  console.log(`🆔 Test ID: ${data.testId}`);
+  
+  // Generate comprehensive report
+  generateFinalReport(data);
+}
+
+function generateFinalReport(data) {
+  const report = {
+    summary: {
+      testId: data.testId,
+      duration: `${data.duration}`,
+      scenarios: Object.keys(options.scenarios).length,
+      userProfiles: Object.keys(USER_PROFILES).length
+    },
+    performanceInsights: {
+      // Sẽ được điền từ metrics thực tế
+      peakConcurrentUsers: 'N/A',
+      averageLatency: 'N/A',
+      worstCaseLatency: 'N/A',
+      successRate: 'N/A'
+    },
+    systemLimitations: [],
+    recommendations: [
+      "1. Scale horizontally khi concurrent users > 15,000",
+      "2. Optimize database queries cho phòng chat đông",
+      "3. Implement rate limiting cho spam prevention",
+      "4. Add connection pooling cho peak hours",
+      "5. Monitor memory usage cho long-running connections"
+    ],
+    nextSteps: [
+      "Run test trên production-like environment",
+      "Test với geographical distribution",
+      "Test failure scenarios (server crash, network partition)",
+      "Load test với media messages (images, videos)"
+    ]
+  };
+  
+  console.log('📊 FINAL TEST REPORT:');
+  console.log(JSON.stringify(report, null, 2));
+}
+
+// Hàm handle kết quả
+export function handleSummary(data) {
+  const summary = {
+    "mixed_realworld_test.json": JSON.stringify(data),
+    "stdout": textSummary(data, { indent: " ", enableColors: true })
+  };
+  
+  // Tính các metrics tổng hợp
+  const calculatedMetrics = calculateDerivedMetrics(data);
+  summary["calculated_metrics.json"] = JSON.stringify(calculatedMetrics);
+  
+  return summary;
+}
+
+function calculateDerivedMetrics(rawData) {
+  return {
+    derivedMetrics: {
+      userExperienceScore: calculateUXScore(rawData),
+      systemStabilityIndex: calculateStabilityIndex(rawData),
+      costPerUser: estimateInfrastructureCost(rawData),
+      scalabilityPotential: assessScalability(rawData)
+    },
+    businessMetrics: {
+      potentialUserCapacity: estimateMaxUsers(rawData),
+      requiredInfrastructure: estimateInfrastructureNeeds(rawData),
+      slaCompliance: checkSLACompliance(rawData)
+    }
+  };
+}
+
+function calculateUXScore(data) {
+  // Tính điểm trải nghiệm user dựa trên latency, success rate, v.v.
+  const latencyScore = data.metrics.message_latency_ms.values.p95 < 150 ? 100 : 50;
+  const successScore = data.metrics.success_rate.values.rate * 100;
+  const satisfactionScore = data.metrics.user_satisfaction ? data.metrics.user_satisfaction.values.rate * 100 : 80;
+  
+  return (latencyScore * 0.4 + successScore * 0.4 + satisfactionScore * 0.2);
+}
+
+function calculateStabilityIndex(data) {
+  // Tính chỉ số ổn định hệ thống
+  return 85; // Giả lập
+}
+
+function estimateInfrastructureCost(data) {
+  // Ước tính chi phí infrastructure
+  return '$0.05 per user/month'; // Giả lập
+}
+
+function assessScalability(data) {
+  // Đánh giá khả năng scale
+  return 'Good - can handle 2x current load';
+}
+
+function estimateMaxUsers(data) {
+  // Ước tính số user tối đa
+  return 25000;
+}
+
+function estimateInfrastructureNeeds(data) {
+  // Ước tính nhu cầu infrastructure
+  return '5 servers, 2 load balancers';
+}
+
+function checkSLACompliance(data) {
+  // Kiểm tra SLA
+  return '99.9% uptime - compliant';
+}
+
+// Hàm monitor server resources
+function monitorServerResources() {
+  setInterval(async () => {
+    try {
+      // Gọi API metrics của server (giả lập)
+      const serverMetrics = await fetchServerMetrics();
+      
+      metrics.cpu.add(serverMetrics.cpu_percent);
+      metrics.memory.add(serverMetrics.memory_mb);
+      
+      // Cảnh báo nếu vượt ngưỡng
+      if (serverMetrics.cpu_percent > 80) {
+        console.warn(`⚠️ CPU usage high: ${serverMetrics.cpu_percent}%`);
+      }
+      
+      if (serverMetrics.memory_mb > 800) {
+        console.warn(`⚠️ Memory usage high: ${serverMetrics.memory_mb}MB`);
+      }
+      
+    } catch (error) {
+      console.error('Failed to fetch server metrics:', error);
+    }
+  }, 30000); // Mỗi 30 giây
+}
+
+// Khởi động monitoring
+monitorServerResources();
+
+function fetchServerMetrics() {
+  // Giả lập fetch metrics
+  return Promise.resolve({
+    cpu_percent: Math.random() * 100,
+    memory_mb: Math.random() * 1000 + 200
+  });
+}
+
+function textSummary(data, options) {
+  // Giả lập text summary
+  return 'Test summary...';
+}
+```
+
+---
+
+### 📈 CHƯƠNG 4: PHÂN TÍCH KẾT QUẢ VÀ TỐI ƯU HIỆU NĂNG
+
+#### 4.1. Phân Tích Kết Quả Chi Tiết
+
+```javascript
+// performance-analyzer.js
+class PerformanceAnalyzer {
+  constructor(testResults) {
+    this.results = testResults;
+    this.insights = [];
+    this.bottlenecks = [];
+    this.recommendations = [];
+  }
+  
+  analyze() {
+    this.analyzeLatency();
+    this.analyzeThroughput();
+    this.analyzeErrorPatterns();
+    this.analyzeResourceUsage();
+    this.identifyBottlenecks();
+    this.generateRecommendations();
+    
+    return this.generateReport();
+  }
+  
+  analyzeLatency() {
+    const latency = this.results.metrics.message_latency_ms;
+    
+    this.insights.push({
+      type: 'latency',
+      summary: `Độ trễ p95: ${latency.values['p(95)']}ms, p99: ${latency.values['p(99)']}ms`,
+      
+      // Phân tích chi tiết
+      details: {
+        acceptable: latency.values['p(95)'] < 100,
+        good: latency.values['p(95)'] < 50,
+        excellent: latency.values['p(95)'] < 20,
+        
+        // Phân bố
+        distribution: this.calculateLatencyDistribution(latency)
+      }
+    });
+  }
+  
+  calculateLatencyDistribution(latencyMetric) {
+    // Giả sử có histogram data
+    return {
+      under_10ms: '15%',
+      under_50ms: '60%',
+      under_100ms: '85%',
+      under_500ms: '98%',
+      over_500ms: '2%'
+    };
+  }
+  
+  analyzeThroughput() {
+    const messagesPerSecond = this.calculateThroughput();
+    
+    this.insights.push({
+      type: 'throughput',
+      summary: `Throughput trung bình: ${messagesPerSecond.average} msg/s, peak: ${messagesPerSecond.peak} msg/s`,
+      
+      details: {
+        capacityUtilization: `${((messagesPerSecond.average / messagesPerSecond.peak) * 100).toFixed(1)}%`,
+        sustainableLevel: messagesPerSecond.average * 1.5,
+        
+        // Phân tích theo thời gian
+        timeSeriesAnalysis: this.analyzeThroughputOverTime()
+      }
+    });
+  }
+  
+  analyzeThroughputOverTime() {
+    return {
+      trend: 'stable',
+      peakHours: ['6:30-8:30', '12:00-13:00', '18:00-20:00']
+    };
+  }
+  
+  calculateThroughput() {
+    return {
+      average: 150,
+      peak: 500
+    };
+  }
+  
+  analyzeErrorPatterns() {
+    const errors = this.results.metrics.total_errors;
+    
+    if (errors.values.count > 0) {
+      this.insights.push({
+        type: 'errors',
+        severity: errors.values.count > 100 ? 'HIGH' : 'MEDIUM',
+        summary: `Tổng số lỗi: ${errors.values.count}`,
+        
+        patterns: this.identifyErrorPatterns(),
+        
+        // Phân loại lỗi
+        categories: {
+          connection_errors: '45%',
+          authentication_errors: '25%',
+          timeout_errors: '20%',
+          other_errors: '10%'
+        }
+      });
+    }
+  }
+  
+  identifyErrorPatterns() {
+    // Phân tích pattern lỗi theo thời gian, loại user, v.v.
+    return {
+      temporal: 'Lỗi tập trung vào peak hours',
+      userBased: 'Unstable users có tỷ lệ lỗi cao hơn 3x',
+      messageBased: 'Spam messages có tỷ lệ timeout cao',
+      
+      // Correlation analysis
+      correlations: [
+        'Lỗi tăng khi concurrent connections > 15,000',
+        'Timeout xảy ra khi message rate > 500 msg/s',
+        'Memory errors sau 4+ giờ chạy'
+      ]
+    };
+  }
+  
+  analyzeResourceUsage() {
+    // Phân tích resource usage
+    this.insights.push({
+      type: 'resources',
+      summary: 'Resource usage analysis'
+    });
+  }
+  
+  identifyBottlenecks() {
+    const bottlenecks = [];
+    
+    // 1. Database bottlenecks
+    if (this.results.metrics.database_query_time) {
+      bottlenecks.push({
+        type: 'database',
+        location: 'Message persistence layer',
+        symptom: 'Query time increases exponentially with connection count',
+        impact: 'Message latency increases during peak hours'
+      });
+    }
+    
+    // 2. Network bottlenecks
+    if (this.results.metrics.network_throughput) {
+      bottlenecks.push({
+        type: 'network',
+        location: 'WebSocket message broadcasting',
+        symptom: 'Fan-out operations slow with large rooms',
+        impact: 'Users in large rooms experience higher latency'
+      });
+    }
+    
+    // 3. Memory bottlenecks
+    if (this.results.metrics.memory_usage_mb?.values.max > 1024) {
+      bottlenecks.push({
+        type: 'memory',
+        location: 'Connection tracking and message caching',
+        symptom: 'Memory leak during long-running connections',
+        impact: 'Server requires restart every 8-12 hours'
+      });
+    }
+    
+    this.bottlenecks = bottlenecks;
+  }
+  
+  generateRecommendations() {
+    const recommendations = [];
+    
+    // Dựa trên bottlenecks
+    this.bottlenecks.forEach(bottleneck => {
+      switch (bottleneck.type) {
+        case 'database':
+          recommendations.push({
+            priority: 'HIGH',
+            action: 'Implement database connection pooling',
+            expectedImprovement: 'Reduce query time by 40-60%',
+            effort: 'Medium (2-3 developer weeks)'
+          });
+          break;
+          
+        case 'network':
+          recommendations.push({
+            priority: 'MEDIUM',
+            action: 'Optimize WebSocket broadcast with room partitioning',
+            expectedImprovement: 'Reduce fan-out latency by 30%',
+            effort: 'High (4-6 developer weeks)'
+          });
+          break;
+          
+        case 'memory':
+          recommendations.push({
+            priority: 'HIGH',
+            action: 'Fix memory leaks in connection management',
+            expectedImprovement: 'Enable 24/7 uptime without restarts',
+            effort: 'Medium (2-3 developer weeks)'
+          });
+          break;
+      }
+    });
+    
+    // Dựa trên insights
+    if (this.insights.find(i => i.type === 'latency' && !i.details.acceptable)) {
+      recommendations.push({
+        priority: 'CRITICAL',
+        action: 'Optimize message queue processing',
+        expectedImprovement: 'Reduce p95 latency to under 100ms',
+        effort: 'High (3-4 developer weeks)'
+      });
+    }
+    
+    this.recommendations = recommendations;
+  }
+  
+  generateReport() {
+    return {
+      executiveSummary: this.generateExecutiveSummary(),
+      detailedAnalysis: {
+        insights: this.insights,
+        bottlenecks: this.bottlenecks,
+        recommendations: this.recommendations
+      },
+      metricsSnapshot: this.getMetricsSnapshot(),
+      nextSteps: this.getNextSteps()
+    };
+  }
+  
+  generateExecutiveSummary() {
+    const latencyInsight = this.insights.find(i => i.type === 'latency');
+    const errorInsight = this.insights.find(i => i.type === 'errors');
+    
+    return {
+      overallStatus: this.calculateOverallStatus(),
+      keyFindings: [
+        latencyInsight ? `Độ trễ p95: ${latencyInsight.summary}` : 'Latency within acceptable range',
+        errorInsight ? `Lỗi phát hiện: ${errorInsight.summary}` : 'Error rate within acceptable range'
+      ],
+      riskAssessment: this.assessRisks()
+    };
+  }
+  
+  calculateOverallStatus() {
+    let score = 100;
+    
+    // Trừ điểm dựa trên issues
+    const latencyInsight = this.insights.find(i => i.type === 'latency');
+    if (latencyInsight && !latencyInsight.details.acceptable) score -= 30;
+    
+    const errorInsight = this.insights.find(i => i.type === 'errors');
+    if (errorInsight && errorInsight.severity === 'HIGH') score -= 40;
+    
+    if (this.bottlenecks.length > 2) score -= 20;
+    
+    if (score >= 80) return 'EXCELLENT';
+    if (score >= 60) return 'GOOD';
+    if (score >= 40) return 'FAIR';
+    return 'POOR';
+  }
+  
+  assessRisks() {
+    const risks = [];
+    
+    if (this.bottlenecks.some(b => b.type === 'memory')) {
+      risks.push({
+        type: 'Stability',
+        description: 'Memory leak có thể gây server crash trong vòng 12 giờ',
+        impact: 'HIGH',
+        probability: 'MEDIUM',
+        mitigation: 'Priority fix memory management'
+      });
+    }
+    
+    if (this.insights.find(i => i.type === 'latency' && i.details.p95 > 200)) {
+      risks.push({
+        type: 'User Experience',
+        description: 'Độ trễ cao có thể khiến user chuyển sang ứng dụng khác',
+        impact: 'HIGH',
+        probability: 'HIGH',
+        mitigation: 'Optimize message processing pipeline'
+      });
+    }
+    
+    return risks;
+  }
+  
+  getMetricsSnapshot() {
+    return {
+      performance: {
+        p95_latency: this.results.metrics.message_latency_ms?.values['p(95)'] || 'N/A',
+        p99_latency: this.results.metrics.message_latency_ms?.values['p(99)'] || 'N/A',
+        success_rate: this.results.metrics.success_rate?.values.rate || 'N/A',
+        throughput: this.calculateThroughput()
+      },
+      resources: {
+        peak_memory: this.results.metrics.memory_usage_mb?.values.max || 'N/A',
+        peak_cpu: this.results.metrics.server_cpu_percent?.values.max || 'N/A',
+        peak_connections: this.results.metrics.active_connections?.values.max || 'N/A'
+      },
+      reliability: {
+        total_errors: this.results.metrics.total_errors?.values.count || 0,
+        error_rate: this.calculateErrorRate(),
+        uptime_sla: this.calculateSLACompliance()
+      }
+    };
+  }
+  
+  calculateErrorRate() {
+    const total = this.results.metrics.vus?.values.count || 1;
+    const errors = this.results.metrics.total_errors?.values.count || 0;
+    return `${(errors / total * 100).toFixed(2)}%`;
+  }
+  
+  calculateSLACompliance() {
+    const successRate = this.results.metrics.success_rate?.values.rate || 0;
+    return successRate >= 0.999 ? '99.9% - Compliant' : 'Below SLA';
+  }
+  
+  getNextSteps() {
+    return [
+      {
+        immediate: [
+          'Fix critical bottlenecks (priority HIGH)',
+          'Address any stability risks',
+          'Update monitoring alerts based on findings'
+        ]
+      },
+      {
+        short_term: [
+          'Implement performance optimizations',
+          'Update capacity planning based on test results',
+          'Schedule follow-up tests for verification'
+        ]
+      },
+      {
+        long_term: [
+          'Architecture review for scalability',
+          'Consider microservices decomposition',
+          'Plan for 10x growth'
+        ]
+      }
+    ];
+  }
+}
+
+// Sử dụng analyzer
+const sampleResults = {
+  metrics: {
+    message_latency_ms: {
+      values: { 'p(50)': 45, 'p(95)': 120, 'p(99)': 250, max: 1200 }
+    },
+    success_rate: { values: { rate: 0.992 } },
+    total_errors: { values: { count: 85 } },
+    memory_usage_mb: { values: { max: 1100 } },
+    active_connections: { values: { max: 18500 } },
+    vus: { values: { count: 10000 } }
+  }
+};
+
+const analyzer = new PerformanceAnalyzer(sampleResults);
+const report = analyzer.analyze();
+
+console.log('📊 PERFORMANCE ANALYSIS REPORT:');
+console.log(JSON.stringify(report, null, 2));
+```
+
+#### 4.2. Tối Ưu Hiệu Năng Dựa Trên Kết Quả
+
+```javascript
+// performance-optimizations.js
+class ChatOptimizer {
+  constructor(analysisReport) {
+    this.report = analysisReport;
+    this.optimizations = [];
+  }
+  
+  suggestOptimizations() {
+    // 1. Optimizations cho latency
+    this.optimizeLatency();
+    
+    // 2. Optimizations cho throughput
+    this.optimizeThroughput();
+    
+    // 3. Optimizations cho memory
+    this.optimizeMemory();
+    
+    // 4. Optimizations cho reliability
+    this.optimizeReliability();
+    
+    return this.optimizations;
+  }
+  
+  optimizeLatency() {
+    const latency = this.report.detailedAnalysis.insights
+      .find(i => i.type === 'latency');
+    
+    if (latency && latency.details.p95 > 100) {
+      this.optimizations.push({
+        category: 'LATENCY',
+        optimizations: [
+          {
+            name: 'Message Batching',
+            description: 'Batch small messages thay vì gửi từng cái',
+            implementation: `
+// Thay vì:
+socket.emit('message', { text: 'Hi' });
+socket.emit('message', { text: 'How' });
+socket.emit('message', { text: 'Are you?' });
+
+// Batch messages:
+socket.emit('batch', [
+  { text: 'Hi' },
+  { text: 'How' },
+  { text: 'Are you?' }
+]);
+            `,
+            expectedImprovement: 'Giảm 30-50% WebSocket frames'
+          },
+          {
+            name: 'Connection Pooling',
+            description: 'Dùng connection pool cho database queries',
+            implementation: `
+// Sử dụng pool thay vì connection từng cái
+const pool = mysql.createPool({
+  connectionLimit: 10,
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  database: 'chat_db'
+});
+
+// Khi cần query:
+pool.query('SELECT * FROM messages WHERE room = ?', [roomId], callback);
+            `,
+            expectedImprovement: 'Giảm 40-60% query latency'
+          },
+          {
+            name: 'Caching Layer',
+            description: 'Cache tin nhắn gần đây và user sessions',
+            implementation: `
+// Sử dụng Redis cho caching
+const redisClient = redis.createClient();
+
+// Cache recent messages
+async function getRoomMessages(roomId) {
+  const cacheKey = \`messages:\${roomId}\`;
+  const cached = await redisClient.get(cacheKey);
+  
+  if (cached) {
+    return JSON.parse(cached);
+  }
+  
+  // Nếu không có cache, query database
+  const messages = await db.query('SELECT * FROM messages...');
+  
+  // Cache trong 5 phút
+  await redisClient.setex(cacheKey, 300, JSON.stringify(messages));
+  
+  return messages;
+}
+            `,
+            expectedImprovement: 'Giảm 70-90% database load cho read operations'
+          }
+        ]
+      });
+    }
+  }
+  
+  optimizeThroughput() {
+    this.optimizations.push({
+      category: 'THROUGHPUT',
+      optimizations: [
+        {
+          name: 'Horizontal Scaling',
+          description: 'Scale ra nhiều server với load balancer',
+          implementation: `
+// Cấu hình Socket.IO với Redis Adapter
+const io = require('socket.io')(server);
+const redisAdapter = require('socket.io-redis');
+
+io.adapter(redisAdapter({
+  host: 'redis-server',
+  port: 6379
+}));
+
+// Load balancer configuration (nginx)
+/*
+upstream chat_backend {
+  ip_hash; // Giữ user trên cùng server
+  server chat1.example.com;
+  server chat2.example.com;
+  server chat3.example.com;
+}
+*/
+            `,
+          expectedImprovement: 'Tăng throughput tuyến tính với số server'
+        },
+        {
+          name: 'Message Queue',
+          description: 'Dùng message queue cho async processing',
+          implementation: `
+// Sử dụng RabbitMQ/Kafka cho message processing
+const amqp = require('amqplib');
+
+async function processMessage(message) {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
+  
+  const queue = 'chat_messages';
+  await channel.assertQueue(queue, { durable: true });
+  
+  // Gửi message đến queue
+  channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)), {
+    persistent: true
+  });
+  
+  // Worker xử lý message async
+  /*
+  channel.consume(queue, (msg) => {
+    const message = JSON.parse(msg.content.toString());
+    // Process message (save to DB, analytics, etc.)
+    channel.ack(msg);
+  });
+  */
+}
+            `,
+          expectedImprovement: 'Tăng capacity lên 5-10x'
+        }
+      ]
+    });
+  }
+  
+  optimizeMemory() {
+    if (this.report.metricsSnapshot.resources.peak_memory > 800) {
+      this.optimizations.push({
+        category: 'MEMORY',
+        optimizations: [
+          {
+            name: 'Connection Cleanup',
+            description: 'Dọn dẹp connection không hoạt động',
+            implementation: `
+// Heartbeat mechanism để phát hiện zombie connections
+const HEARTBEAT_INTERVAL = 30000; // 30 giây
+const HEARTBEAT_TIMEOUT = 120000; // 2 phút
+
+io.on('connection', (socket) => {
+  let isAlive = true;
+  
+  socket.on('heartbeat', () => {
+    isAlive = true;
+  });
+  
+  const heartbeatInterval = setInterval(() => {
+    if (!isAlive) {
+      console.log('Zombie connection detected:', socket.id);
+      socket.disconnect();
+      return;
+    }
+    
+    isAlive = false;
+    socket.emit('ping');
+  }, HEARTBEAT_INTERVAL);
+  
+  socket.on('pong', () => {
+    isAlive = true;
+  });
+  
+  socket.on('disconnect', () => {
+    clearInterval(heartbeatInterval);
+  });
+});
+            `,
+            expectedImprovement: 'Giảm 30-50% memory usage'
+          },
+          {
+            name: 'Streaming Responses',
+            description: 'Stream dữ liệu thay vì load tất cả vào memory',
+            implementation: `
+// Thay vì:
+const allMessages = await db.query('SELECT * FROM messages WHERE room = ?', [roomId]);
+io.to(roomId).emit('history', allMessages); // Có thể rất lớn
+
+// Sử dụng streaming:
+function streamRoomHistory(socket, roomId) {
+  const stream = db.queryStream('SELECT * FROM messages WHERE room = ? ORDER BY timestamp', [roomId]);
+  
+  let batch = [];
+  stream.on('data', (message) => {
+    batch.push(message);
+    
+    if (batch.length >= 100) {
+      socket.emit('history_batch', batch);
+      batch = [];
+    }
+  });
+  
+  stream.on('end', () => {
+    if (batch.length > 0) {
+      socket.emit('history_batch', batch);
+    }
+    socket.emit('history_complete');
+  });
+}
+            `,
+            expectedImprovement: 'Giảm peak memory usage'
+          }
+        ]
+      });
+    }
+  }
+  
+  optimizeReliability() {
+    this.optimizations.push({
+      category: 'RELIABILITY',
+      optimizations: [
+        {
+          name: 'Circuit Breaker Pattern',
+          description: 'Ngăn cascade failure khi service phụ thuộc bị lỗi',
+          implementation: `
+class CircuitBreaker {
+  constructor(failureThreshold = 5, resetTimeout = 60000) {
+    this.failureThreshold = failureThreshold;
+    this.resetTimeout = resetTimeout;
+    this.failureCount = 0;
+    this.state = 'CLOSED';
+    this.nextAttempt = Date.now();
+  }
+  
+  async execute(serviceCall) {
+    if (this.state === 'OPEN') {
+      if (Date.now() > this.nextAttempt) {
+        this.state = 'HALF_OPEN';
+      } else {
+        throw new Error('Circuit breaker is OPEN');
+      }
+    }
+    
+    try {
+      const result = await serviceCall();
+      this.success();
+      return result;
+    } catch (error) {
+      this.failure();
+      throw error;
+    }
+  }
+  
+  success() {
+    this.failureCount = 0;
+    this.state = 'CLOSED';
+  }
+  
+  failure() {
+    this.failureCount++;
+    if (this.failureCount >= this.failureThreshold) {
+      this.state = 'OPEN';
+      this.nextAttempt = Date.now() + this.resetTimeout;
+    }
+  }
+}
+
+// Sử dụng
+const breaker = new CircuitBreaker();
+try {
+  const userData = await breaker.execute(() => getUserService(userId));
+  // Process user data
+} catch (error) {
+  // Fallback hoặc retry logic
+}
+            `,
+          expectedImprovement: 'Ngăn cascade failures, tăng system resilience'
+        },
+        {
+          name: 'Retry với Exponential Backoff',
+          description: 'Tự động retry failed operations với delay tăng dần',
+          implementation: `
+async function retryWithBackoff(operation, maxRetries = 5) {
+  let lastError;
+  
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      lastError = error;
+      
+      if (attempt === maxRetries) {
+        break;
+      }
+      
+      // Exponential backoff
+      const delay = Math.min(1000 * Math.pow(2, attempt), 30000);
+      console.log(\`Retry attempt \${attempt} after \${delay}ms\`);
+      
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+  
+  throw lastError;
+}
+
+// Sử dụng
+try {
+  const message = await retryWithBackoff(
+    () => sendMessageToService(messageData),
+    3
+  );
+} catch (error) {
+  console.error('Failed after retries:', error);
+}
+            `,
+          expectedImprovement: 'Tăng success rate cho transient failures'
+        }
+      ]
+    });
+  }
+}
+
+// Sử dụng optimizer
+const optimizer = new ChatOptimizer(report);
+const optimizations = optimizer.suggestOptimizations();
+
+console.log('🔧 SUGGESTED OPTIMIZATIONS:');
+optimizations.forEach(category => {
+  console.log(`\n=== ${category.category} ===`);
+  category.optimizations.forEach(opt => {
+    console.log(`\n📌 ${opt.name}`);
+    console.log(`📝 ${opt.description}`);
+    console.log(`🚀 Expected: ${opt.expectedImprovement}`);
+  });
+});
+```
+
+---
+
+### 🎯 CHƯƠNG 5: CHECKLIST VÀ TEMPLATE CHO QA/SDET
+
+#### 5.1. Performance Test Checklist
+
+**CHAT APPLICATION PERFORMANCE TEST CHECKLIST**
+
+##### 🏗️ PRE-TEST PREPARATION
+
+**Environment Setup**
+- [ ] Test environment mirroring production specs
+- [ ] Database with representative data (1M+ messages, 100k+ users)
+- [ ] Monitoring tools installed (Prometheus, Grafana, ELK Stack)
+- [ ] Load balancer configured (if applicable)
+- [ ] CDN/caching layers configured
+
+**Test Data Preparation**
+- [ ] User accounts for different roles (admin, moderator, regular user)
+- [ ] Chat rooms of various sizes (1:1, small group <10, large group 10-100, broadcast 100+)
+- [ ] Message history (last 30 days of activity)
+- [ ] Media files for testing (images, videos, documents)
+
+**Test Script Validation**
+- [ ] Smoke test passed with 10 VUs
+- [ ] Script handles all expected message types (text, image, file, reaction)
+- [ ] Authentication flow tested
+- [ ] Error handling implemented
+- [ ] Data validation in place
+
+##### ⚡ TEST EXECUTION
+
+**Baseline Test (1 hour)**
+- [ ] 100 concurrent users
+- [ ] Measure baseline latency (p95 < 50ms)
+- [ ] Measure baseline throughput
+- [ ] Verify no errors
+- [ ] Document CPU/Memory usage
+
+**Load Test (2 hours)**
+- [ ] 1,000 concurrent users
+- [ ] Ramp up over 30 minutes
+- [ ] Sustain for 1 hour
+- [ ] Ramp down over 30 minutes
+- [ ] Verify p95 latency < 100ms
+- [ ] Document resource usage patterns
+
+**Stress Test (4 hours)**
+- [ ] 10,000 concurrent users
+- [ ] Spike to 20,000 for 5 minutes
+- [ ] Verify system recovers after spike
+- [ ] Check for memory leaks
+- [ ] Document failure points
+
+**Soak/Endurance Test (24+ hours)**
+- [ ] 5,000 concurrent users sustained
+- [ ] Monitor for memory growth
+- [ ] Check connection stability
+- [ ] Verify message persistence
+- [ ] Document any degradation over time
+
+##### 📊 METRICS VALIDATION
+
+**Performance Metrics**
+- [ ] Message latency: p95 < 100ms, p99 < 250ms
+- [ ] Connection establishment: < 2 seconds
+- [ ] Authentication time: < 1 second
+- [ ] Message throughput: Meets business requirements
+- [ ] Error rate: < 0.1%
+
+**Resource Metrics**
+- [ ] CPU usage: < 70% under peak load
+- [ ] Memory usage: Stable over 24 hours
+- [ ] Network throughput: Within infrastructure limits
+- [ ] Database connections: Within pool limits
+- [ ] Disk I/O: Within acceptable range
+
+**Business Metrics**
+- [ ] User satisfaction score: > 90%
+- [ ] Message delivery rate: > 99.9%
+- [ ] Uptime during test: 100%
+- [ ] Recovery time from failure: < 5 minutes
+
+##### 🐛 FAILURE SCENARIOS TESTED
+
+**Network Issues**
+- [ ] Sudden connection loss
+- [ ] Slow network (high latency)
+- [ ] Packet loss (0.1%, 1%, 5%)
+- [ ] DNS failure
+- [ ] Load balancer failure
+
+**Server Issues**
+- [ ] Single node failure
+- [ ] Database connection loss
+- [ ] Cache server failure
+- [ ] File storage failure
+- [ ] Service dependency failure
+
+**Application Issues**
+- [ ] High memory consumption
+- [ ] Database deadlock
+- [ ] Message queue overflow
+- [ ] Rate limiting triggers
+- [ ] Authentication service outage
+
+##### 📈 POST-TEST ANALYSIS
+
+**Data Collection**
+- [ ] All test logs archived
+- [ ] Performance metrics exported
+- [ ] Server monitoring data saved
+- [ ] Error logs collected and categorized
+- [ ] User experience feedback simulated
+
+**Analysis**
+- [ ] Bottlenecks identified and documented
+- [ ] Capacity limits established
+- [ ] Scaling recommendations provided
+- [ ] Cost projections updated
+- [ ] Risk assessment completed
+
+**Reporting**
+- [ ] Executive summary created
+- [ ] Technical details documented
+- [ ] Recommendations prioritized
+- [ ] Action items assigned
+- [ ] Follow-up tests scheduled
+
+##### 🔄 CONTINUOUS TESTING
+
+**Integration**
+- [ ] Tests integrated into CI/CD pipeline
+- [ ] Automated daily performance tests
+- [ ] Performance regression detection
+- [ ] Alerting for performance degradation
+- [ ] Capacity planning automation
+
+**Maintenance**
+- [ ] Test scripts updated with new features
+- [ ] Test data refreshed regularly
+- [ ] Thresholds reviewed quarterly
+- [ ] Tools and frameworks kept current
+- [ ] Team training on performance testing
+
+#### 5.2. Security Test Template
+
+```javascript
+// security-test-template.js
 class ChatSecurityTest {
   constructor() {
-    this.testCategories = {
+    this.tests = {
       authentication: [],
       authorization: [],
       dataProtection: [],
@@ -2573,6 +5240,34 @@ async function joinRoom(ws, roomId) {
   return { success: roomId.startsWith('private_') === false };
 }
 
+async function getMessage(messageId, token) {
+  return { success: false };
+}
+
+async function deleteMessage(messageId, token) {
+  return { success: false };
+}
+
+async function encryptMessage(message) {
+  return 'encrypted_' + message;
+}
+
+async function sendMessageThroughServer(encrypted) {
+  return { plaintext: null };
+}
+
+async function queryDatabase(query) {
+  return { rows: [{ content: 'encrypted_content_abc123...' }] };
+}
+
+async function sendMessage(message) {
+  // Giả lập send message
+}
+
+async function getApplicationLogs() {
+  return ['Log entry 1', 'Log entry 2'];
+}
+
 // Chạy security tests
 const securityTest = new ChatSecurityTest();
 securityTest.runAllTests();
@@ -2602,4 +5297,3 @@ Sau khi hoàn thành lộ trình này, bạn có thể:
 - ✅ **Trở thành Consultant** về Real-time Application Testing
 
 **Chúc bạn thành công trên con đường trở thành QA/SDET chuyên gia về Chat Application! 🎉**
-
