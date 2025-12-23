@@ -2,7 +2,7 @@
 
 ## 📊 Mind Map Overview
 
-![QA Roadmap for Chat App](unnamed.png)
+![QA Roadmap for Chat App](assets/unnamed.png)
 
 ```mermaid
 mindmap
