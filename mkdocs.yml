@@ -57,6 +57,7 @@ nav:
       - SQL Roadmap: sql-roadmap.md
   - QA Resources:
       - QA Chat Application Roadmap: Chat_Application_QA_Roadmap.md
+      - QA Chat Application Roadmap Infographic: Chat_Application_QA_Roadmap_Infographic.html
       - QA Load Test with K6: k6_performance_testing.md
       - QA K6 Grafana roadmap detail: k6-grafana-very-detail.md
       - QA APIs Security Testing: security-testing-apis.md
