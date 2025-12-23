@@ -3841,6 +3841,452 @@ Dùng WebSocket  Thử HTTP Long-Polling
 <li>Thử tắt WiFi để xem Socket.IO reconnect thế nào</li>
 <li>Check memory usage trong tab Memory</li>
 </ol>
+<hr />
+<h2 id="phan-2-security-testing-cho-chat-bo-sung">🔒 PHẦN 2: SECURITY TESTING CHO CHAT (Bổ Sung)<a class="headerlink" href="#phan-2-security-testing-cho-chat-bo-sung" title="Permanent link">&para;</a></h2>
+<h3 id="security-test-framework-code-example">Security Test Framework - Code Example<a class="headerlink" href="#security-test-framework-code-example" title="Permanent link">&para;</a></h3>
+<p>Dưới đây là một framework mẫu để test security cho chat application:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// security-test-framework.js</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">ChatSecurityTest</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">testCategories</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">authentication</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">authorization</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">dataProtection</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">      </span><span class="nx">infrastructure</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">passed</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">failed</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">warnings</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">vulnerabilities</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">runAllTests</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;🔒 BẮT ĐẦU SECURITY TESTING&#39;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">testAuthentication</span><span class="p">();</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">testAuthorization</span><span class="p">();</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">testDataProtection</span><span class="p">();</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">testInfrastructure</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">generateSecurityReport</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">testAuthentication</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;\n=== AUTHENTICATION TESTS ===&#39;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">tests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Token Validation&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Verify JWT tokens are properly validated&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="c1">// Test với token hết hạn</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">expiredToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...&#39;</span><span class="p">;</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">authenticateWithToken</span><span class="p">(</span><span class="nx">expiredToken</span><span class="p">);</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">success</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;HIGH&#39;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Token Replay Prevention&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Prevent reuse of the same token&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getValidToken</span><span class="p">();</span>
+
+<span class="w">          </span><span class="c1">// Sử dụng token nhiều lần</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">result1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">authenticateWithToken</span><span class="p">(</span><span class="nx">token</span><span class="p">);</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">result2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">authenticateWithToken</span><span class="p">(</span><span class="nx">token</span><span class="p">);</span>
+
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="nx">result1</span><span class="p">.</span><span class="nx">success</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">result2</span><span class="p">.</span><span class="nx">success</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MEDIUM&#39;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Brute Force Protection&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Rate limiting on authentication attempts&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">attempts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="w">          </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">attempts</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">authenticateWithToken</span><span class="p">(</span><span class="s1">&#39;invalid_token&#39;</span><span class="p">));</span>
+<span class="w">          </span><span class="p">}</span>
+
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">attempts</span><span class="p">);</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">blockedAttempts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">results</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">blocked</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="nx">blockedAttempts</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">5</span><span class="p">;</span><span class="w"> </span><span class="c1">// Ít nhất 5 lần bị block</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;HIGH&#39;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">];</span>
+
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">executeTests</span><span class="p">(</span><span class="nx">tests</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;authentication&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">testAuthorization</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;\n=== AUTHORIZATION TESTS ===&#39;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">tests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Room Access Control&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Users cannot access rooms they are not members of&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="c1">// User A thử join room của User B</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">userAToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getTokenForUser</span><span class="p">(</span><span class="s1">&#39;user_a&#39;</span><span class="p">);</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">userBRoom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;private_room_user_b&#39;</span><span class="p">;</span>
+
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">ws</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">connectWebSocket</span><span class="p">(</span><span class="nx">userAToken</span><span class="p">);</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">joinRoom</span><span class="p">(</span><span class="nx">ws</span><span class="p">,</span><span class="w"> </span><span class="nx">userBRoom</span><span class="p">);</span>
+
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">success</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;HIGH&#39;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Message Access Control&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Users cannot read messages from private conversations&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">userAToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getTokenForUser</span><span class="p">(</span><span class="s1">&#39;user_a&#39;</span><span class="p">);</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">messageId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;private_msg_user_b_to_user_c&#39;</span><span class="p">;</span>
+
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getMessage</span><span class="p">(</span><span class="nx">messageId</span><span class="p">,</span><span class="w"> </span><span class="nx">userAToken</span><span class="p">);</span>
+
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">success</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;HIGH&#39;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Admin Privilege Escalation&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Regular users cannot perform admin actions&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">regularUserToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getTokenForUser</span><span class="p">(</span><span class="s1">&#39;regular_user&#39;</span><span class="p">);</span>
+
+<span class="w">          </span><span class="c1">// Thử delete message (admin action)</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">deleteMessage</span><span class="p">(</span><span class="s1">&#39;any_message_id&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">regularUserToken</span><span class="p">);</span>
+
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">success</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;CRITICAL&#39;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">];</span>
+
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">executeTests</span><span class="p">(</span><span class="nx">tests</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;authorization&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">testDataProtection</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;\n=== DATA PROTECTION TESTS ===&#39;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">tests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;End-to-End Encryption&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Messages encrypted client-side&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Sensitive information&#39;</span><span class="p">;</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">encrypted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">encryptMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+
+<span class="w">          </span><span class="c1">// Server chỉ thấy ciphertext</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">serverSees</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">sendMessageThroughServer</span><span class="p">(</span><span class="nx">encrypted</span><span class="p">);</span>
+
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="nx">serverSees</span><span class="p">.</span><span class="nx">plaintext</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="nx">message</span><span class="p">;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;HIGH&#39;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Data at Rest Encryption&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Database stores encrypted messages&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="c1">// Query database directly</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">dbResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">queryDatabase</span><span class="p">(</span><span class="s1">&#39;SELECT content FROM messages LIMIT 1&#39;</span><span class="p">);</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">messageContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">dbResult</span><span class="p">.</span><span class="nx">rows</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">content</span><span class="p">;</span>
+
+<span class="w">          </span><span class="c1">// Nội dung phải là ciphertext, không phải plaintext</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">looksLikeCiphertext</span><span class="p">(</span><span class="nx">messageContent</span><span class="p">);</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MEDIUM&#39;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Logging Security&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Sensitive data not logged in plaintext&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">sensitiveMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Credit card: 4111-1111-1111-1111&#39;</span><span class="p">;</span>
+<span class="w">          </span><span class="k">await</span><span class="w"> </span><span class="nx">sendMessage</span><span class="p">(</span><span class="nx">sensitiveMessage</span><span class="p">);</span>
+
+<span class="w">          </span><span class="c1">// Check application logs</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">logs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">getApplicationLogs</span><span class="p">();</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">containsSensitiveData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">logs</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">log</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span>
+<span class="w">            </span><span class="nx">log</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;4111-1111-1111-1111&#39;</span><span class="p">)</span>
+<span class="w">          </span><span class="p">);</span>
+
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="nx">containsSensitiveData</span><span class="p">;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;HIGH&#39;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">];</span>
+
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">executeTests</span><span class="p">(</span><span class="nx">tests</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;dataProtection&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">testInfrastructure</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;\n=== INFRASTRUCTURE TESTS ===&#39;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">tests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;WebSocket Security (WSS)&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;WebSocket connections use TLS&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://localhost:3000/socket.io/&#39;</span><span class="p">);</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">usesWSS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s1">&#39;wss://&#39;</span><span class="p">);</span>
+
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="nx">usesWSS</span><span class="p">;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;HIGH&#39;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;CORS Configuration&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Proper CORS headers to prevent CSRF&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;http://localhost:3000/&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Origin</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://malicious-site.com&#39;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">          </span><span class="p">});</span>
+
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">corsHeader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;Access-Control-Allow-Origin&#39;</span><span class="p">);</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="nx">corsHeader</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// Không được phép tất cả domains</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MEDIUM&#39;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;DDoS Protection&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Rate limiting on WebSocket connections&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">connections</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="w">          </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">connections</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">connectWebSocket</span><span class="p">());</span>
+<span class="w">          </span><span class="p">}</span>
+
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">allSettled</span><span class="p">(</span><span class="nx">connections</span><span class="p">);</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">rejected</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">results</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;rejected&#39;</span><span class="p">);</span>
+
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="nx">rejected</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Một số phải bị reject</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;HIGH&#39;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">];</span>
+
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">executeTests</span><span class="p">(</span><span class="nx">tests</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;infrastructure&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">executeTests</span><span class="p">(</span><span class="nx">testCases</span><span class="p">,</span><span class="w"> </span><span class="nx">category</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">testCase</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">testCases</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`\nRunning: </span><span class="si">${</span><span class="nx">testCase</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Description: </span><span class="si">${</span><span class="nx">testCase</span><span class="p">.</span><span class="nx">description</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">testCase</span><span class="p">.</span><span class="nx">test</span><span class="p">();</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`✅ PASSED: </span><span class="si">${</span><span class="nx">testCase</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">passed</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`❌ FAILED: </span><span class="si">${</span><span class="nx">testCase</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">failed</span><span class="o">++</span><span class="p">;</span>
+
+<span class="w">          </span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">vulnerabilities</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+<span class="w">            </span><span class="nx">category</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="nx">testCase</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">severity</span><span class="o">:</span><span class="w"> </span><span class="nx">testCase</span><span class="p">.</span><span class="nx">severity</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="nx">testCase</span><span class="p">.</span><span class="nx">description</span>
+<span class="w">          </span><span class="p">});</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`⚠️ ERROR in </span><span class="si">${</span><span class="nx">testCase</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">:`</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">warnings</span><span class="o">++</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">generateSecurityReport</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="mf">50</span><span class="p">));</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;🔒 SECURITY TEST REPORT&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="mf">50</span><span class="p">));</span>
+
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`\n📊 Summary:`</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Passed: </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">passed</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Failed: </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">failed</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Warnings: </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">warnings</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">vulnerabilities</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`\n⚠️ VULNERABILITIES FOUND:`</span><span class="p">);</span>
+
+<span class="w">      </span><span class="c1">// Nhóm theo severity</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">bySeverity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">vulnerabilities</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">acc</span><span class="p">,</span><span class="w"> </span><span class="nx">vuln</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">acc</span><span class="p">[</span><span class="nx">vuln</span><span class="p">.</span><span class="nx">severity</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">acc</span><span class="p">[</span><span class="nx">vuln</span><span class="p">.</span><span class="nx">severity</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">[];</span>
+<span class="w">        </span><span class="nx">acc</span><span class="p">[</span><span class="nx">vuln</span><span class="p">.</span><span class="nx">severity</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">vuln</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">acc</span><span class="p">;</span>
+<span class="w">      </span><span class="p">},</span><span class="w"> </span><span class="p">{});</span>
+
+<span class="w">      </span><span class="c1">// In theo thứ tự severity</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">severityOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;CRITICAL&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;HIGH&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;MEDIUM&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;LOW&#39;</span><span class="p">];</span>
+
+<span class="w">      </span><span class="nx">severityOrder</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">severity</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">bySeverity</span><span class="p">[</span><span class="nx">severity</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`\n</span><span class="si">${</span><span class="s1">&#39;=&#39;</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="mf">30</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">          </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">severity</span><span class="si">}</span><span class="sb"> SEVERITY (</span><span class="si">${</span><span class="nx">bySeverity</span><span class="p">[</span><span class="nx">severity</span><span class="p">].</span><span class="nx">length</span><span class="si">}</span><span class="sb"> found)`</span><span class="p">);</span>
+<span class="w">          </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">.</span><span class="nx">repeat</span><span class="p">(</span><span class="mf">30</span><span class="p">));</span>
+
+<span class="w">          </span><span class="nx">bySeverity</span><span class="p">[</span><span class="nx">severity</span><span class="p">].</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">vuln</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`\n</span><span class="si">${</span><span class="nx">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="si">}</span><span class="sb">. </span><span class="si">${</span><span class="nx">vuln</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`   Category: </span><span class="si">${</span><span class="nx">vuln</span><span class="p">.</span><span class="nx">category</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`   Description: </span><span class="si">${</span><span class="nx">vuln</span><span class="p">.</span><span class="nx">description</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">          </span><span class="p">});</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Recommendations</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`\n💡 RECOMMENDATIONS:`</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">recommendations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">vulnerabilities</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">v</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">v</span><span class="p">.</span><span class="nx">severity</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;CRITICAL&#39;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">recommendations</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">priority</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;IMMEDIATE&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">action</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Fix critical vulnerabilities before deployment&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">details</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Critical vulnerabilities can lead to complete system compromise&#39;</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">vulnerabilities</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">v</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">v</span><span class="p">.</span><span class="nx">category</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;authentication&#39;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">recommendations</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">priority</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;HIGH&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">action</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Review and strengthen authentication mechanisms&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">details</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Authentication vulnerabilities are primary attack vectors&#39;</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">failed</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">passed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">recommendations</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">priority</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;HIGH&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">action</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Conduct comprehensive security review&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">details</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;High failure rate indicates systemic security issues&#39;</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">recommendations</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">rec</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`\n[</span><span class="si">${</span><span class="nx">rec</span><span class="p">.</span><span class="nx">priority</span><span class="si">}</span><span class="sb">] </span><span class="si">${</span><span class="nx">rec</span><span class="p">.</span><span class="nx">action</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`   </span><span class="si">${</span><span class="nx">rec</span><span class="p">.</span><span class="nx">details</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="c1">// Overall assessment</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">securityScore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">calculateSecurityScore</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`\n🎯 OVERALL SECURITY SCORE: </span><span class="si">${</span><span class="nx">securityScore</span><span class="si">}</span><span class="sb">/100`</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">securityScore</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">90</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Status: EXCELLENT - Ready for production&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">securityScore</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">70</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Status: GOOD - Address high severity issues&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">securityScore</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">50</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Status: FAIR - Significant improvements needed&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Status: POOR - Not production ready&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">calculateSecurityScore</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">totalTests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">passed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">failed</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">totalTests</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">passed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">totalTests</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Penalties for severity</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">severityPenalties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s1">&#39;CRITICAL&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">20</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;HIGH&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">10</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;MEDIUM&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;LOW&#39;</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">vulnerabilities</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">vuln</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">score</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="nx">severityPenalties</span><span class="p">[</span><span class="nx">vuln</span><span class="p">.</span><span class="nx">severity</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">score</span><span class="p">)));</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">looksLikeCiphertext</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Đơn giản kiểm tra xem có phải ciphertext không</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">32</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="sr">/[A-Za-z0-9+/=]{32,}/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Helper functions (giả lập)</span>
+<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">authenticateWithToken</span><span class="p">(</span><span class="nx">token</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Giả lập authentication</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="nx">token</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;invalid_token&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">blocked</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">getTokenForUser</span><span class="p">(</span><span class="nx">username</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="sb">`token_for_</span><span class="si">${</span><span class="nx">username</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">connectWebSocket</span><span class="p">(</span><span class="nx">token</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Giả lập WebSocket connection</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">connected</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">joinRoom</span><span class="p">(</span><span class="nx">ws</span><span class="p">,</span><span class="w"> </span><span class="nx">roomId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Giả lập join room</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="nx">roomId</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s1">&#39;private_&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="c1">// Chạy security tests</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">securityTest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ChatSecurityTest</span><span class="p">();</span>
+<span class="nx">securityTest</span><span class="p">.</span><span class="nx">runAllTests</span><span class="p">();</span>
+</code></pre></div>
+<hr />
+<h2 id="ket-luan-va-lo-trinh-tiep-theo">🚀 KẾT LUẬN VÀ LỘ TRÌNH TIẾP THEO<a class="headerlink" href="#ket-luan-va-lo-trinh-tiep-theo" title="Permanent link">&para;</a></h2>
+<h3 id="tong-ket-lo-trinh-a-hoc">Tổng Kết Lộ Trình Đã Học<a class="headerlink" href="#tong-ket-lo-trinh-a-hoc" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Thời Gian</th>
+<th style="text-align: left;">Nội Dung</th>
+<th style="text-align: left;">Kết Quả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tháng 1-2</strong></td>
+<td style="text-align: left;">Nắm vững WebSocket, Socket.IO, xây dựng ứng dụng chat cơ bản</td>
+<td style="text-align: left;">Hiểu rõ real-time concepts, có thể build chat app đơn giản</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tháng 3-4</strong></td>
+<td style="text-align: left;">Hiểu sâu về performance testing với k6, các metrics đặc thù</td>
+<td style="text-align: left;">Viết được performance test scripts, đo được các metrics quan trọng</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tháng 5-6</strong></td>
+<td style="text-align: left;">Thực hành 5 kịch bản test thực tế, phân tích kết quả</td>
+<td style="text-align: left;">Thành thạo các test scenarios: spike, soak, burst</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Tháng 7-8</strong></td>
+<td style="text-align: left;">Security testing, optimization, trở thành QA/SDET chuyên sâu</td>
+<td style="text-align: left;">Master security testing, có thể consult với backend/security teams</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tiep-theo">📈 Tiếp Theo<a class="headerlink" href="#tiep-theo" title="Permanent link">&para;</a></h3>
+<p>Sau khi hoàn thành lộ trình này, bạn có thể:</p>
+<ul>
+<li>✅ <strong>Thiết kế Performance Test</strong> cho các ứng dụng real-time khác (gaming, collaboration tools)</li>
+<li>✅ <strong>Đào sâu vào Security Testing</strong> với OWASP Top 10 cho WebSocket</li>
+<li>✅ <strong>Học thêm về Distributed Systems</strong> (message queues, load balancing)</li>
+<li>✅ <strong>Mở rộng sang Mobile Chat Testing</strong> (native apps, push notifications)</li>
+<li>✅ <strong>Trở thành Consultant</strong> về Real-time Application Testing</li>
+</ul>
+<p><strong>Chúc bạn thành công trên con đường trở thành QA/SDET chuyên gia về Chat Application! 🎉</strong></p>
 
 
 
