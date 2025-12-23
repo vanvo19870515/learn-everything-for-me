@@ -5297,3 +5297,2259 @@ Sau khi hoàn thành lộ trình này, bạn có thể:
 - ✅ **Trở thành Consultant** về Real-time Application Testing
 
 **Chúc bạn thành công trên con đường trở thành QA/SDET chuyên gia về Chat Application! 🎉**
+
+---
+
+## 🚀 PHẦN 3: TÍCH HỢP VÀO CI/CD & MONITORING
+
+### 🚀 Tích Hợp Performance Test vào CI/CD Pipeline
+
+#### 1.1 Kiến Trúc CI/CD Cho Chat Application
+
+**Mô hình CI/CD pipeline hoàn chỉnh:**
+
+```text
+Git Repository (GitHub/GitLab/Bitbucket)
+        ↓
+    Webhook Trigger
+        ↓
+    CI/CD Server (Jenkins/GitHub Actions/GitLab CI)
+        ↓
+        ├── Stage 1: Code Quality
+        │   ├── ESLint/Prettier
+        │   ├── Unit Tests (Jest/Mocha)
+        │   └── Security Scan (SAST)
+        │
+        ├── Stage 2: Build & Containerize
+        │   ├── Build Docker Image
+        │   ├── Push to Container Registry
+        │   └── Generate Version Tag
+        │
+        ├── Stage 3: Performance Gate
+        │   ├── Deploy to Test Environment
+        │   ├── Run Smoke Tests (k6)
+        │   ├── Run Load Tests (k6)
+        │   └── Performance Threshold Check
+        │
+        ├── Stage 4: Staging Deployment
+        │   ├── Deploy to Staging
+        │   ├── Run Integration Tests
+        │   └── Security Tests (DAST)
+        │
+        └── Stage 5: Production Deployment
+            ├── Blue-Green Deployment
+            ├── Canary Release (10% → 50% → 100%)
+            └── Post-Deployment Validation
+```
+
+**Ví dụ cụ thể với GitHub Actions:**
+
+```yaml
+# .github/workflows/chat-performance.yml
+name: Chat Application Performance CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Chạy performance test hàng ngày lúc 2AM
+    - cron: '0 2 * * *'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # JOB 1: BUILD AND UNIT TESTS
+  build-and-test:
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.meta.outputs.tags }}
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run unit tests
+      run: |
+        npm test
+        npm run test:coverage
+        
+    - name: Build Docker image
+      run: |
+        docker build -t chat-app:${{ github.sha }} .
+        
+    - name: Run security scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'chat-app:${{ github.sha }}'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        
+    - name: Upload security results
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  # JOB 2: PERFORMANCE TEST GATE
+  performance-gate:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    services:
+      # Khởi động dependencies cho test
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_PASSWORD: testpassword
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Start chat application
+      run: |
+        docker run -d \
+          --name chat-app-test \
+          -p 3000:3000 \
+          -e REDIS_URL=redis://localhost:6379 \
+          -e DATABASE_URL=postgresql://postgres:testpassword@localhost:5432/testdb \
+          chat-app:${{ github.sha }}
+          
+        # Chờ ứng dụng khởi động
+        timeout 60 bash -c 'until curl -s http://localhost:3000/health > /dev/null; do sleep 1; done'
+    
+    - name: Install k6
+      uses: grafana/k6-action@v0.3.0
+      with:
+        install-only: true
+    
+    - name: Run smoke test (fast feedback)
+      run: |
+        k6 run --out json=smoke-results.json \
+          --summary-export=smoke-summary.json \
+          tests/performance/smoke-test.js
+        
+        # Kiểm tra kết quả cơ bản
+        if ! node scripts/check-smoke-results.js smoke-summary.json; then
+          echo "❌ Smoke test failed"
+          exit 1
+        fi
+    
+    - name: Run load test (pull request only)
+      if: github.event_name == 'pull_request'
+      run: |
+        k6 run --out json=load-results.json \
+          --out influxdb=http://localhost:8086/k6 \
+          tests/performance/load-test.js
+        
+        # Generate performance report
+        node scripts/generate-performance-report.js load-results.json > performance-report.md
+        
+        # Upload report như artifact
+        echo "performance-report<<EOF" >> $GITHUB_STEP_SUMMARY
+        cat performance-report.md >> $GITHUB_STEP_SUMMARY
+        echo "EOF" >> $GITHUB_STEP_SUMMARY
+    
+    - name: Performance regression check
+      run: |
+        # So sánh với baseline
+        node scripts/check-performance-regression.js \
+          --current load-results.json \
+          --baseline baseline-results.json \
+          --threshold 0.15  # Cho phép 15% degradation
+        
+        if [ $? -ne 0 ]; then
+          echo "::warning::Performance regression detected!"
+          echo "::warning title=Performance Regression::Check the performance report for details"
+        fi
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-results
+        path: |
+          smoke-results.json
+          load-results.json
+          performance-report.md
+        retention-days: 30
+
+  # JOB 3: DEPLOY TO STAGING (chỉ trên main branch)
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: [build-and-test, performance-gate]
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Deploy to staging
+      run: |
+        # Deploy với Helm/Kubernetes
+        helm upgrade --install \
+          chat-app-staging \
+          ./charts/chat-app \
+          --namespace staging \
+          --set image.tag=${{ github.sha }} \
+          --set replicaCount=3 \
+          --wait
+        
+    - name: Run production-like load test
+      run: |
+        # Test với production-like traffic
+        k6 run \
+          --env STAGING_URL=https://staging.chat.example.com \
+          tests/performance/production-simulation.js \
+          --out cloud  # Gửi kết quả lên k6 Cloud
+        
+    - name: Wait for deployment stabilization
+      run: |
+        # Monitor deployment 5 phút
+        timeout 300 bash -c '
+          while true; do
+            healthy_pods=$(kubectl get pods -n staging -l app=chat-app \
+              --field-selector=status.phase=Running | grep "2/2" | wc -l)
+            if [ "$healthy_pods" -eq 3 ]; then
+              echo "✅ All pods healthy"
+              break
+            fi
+            sleep 10
+          done
+        '
+        
+    - name: Generate deployment report
+      run: |
+        node scripts/generate-deployment-report.js > deployment-report.md
+        cat deployment-report.md
+
+  # JOB 4: CANARY DEPLOYMENT TO PRODUCTION
+  canary-deployment:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Deploy 10% canary
+      run: |
+        # Deploy 10% traffic đến version mới
+        kubectl apply -f canary/10-percent.yaml
+        
+        # Monitor canary 10 phút
+        timeout 600 bash -c '
+          while true; do
+            error_rate=$(node scripts/check-canary-metrics.js)
+            if (( $(echo "$error_rate > 0.05" | bc -l) )); then
+              echo "❌ Canary error rate too high: $error_rate"
+              kubectl apply -f canary/rollback.yaml
+              exit 1
+            fi
+            sleep 30
+          done
+        '
+    
+    - name: Deploy 50% canary
+      if: success()
+      run: |
+        kubectl apply -f canary/50-percent.yaml
+        timeout 300 bash -c '
+          while true; do
+            latency_p95=$(node scripts/get-latency-metric.js)
+            if (( $(echo "$latency_p95 > 200" | bc -l) )); then
+              echo "❌ Latency too high: $latency_p95"
+              kubectl apply -f canary/rollback.yaml
+              exit 1
+            fi
+            sleep 30
+          done
+        '
+    
+    - name: Full rollout
+      if: success()
+      run: |
+        kubectl apply -f canary/100-percent.yaml
+        echo "✅ Deployment completed successfully!"
+```
+
+**Script kiểm tra kết quả performance:**
+
+```javascript
+// scripts/check-performance-regression.js
+const fs = require('fs');
+const path = require('path');
+
+class PerformanceRegressionChecker {
+  constructor(options = {}) {
+    this.threshold = options.threshold || 0.1; // 10%
+    this.metricsToCheck = [
+      'http_req_duration{expected_response:true}',
+      'ws_connecting',
+      'ws_msgs_received',
+      'iteration_duration'
+    ];
+  }
+
+  async check(currentFile, baselineFile) {
+    const current = this.loadResults(currentFile);
+    const baseline = this.loadResults(baselineFile);
+    
+    const regressions = [];
+    
+    for (const metric of this.metricsToCheck) {
+      const currentValue = this.extractMetric(current, metric);
+      const baselineValue = this.extractMetric(baseline, metric);
+      
+      if (currentValue && baselineValue) {
+        const diff = (currentValue - baselineValue) / baselineValue;
+        
+        if (diff > this.threshold) {
+          regressions.push({
+            metric,
+            baseline: baselineValue,
+            current: currentValue,
+            degradation: `${(diff * 100).toFixed(2)}%`,
+            threshold: `${(this.threshold * 100).toFixed(2)}%`
+          });
+        }
+      }
+    }
+    
+    return {
+      hasRegression: regressions.length > 0,
+      regressions,
+      summary: this.generateSummary(current, baseline)
+    };
+  }
+
+  loadResults(filePath) {
+    const raw = fs.readFileSync(filePath, 'utf8');
+    return JSON.parse(raw);
+  }
+
+  extractMetric(results, metricPattern) {
+    // Tìm metric trong kết quả k6
+    for (const [key, value] of Object.entries(results.metrics)) {
+      if (key.includes(metricPattern)) {
+        return value.values['p(95)'] || value.values.avg;
+      }
+    }
+    return null;
+  }
+
+  generateSummary(current, baseline) {
+    return {
+      timestamp: new Date().toISOString(),
+      current: {
+        vus: current.metrics.vus_max.values.max,
+        iterations: current.metrics.iterations.values.count,
+        duration: current.metrics.iteration_duration.values.avg
+      },
+      baseline: {
+        vus: baseline.metrics.vus_max.values.max,
+        iterations: baseline.metrics.iterations.values.count,
+        duration: baseline.metrics.iteration_duration.values.avg
+      }
+    };
+  }
+}
+
+// Sử dụng
+const checker = new PerformanceRegressionChecker({ threshold: 0.15 });
+const result = await checker.check(
+  'load-results.json',
+  'baseline-results.json'
+);
+
+if (result.hasRegression) {
+  console.error('⚠️ Performance regression detected!');
+  console.table(result.regressions);
+  process.exit(1);
+} else {
+  console.log('✅ No performance regression detected');
+  process.exit(0);
+}
+```
+
+#### 1.2 Cấu hình k6 trong Docker
+
+**Dockerfile cho k6:**
+
+```dockerfile
+# Dockerfile.k6
+FROM grafana/k6:latest
+
+# Cài đặt thêm các package cần thiết
+USER root
+RUN apk add --no-cache nodejs npm curl jq bash
+
+# Copy test scripts
+COPY tests/performance /scripts
+COPY scripts /scripts/scripts
+
+# Copy package.json nếu cần các thư viện Node.js
+COPY package*.json /scripts/
+RUN cd /scripts && npm ci --only=production
+
+# Thiết lập working directory
+WORKDIR /scripts
+
+# Entrypoint mặc định
+ENTRYPOINT ["k6"]
+CMD ["run", "smoke-test.js"]
+```
+
+**Docker Compose cho testing environment:**
+
+```yaml
+# docker-compose.performance.yml
+version: '3.8'
+
+services:
+  chat-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=test
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgres://postgres:password@postgres:5432/chat_test
+    depends_on:
+      - redis
+      - postgres
+      - influxdb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  k6-master:
+    build:
+      context: .
+      dockerfile: Dockerfile.k6
+    environment:
+      - K6_STATSD_ENABLE_TAGS=true
+      - K6_OUT=influxdb=http://influxdb:8086/k6
+    volumes:
+      - ./tests/performance:/scripts
+      - ./test-data:/test-data
+    depends_on:
+      - chat-app
+    command: run --out influxdb=http://influxdb:8086/k6 /scripts/load-test.js
+
+  k6-slaves:
+    scale: 3
+    build:
+      context: .
+      dockerfile: Dockerfile.k6
+    environment:
+      - K6_MODE=worker
+      - K6_MASTER_NODE=k6-master:6565
+    depends_on:
+      - k6-master
+    command: run --out influxdb=http://influxdb:8086/k6 /scripts/load-test.js
+
+  influxdb:
+    image: influxdb:2.0
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=password123
+      - DOCKER_INFLUXDB_INIT_ORG=myorg
+      - DOCKER_INFLUXDB_INIT_BUCKET=k6
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=mytoken
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - influxdb
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+
+  postgres:
+    image: postgres:14
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=chat_test
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  influxdb-data:
+  grafana-data:
+  postgres-data:
+```
+
+---
+
+### 📊 Cách Monitor Chat Application trong Production
+
+#### 2.1 Cấu trúc Monitoring Stack
+
+**Kiến trúc hoàn chỉnh:**
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                    Application Layer                        │
+│  Chat App (Node.js) ───┤ Socket.IO ───┤ Redis ───┤ Postgres│
+└─────────────────┬───────────────────────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Observability Layer                       │
+│  Prometheus Metrics ───┤ Distributed Tracing ───┤ Logging   │
+└─────────────────┬───────────────────────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Visualization Layer                       │
+│  Grafana Dashboards ───┤ AlertManager ───┤ Custom Reports   │
+└─────────────────┬───────────────────────────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Alerting & Action Layer                   │
+│  PagerDuty/Slack ───┤ Auto-scaling ───┤ Runbooks/SOPs       │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### 2.2 Metrics Collector Implementation
+
+```javascript
+// monitoring/metrics-collector.js
+const prometheus = require('prom-client');
+const { EventEmitter } = require('events');
+
+class ChatMetricsCollector extends EventEmitter {
+  constructor() {
+    super();
+    
+    // Đăng ký default metrics
+    prometheus.collectDefaultMetrics({
+      timeout: 5000,
+      register: prometheus.register
+    });
+    
+    // 1. Connection Metrics
+    this.connectionMetrics = {
+      activeConnections: new prometheus.Gauge({
+        name: 'chat_active_connections',
+        help: 'Number of active WebSocket connections',
+        labelNames: ['namespace', 'room']
+      }),
+      
+      connectionRate: new prometheus.Counter({
+        name: 'chat_connections_total',
+        help: 'Total number of WebSocket connections',
+        labelNames: ['status'] // established, failed, rejected
+      }),
+      
+      connectionDuration: new prometheus.Histogram({
+        name: 'chat_connection_duration_seconds',
+        help: 'Duration of WebSocket connections',
+        buckets: [1, 5, 15, 30, 60, 120, 300, 600, 1800, 3600]
+      })
+    };
+    
+    // 2. Message Metrics
+    this.messageMetrics = {
+      messagesReceived: new prometheus.Counter({
+        name: 'chat_messages_received_total',
+        help: 'Total messages received from clients',
+        labelNames: ['type'] // text, image, file, command
+      }),
+      
+      messagesSent: new prometheus.Counter({
+        name: 'chat_messages_sent_total',
+        help: 'Total messages sent to clients',
+        labelNames: ['type', 'destination'] // broadcast, unicast, room
+      }),
+      
+      messageLatency: new prometheus.Histogram({
+        name: 'chat_message_latency_seconds',
+        help: 'End-to-end message latency',
+        buckets: [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1, 2, 5]
+      }),
+      
+      messageSize: new prometheus.Histogram({
+        name: 'chat_message_size_bytes',
+        help: 'Size of messages in bytes',
+        buckets: [100, 500, 1000, 5000, 10000, 50000, 100000]
+      })
+    };
+    
+    // 3. Room Metrics
+    this.roomMetrics = {
+      activeRooms: new prometheus.Gauge({
+        name: 'chat_active_rooms',
+        help: 'Number of active chat rooms',
+        labelNames: ['type'] // private, group, public
+      }),
+      
+      roomParticipants: new prometheus.Gauge({
+        name: 'chat_room_participants',
+        help: 'Number of participants per room',
+        labelNames: ['room_id']
+      }),
+      
+      roomMessageRate: new prometheus.Gauge({
+        name: 'chat_room_message_rate',
+        help: 'Messages per second per room',
+        labelNames: ['room_id']
+      })
+    };
+    
+    // 4. Business Metrics
+    this.businessMetrics = {
+      activeUsers: new prometheus.Gauge({
+        name: 'chat_active_users',
+        help: 'Number of active users in last 5 minutes'
+      }),
+      
+      userRetention: new prometheus.Histogram({
+        name: 'chat_user_session_duration_minutes',
+        help: 'User session duration in minutes',
+        buckets: [1, 5, 10, 30, 60, 120, 240, 480, 720, 1440]
+      }),
+      
+      messagesPerUser: new prometheus.Histogram({
+        name: 'chat_messages_per_user',
+        help: 'Messages sent per user per session',
+        buckets: [1, 5, 10, 50, 100, 500, 1000]
+      })
+    };
+    
+    // 5. System Health Metrics
+    this.systemMetrics = {
+      memoryUsage: new prometheus.Gauge({
+        name: 'chat_memory_usage_bytes',
+        help: 'Memory usage of the chat application'
+      }),
+      
+      eventLoopLag: new prometheus.Gauge({
+        name: 'chat_event_loop_lag_seconds',
+        help: 'Event loop lag in seconds'
+      }),
+      
+      gcDuration: new prometheus.Histogram({
+        name: 'chat_gc_duration_seconds',
+        help: 'Garbage collection duration',
+        buckets: [0.001, 0.01, 0.1, 0.5, 1, 2]
+      })
+    };
+    
+    this.startCollection();
+  }
+  
+  startCollection() {
+    // Thu thập memory usage mỗi 5 giây
+    setInterval(() => {
+      const memory = process.memoryUsage();
+      this.systemMetrics.memoryUsage.set(memory.heapUsed);
+    }, 5000);
+    
+    // Thu thập event loop lag
+    setInterval(() => {
+      const start = process.hrtime();
+      setImmediate(() => {
+        const delta = process.hrtime(start);
+        const lag = delta[0] * 1e9 + delta[1];
+        this.systemMetrics.eventLoopLag.set(lag / 1e9);
+      });
+    }, 1000);
+    
+    // Thu thập GC stats
+    if (global.gc) {
+      const gc = require('gc-stats')();
+      gc.on('stats', (stats) => {
+        this.systemMetrics.gcDuration.observe(stats.pauseMS / 1000);
+      });
+    }
+  }
+  
+  // Phương thức để sử dụng trong ứng dụng
+  trackConnection(socket, roomId) {
+    const startTime = Date.now();
+    const namespace = socket.nsp.name;
+    
+    this.connectionMetrics.activeConnections.inc({ namespace, room: roomId });
+    this.connectionMetrics.connectionRate.inc({ status: 'established' });
+    
+    socket.on('disconnect', (reason) => {
+      const duration = (Date.now() - startTime) / 1000;
+      
+      this.connectionMetrics.activeConnections.dec({ namespace, room: roomId });
+      this.connectionMetrics.connectionDuration.observe(duration);
+      this.connectionMetrics.connectionRate.inc({ status: 'closed' });
+      
+      // Track reason for analytics
+      this.emit('connection_closed', {
+        socketId: socket.id,
+        duration,
+        reason,
+        roomId
+      });
+    });
+  }
+  
+  trackMessage(socket, message, roomId) {
+    const messageType = message.type || 'text';
+    const startTime = message.timestamp || Date.now();
+    
+    this.messageMetrics.messagesReceived.inc({ type: messageType });
+    
+    // Tính latency khi message được xử lý xong
+    const trackDelivery = () => {
+      const latency = (Date.now() - startTime) / 1000;
+      this.messageMetrics.messageLatency.observe(latency);
+      
+      if (message.content) {
+        const size = Buffer.byteLength(JSON.stringify(message.content), 'utf8');
+        this.messageMetrics.messageSize.observe(size);
+      }
+    };
+    
+    return trackDelivery;
+  }
+  
+  getMetrics() {
+    return prometheus.register.metrics();
+  }
+  
+  getMetricsAsJSON() {
+    return prometheus.register.getMetricsAsJSON();
+  }
+}
+
+// Sử dụng trong ứng dụng Socket.IO
+module.exports = { ChatMetricsCollector };
+```
+
+#### 2.3 Distributed Tracing với OpenTelemetry
+
+```javascript
+// monitoring/tracing.js
+const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node');
+const { SimpleSpanProcessor } = require('@opentelemetry/sdk-trace-base');
+const { JaegerExporter } = require('@opentelemetry/exporter-jaeger');
+const { ZipkinExporter } = require('@opentelemetry/exporter-zipkin');
+const { Resource } = require('@opentelemetry/resources');
+const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
+const { trace, context, propagation } = require('@opentelemetry/api');
+const { W3CTraceContextPropagator } = require('@opentelemetry/core');
+
+class ChatTracing {
+  constructor(serviceName = 'chat-service') {
+    this.serviceName = serviceName;
+    this.tracer = null;
+    this.setupTracing();
+  }
+  
+  setupTracing() {
+    // 1. Tạo provider
+    const provider = new NodeTracerProvider({
+      resource: new Resource({
+        [SemanticResourceAttributes.SERVICE_NAME]: this.serviceName,
+        [SemanticResourceAttributes.DEPLOYMENT_ENVIRONMENT]: process.env.NODE_ENV || 'development'
+      })
+    });
+    
+    // 2. Cấu hình exporters
+    const exporters = [];
+    
+    if (process.env.JAEGER_ENDPOINT) {
+      exporters.push(new JaegerExporter({
+        endpoint: process.env.JAEGER_ENDPOINT,
+        tags: [
+          { key: 'application', value: 'chat-app' },
+          { key: 'version', value: process.env.VERSION || '1.0.0' }
+        ]
+      }));
+    }
+    
+    if (process.env.ZIPKIN_ENDPOINT) {
+      exporters.push(new ZipkinExporter({
+        url: process.env.ZIPKIN_ENDPOINT,
+        serviceName: this.serviceName
+      }));
+    }
+    
+    // 3. Thêm span processors
+    exporters.forEach(exporter => {
+      provider.addSpanProcessor(new SimpleSpanProcessor(exporter));
+    });
+    
+    // 4. Đăng ký provider
+    provider.register({
+      propagator: new W3CTraceContextPropagator()
+    });
+    
+    // 5. Lấy tracer
+    this.tracer = trace.getTracer('chat-tracer');
+  }
+  
+  // Tạo span cho WebSocket connection
+  traceConnection(socket) {
+    const span = this.tracer.startSpan('websocket.connection', {
+      attributes: {
+        'socket.id': socket.id,
+        'user.id': socket.userId || 'anonymous',
+        'connection.type': socket.conn.transport.name,
+        'user.agent': socket.request.headers['user-agent']
+      }
+    });
+    
+    // Lưu span vào socket để sử dụng sau
+    socket.__span = span;
+    
+    socket.on('disconnect', (reason) => {
+      span.setAttribute('disconnect.reason', reason);
+      span.setAttribute('connection.duration', Date.now() - span.startTime);
+      span.end();
+    });
+    
+    return span;
+  }
+  
+  // Tạo span cho message processing
+  traceMessage(socket, message) {
+    const parentSpan = socket.__span;
+    const spanContext = parentSpan ? trace.setSpan(context.active(), parentSpan) : context.active();
+    
+    const span = this.tracer.startSpan('message.process', {
+      attributes: {
+        'message.id': message.id || 'unknown',
+        'message.type': message.type || 'text',
+        'message.size': JSON.stringify(message).length,
+        'room.id': message.roomId || socket.roomId,
+        'sender.id': socket.userId || 'anonymous'
+      }
+    }, spanContext);
+    
+    // Inject trace context vào message để truyền qua các service
+    const carrier = {};
+    propagation.inject(context.active(), carrier, {
+      set(carrier, key, value) {
+        carrier[key] = value;
+      }
+    });
+    
+    message.traceContext = carrier;
+    
+    return {
+      span,
+      end: (status = 'success') => {
+        span.setAttribute('processing.status', status);
+        span.end();
+      }
+    };
+  }
+  
+  // Tạo span cho database query
+  traceDatabase(query, params) {
+    return this.tracer.startSpan('database.query', {
+      attributes: {
+        'db.system': 'postgresql',
+        'db.operation': query.split(' ')[0].toLowerCase(),
+        'db.query': query,
+        'db.params.count': params ? params.length : 0
+      }
+    });
+  }
+  
+  // Tạo span cho Redis operation
+  traceRedis(operation, key) {
+    return this.tracer.startSpan('redis.operation', {
+      attributes: {
+        'db.system': 'redis',
+        'redis.operation': operation,
+        'redis.key': key
+      }
+    });
+  }
+}
+
+// Middleware cho Express để trace HTTP requests
+const tracingMiddleware = (tracing) => (req, res, next) => {
+  const span = tracing.tracer.startSpan('http.request', {
+    attributes: {
+      'http.method': req.method,
+      'http.url': req.url,
+      'http.route': req.route?.path || 'unknown',
+      'http.user_agent': req.headers['user-agent'],
+      'http.client_ip': req.ip
+    }
+  });
+  
+  // Gắn span vào request context
+  const spanContext = trace.setSpan(context.active(), span);
+  const ctx = trace.bindContext(spanContext, context.active());
+  
+  context.with(ctx, () => {
+    // Theo dõi response
+    res.on('finish', () => {
+      span.setAttribute('http.status_code', res.statusCode);
+      span.setAttribute('http.response_size', res.get('Content-Length') || 0);
+      span.end();
+    });
+    
+    next();
+  });
+};
+
+module.exports = { ChatTracing, tracingMiddleware };
+```
+
+#### 2.4 Grafana Dashboard Configuration
+
+```json
+{
+  "dashboard": {
+    "title": "Chat Application Monitoring",
+    "panels": [
+      {
+        "title": "Active Connections",
+        "targets": [{
+          "expr": "sum(chat_active_connections)",
+          "legendFormat": "Connections"
+        }],
+        "type": "stat",
+        "thresholds": {
+          "steps": [
+            { "color": "green", "value": null },
+            { "color": "red", "value": 10000 }
+          ]
+        }
+      },
+      {
+        "title": "Message Latency (p95)",
+        "targets": [{
+          "expr": "histogram_quantile(0.95, rate(chat_message_latency_seconds_bucket[5m]))",
+          "legendFormat": "Latency p95"
+        }],
+        "type": "graph",
+        "yaxes": [{
+          "format": "s",
+          "min": 0
+        }]
+      },
+      {
+        "title": "Messages Per Second",
+        "targets": [{
+          "expr": "rate(chat_messages_received_total[5m])",
+          "legendFormat": "Received"
+        }, {
+          "expr": "rate(chat_messages_sent_total[5m])",
+          "legendFormat": "Sent"
+        }],
+        "type": "graph"
+      },
+      {
+        "title": "Error Rate",
+        "targets": [{
+          "expr": "rate(chat_connections_total{status=\"failed\"}[5m]) / rate(chat_connections_total[5m]) * 100",
+          "legendFormat": "Connection Error Rate"
+        }],
+        "type": "gauge",
+        "thresholds": {
+          "steps": [
+            { "color": "green", "value": null },
+            { "color": "yellow", "value": 1 },
+            { "color": "red", "value": 5 }
+          ]
+        }
+      },
+      {
+        "title": "Room Activity",
+        "targets": [{
+          "expr": "topk(10, chat_room_message_rate)",
+          "legendFormat": "{{room_id}}"
+        }],
+        "type": "table"
+      },
+      {
+        "title": "System Resources",
+        "targets": [{
+          "expr": "process_resident_memory_bytes",
+          "legendFormat": "Memory"
+        }, {
+          "expr": "rate(process_cpu_seconds_total[5m]) * 100",
+          "legendFormat": "CPU"
+        }],
+        "type": "graph",
+        "yaxes": [{
+          "format": "bytes"
+        }, {
+          "format": "percent"
+        }]
+      }
+    ],
+    "refresh": "10s",
+    "time": { "from": "now-1h", "to": "now" }
+  }
+}
+```
+
+#### 2.5 Alerting Rules
+
+```yaml
+# alerting/rules.yml
+groups:
+  - name: chat-application
+    rules:
+      # Alert khi connection error rate > 5%
+      - alert: HighConnectionErrorRate
+        expr: |
+          rate(chat_connections_total{status="failed"}[5m]) 
+          / rate(chat_connections_total[5m]) 
+          > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          team: chat-platform
+        annotations:
+          summary: "High connection error rate ({{ $value }}%)"
+          description: "Connection error rate is above 5% for 5 minutes"
+          
+      # Alert khi message latency p95 > 200ms
+      - alert: HighMessageLatency
+        expr: |
+          histogram_quantile(0.95, rate(chat_message_latency_seconds_bucket[5m])) 
+          > 0.2
+        for: 5m
+        labels:
+          severity: warning
+          team: chat-platform
+        annotations:
+          summary: "High message latency (p95: {{ $value }}s)"
+          description: "Message latency p95 is above 200ms for 5 minutes"
+          
+      # Alert khi active connections > 10,000
+      - alert: HighConcurrentConnections
+        expr: |
+          sum(chat_active_connections) 
+          > 10000
+        for: 2m
+        labels:
+          severity: warning
+          team: chat-platform
+        annotations:
+          summary: "High concurrent connections ({{ $value }})"
+          description: "Active connections exceeded 10,000"
+          
+      # Alert khi memory usage > 80%
+      - alert: HighMemoryUsage
+        expr: |
+          process_resident_memory_bytes 
+          / node_memory_MemTotal_bytes 
+          > 0.8
+        for: 10m
+        labels:
+          severity: warning
+          team: chat-platform
+        annotations:
+          summary: "High memory usage ({{ $value | humanizePercentage }})"
+          description: "Memory usage is above 80% for 10 minutes"
+          
+      # Alert khi có sự giảm đột ngột số connections
+      - alert: ConnectionDrop
+        expr: |
+          deriv(chat_active_connections[5m]) 
+          < -1000
+        for: 1m
+        labels:
+          severity: critical
+          team: chat-platform
+        annotations:
+          summary: "Sudden connection drop ({{ $value }} connections/min)"
+          description: "Active connections dropped by more than 1000 in 1 minute"
+```
+
+---
+
+### 🔧 Cách Troubleshoot Các Vấn Đề Performance Phổ Biến
+
+#### 3.1 Diagnostic Framework
+
+```javascript
+// troubleshooting/diagnostic-toolkit.js
+const os = require('os');
+const v8 = require('v8');
+const { promisify } = require('util');
+const { exec } = require('child_process');
+const execAsync = promisify(exec);
+
+class ChatDiagnosticToolkit {
+  constructor() {
+    this.diagnosticHistory = [];
+    this.metricsCache = new Map();
+  }
+
+  // 1. DIAGNOSE HIGH LATENCY
+  async diagnoseLatency(latencyThreshold = 200) {
+    const report = {
+      timestamp: new Date().toISOString(),
+      issue: 'High Message Latency',
+      checks: [],
+      recommendations: []
+    };
+
+    // Check 1: System load
+    const load = os.loadavg();
+    report.checks.push({
+      check: 'System Load Average',
+      status: load[0] > os.cpus().length ? 'HIGH' : 'OK',
+      value: load,
+      threshold: os.cpus().length
+    });
+
+    // Check 2: Node.js event loop lag
+    const eventLoopLag = await this.measureEventLoopLag();
+    report.checks.push({
+      check: 'Event Loop Lag',
+      status: eventLoopLag > 100 ? 'HIGH' : 'OK',
+      value: `${eventLoopLag}ms`,
+      threshold: '100ms'
+    });
+
+    // Check 3: Garbage Collection frequency
+    const gcStats = v8.getHeapStatistics();
+    report.checks.push({
+      check: 'Garbage Collection Pressure',
+      status: gcStats.heap_size_limit - gcStats.used_heap_size < 100 * 1024 * 1024 ? 'HIGH' : 'OK',
+      value: `${Math.round((gcStats.used_heap_size / gcStats.heap_size_limit) * 100)}%`,
+      threshold: '90%'
+    });
+
+    // Check 4: Network latency to dependencies
+    const redisLatency = await this.measureRedisLatency();
+    const dbLatency = await this.measureDatabaseLatency();
+    
+    report.checks.push({
+      check: 'Redis Latency',
+      status: redisLatency > 10 ? 'HIGH' : 'OK',
+      value: `${redisLatency}ms`,
+      threshold: '10ms'
+    });
+
+    report.checks.push({
+      check: 'Database Latency',
+      status: dbLatency > 50 ? 'HIGH' : 'OK',
+      value: `${dbLatency}ms`,
+      threshold: '50ms'
+    });
+
+    // Check 5: Message queue backlog
+    const queueSize = await this.getMessageQueueSize();
+    report.checks.push({
+      check: 'Message Queue Backlog',
+      status: queueSize > 1000 ? 'HIGH' : 'OK',
+      value: queueSize,
+      threshold: '1000 messages'
+    });
+
+    // Generate recommendations
+    if (report.checks.some(c => c.status === 'HIGH')) {
+      report.recommendations = this.generateLatencyRecommendations(report.checks);
+    }
+
+    this.diagnosticHistory.push(report);
+    return report;
+  }
+
+  // 2. DIAGNOSE HIGH MEMORY USAGE
+  async diagnoseMemory(memoryThreshold = 0.8) {
+    const report = {
+      timestamp: new Date().toISOString(),
+      issue: 'High Memory Usage',
+      checks: [],
+      recommendations: []
+    };
+
+    // Check 1: Memory usage percentage
+    const totalMem = os.totalmem();
+    const freeMem = os.freemem();
+    const usedPercentage = (totalMem - freeMem) / totalMem;
+    
+    report.checks.push({
+      check: 'System Memory Usage',
+      status: usedPercentage > memoryThreshold ? 'HIGH' : 'OK',
+      value: `${Math.round(usedPercentage * 100)}%`,
+      threshold: `${memoryThreshold * 100}%`
+    });
+
+    // Check 2: Node.js heap statistics
+    const heapStats = v8.getHeapStatistics();
+    const heapUsage = heapStats.used_heap_size / heapStats.heap_size_limit;
+    
+    report.checks.push({
+      check: 'Node.js Heap Usage',
+      status: heapUsage > 0.8 ? 'HIGH' : 'OK',
+      value: `${Math.round(heapUsage * 100)}%`,
+      threshold: '80%'
+    });
+
+    // Check 3: Memory leak detection
+    const memoryTrend = await this.analyzeMemoryTrend();
+    report.checks.push({
+      check: 'Memory Leak Detection',
+      status: memoryTrend.slope > 0.1 ? 'DETECTED' : 'OK',
+      value: `Trend: ${memoryTrend.slope > 0 ? '+' : ''}${memoryTrend.slope.toFixed(3)} MB/min`,
+      threshold: '0.1 MB/min increase'
+    });
+
+    // Check 4: External memory usage
+    const redisMemory = await this.checkRedisMemory();
+    const dbMemory = await this.checkDatabaseMemory();
+    
+    report.checks.push({
+      check: 'Redis Memory Usage',
+      status: redisMemory.usage > 0.7 ? 'HIGH' : 'OK',
+      value: `${Math.round(redisMemory.usage * 100)}% (${redisMemory.used}MB)`,
+      threshold: '70%'
+    });
+
+    // Check 5: Connection pool memory
+    const connectionMemory = await this.estimateConnectionMemory();
+    report.checks.push({
+      check: 'WebSocket Connection Memory',
+      status: connectionMemory > 500 * 1024 * 1024 ? 'HIGH' : 'OK', // > 500MB
+      value: `${Math.round(connectionMemory / (1024 * 1024))}MB`,
+      threshold: '500MB'
+    });
+
+    // Heap dump analysis
+    if (report.checks.some(c => c.status === 'HIGH' || c.status === 'DETECTED')) {
+      const heapAnalysis = await this.analyzeHeapDump();
+      report.heapAnalysis = heapAnalysis;
+      
+      report.recommendations = this.generateMemoryRecommendations(
+        report.checks,
+        heapAnalysis
+      );
+    }
+
+    return report;
+  }
+
+  // 3. DIAGNOSE CONNECTION ISSUES
+  async diagnoseConnections() {
+    const report = {
+      timestamp: new Date().toISOString(),
+      issue: 'Connection Issues',
+      checks: [],
+      recommendations: []
+    };
+
+    // Check 1: File descriptor limits
+    const fdLimit = await this.getFileDescriptorLimit();
+    const fdUsage = await this.getFileDescriptorUsage();
+    const fdPercentage = fdUsage / fdLimit;
+    
+    report.checks.push({
+      check: 'File Descriptor Usage',
+      status: fdPercentage > 0.8 ? 'HIGH' : 'OK',
+      value: `${fdUsage}/${fdLimit} (${Math.round(fdPercentage * 100)}%)`,
+      threshold: '80%'
+    });
+
+    // Check 2: TCP connection states
+    const tcpStats = await this.getTCPConnectionStats();
+    report.checks.push({
+      check: 'TCP TIME_WAIT Connections',
+      status: tcpStats.timeWait > 10000 ? 'HIGH' : 'OK',
+      value: tcpStats.timeWait,
+      threshold: '10,000'
+    });
+
+    // Check 3: WebSocket handshake failures
+    const wsFailures = await this.getWebSocketFailureRate();
+    report.checks.push({
+      check: 'WebSocket Handshake Failure Rate',
+      status: wsFailures > 0.05 ? 'HIGH' : 'OK',
+      value: `${Math.round(wsFailures * 100)}%`,
+      threshold: '5%'
+    });
+
+    // Check 4: Authentication latency
+    const authLatency = await this.getAuthenticationLatency();
+    report.checks.push({
+      check: 'Authentication Latency',
+      status: authLatency.p95 > 1000 ? 'HIGH' : 'OK',
+      value: `p95: ${authLatency.p95}ms`,
+      threshold: '1000ms'
+    });
+
+    // Check 5: Load balancer health
+    const lbHealth = await this.checkLoadBalancerHealth();
+    report.checks.push({
+      check: 'Load Balancer Health',
+      status: lbHealth.healthyInstances < lbHealth.totalInstances * 0.8 ? 'DEGRADED' : 'OK',
+      value: `${lbHealth.healthyInstances}/${lbHealth.totalInstances} healthy`,
+      threshold: '80% healthy'
+    });
+
+    // Generate recommendations
+    const highChecks = report.checks.filter(c => 
+      c.status === 'HIGH' || c.status === 'DEGRADED'
+    );
+    
+    if (highChecks.length > 0) {
+      report.recommendations = this.generateConnectionRecommendations(highChecks);
+    }
+
+    return report;
+  }
+
+  // Utility methods (giả lập - trong production cần implement thật)
+  async measureEventLoopLag() {
+    const start = process.hrtime.bigint();
+    await new Promise(resolve => setImmediate(resolve));
+    const end = process.hrtime.bigint();
+    return Number(end - start) / 1_000_000; // Convert to milliseconds
+  }
+
+  async measureRedisLatency() {
+    try {
+      const start = Date.now();
+      // Giả lập Redis PING
+      await new Promise(resolve => setTimeout(resolve, Math.random() * 20));
+      return Date.now() - start;
+    } catch (error) {
+      return Infinity;
+    }
+  }
+
+  async measureDatabaseLatency() {
+    // Giả lập database query latency
+    return Math.random() * 100;
+  }
+
+  async getMessageQueueSize() {
+    // Giả lập message queue size
+    return Math.floor(Math.random() * 2000);
+  }
+
+  async analyzeMemoryTrend() {
+    // Thu thập 10 mẫu memory trong 1 phút
+    const samples = [];
+    for (let i = 0; i < 10; i++) {
+      samples.push(process.memoryUsage().heapUsed);
+      await new Promise(resolve => setTimeout(resolve, 6000)); // 6 giây
+    }
+    
+    // Tính trend line
+    const x = samples.map((_, i) => i);
+    const y = samples.map(v => v / (1024 * 1024)); // Convert to MB
+    
+    const n = x.length;
+    const sumX = x.reduce((a, b) => a + b, 0);
+    const sumY = y.reduce((a, b) => a + b, 0);
+    const sumXY = x.reduce((sum, xi, i) => sum + xi * y[i], 0);
+    const sumXX = x.reduce((sum, xi) => sum + xi * xi, 0);
+    
+    const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+    
+    return {
+      samples: y,
+      slope: slope * 10, // Convert to MB per minute (6s intervals * 10 = 1 minute)
+      trend: slope > 0 ? 'increasing' : slope < 0 ? 'decreasing' : 'stable'
+    };
+  }
+
+  async checkRedisMemory() {
+    // Giả lập Redis memory check
+    return { usage: Math.random(), used: Math.random() * 1000 };
+  }
+
+  async checkDatabaseMemory() {
+    // Giả lập database memory check
+    return { usage: Math.random() };
+  }
+
+  async estimateConnectionMemory() {
+    // Giả lập connection memory estimation
+    return Math.random() * 1000 * 1024 * 1024;
+  }
+
+  async analyzeHeapDump() {
+    // Trong production, sử dụng heapdump module
+    const heapStats = v8.getHeapStatistics();
+    const heapSpaceStats = v8.getHeapSpaceStatistics();
+    
+    const analysis = {
+      summary: {
+        totalHeapSize: Math.round(heapStats.total_heap_size / (1024 * 1024)),
+        usedHeapSize: Math.round(heapStats.used_heap_size / (1024 * 1024)),
+        heapSizeLimit: Math.round(heapStats.heap_size_limit / (1024 * 1024)),
+        mallocedMemory: Math.round(heapStats.malloced_memory / (1024 * 1024))
+      },
+      spaces: heapSpaceStats.map(space => ({
+        name: space.space_name,
+        size: Math.round(space.space_size / (1024 * 1024)),
+        used: Math.round(space.space_used_size / (1024 * 1024)),
+        available: Math.round(space.space_available_size / (1024 * 1024)),
+        physical: Math.round(space.physical_space_size / (1024 * 1024))
+      })),
+      potentialIssues: []
+    };
+
+    // Detect common memory issues
+    const issues = [];
+    
+    // Issue 1: Large strings in heap
+    if (heapSpaceStats.find(s => s.space_name === 'large_object_space')?.space_used_size > 100 * 1024 * 1024) {
+      issues.push('Large objects space > 100MB (check for large strings/arrays)');
+    }
+    
+    // Issue 2: Old space接近limit
+    const oldSpace = heapSpaceStats.find(s => s.space_name === 'old_space');
+    if (oldSpace && oldSpace.space_used_size / oldSpace.space_size > 0.9) {
+      issues.push('Old space usage > 90% (potential memory leak in long-lived objects)');
+    }
+    
+    // Issue 3: Frequent GC
+    if (heapStats.total_available_size / heapStats.heap_size_limit < 0.2) {
+      issues.push('Available heap < 20% (frequent garbage collection)');
+    }
+    
+    analysis.potentialIssues = issues;
+    return analysis;
+  }
+
+  async getFileDescriptorLimit() {
+    try {
+      const { stdout } = await execAsync('ulimit -n');
+      return parseInt(stdout.trim());
+    } catch {
+      return 1024; // Default
+    }
+  }
+
+  async getFileDescriptorUsage() {
+    try {
+      const { stdout } = await execAsync(`lsof -p ${process.pid} | wc -l`);
+      return parseInt(stdout.trim());
+    } catch {
+      return 0;
+    }
+  }
+
+  async getTCPConnectionStats() {
+    // Giả lập TCP stats
+    return { timeWait: Math.floor(Math.random() * 20000) };
+  }
+
+  async getWebSocketFailureRate() {
+    // Giả lập WebSocket failure rate
+    return Math.random() * 0.1;
+  }
+
+  async getAuthenticationLatency() {
+    // Giả lập authentication latency
+    return { p95: Math.random() * 2000 };
+  }
+
+  async checkLoadBalancerHealth() {
+    // Giả lập load balancer health
+    return { healthyInstances: 8, totalInstances: 10 };
+  }
+
+  generateLatencyRecommendations(checks) {
+    const recommendations = [];
+    
+    if (checks.find(c => c.check === 'System Load Average' && c.status === 'HIGH')) {
+      recommendations.push({
+        priority: 'HIGH',
+        action: 'Scale horizontally by adding more instances',
+        details: 'System load indicates CPU saturation'
+      });
+    }
+    
+    if (checks.find(c => c.check === 'Event Loop Lag' && c.status === 'HIGH')) {
+      recommendations.push({
+        priority: 'HIGH',
+        action: 'Investigate blocking operations in event loop',
+        details: 'Check for synchronous I/O, CPU-intensive tasks, or large JSON parsing'
+      });
+    }
+    
+    if (checks.find(c => c.check === 'Message Queue Backlog' && c.status === 'HIGH')) {
+      recommendations.push({
+        priority: 'MEDIUM',
+        action: 'Increase message processing workers',
+        details: 'Message backlog indicates processing bottleneck'
+      });
+    }
+    
+    return recommendations;
+  }
+
+  generateMemoryRecommendations(checks, heapAnalysis) {
+    const recommendations = [];
+    
+    if (checks.find(c => c.check === 'Node.js Heap Usage' && c.status === 'HIGH')) {
+      recommendations.push({
+        priority: 'HIGH',
+        action: 'Increase Node.js heap memory limit',
+        details: 'Add --max-old-space-size=4096 flag (for 4GB)'
+      });
+    }
+    
+    if (heapAnalysis.potentialIssues.some(issue => issue.includes('Large objects space'))) {
+      recommendations.push({
+        priority: 'MEDIUM',
+        action: 'Optimize large message handling',
+        details: 'Consider streaming large messages or using external storage'
+      });
+    }
+    
+    if (checks.find(c => c.check === 'WebSocket Connection Memory' && c.status === 'HIGH')) {
+      recommendations.push({
+        priority: 'HIGH',
+        action: 'Implement connection cleanup and heartbeat',
+        details: 'Add ping/pong mechanism to detect and clean dead connections'
+      });
+    }
+    
+    return recommendations;
+  }
+
+  generateConnectionRecommendations(checks) {
+    const recommendations = [];
+    
+    if (checks.find(c => c.check === 'File Descriptor Usage' && c.status === 'HIGH')) {
+      recommendations.push({
+        priority: 'CRITICAL',
+        action: 'Increase system file descriptor limit',
+        details: 'Run: ulimit -n 65535 && sysctl -w fs.file-max=100000'
+      });
+    }
+    
+    if (checks.find(c => c.check === 'TCP TIME_WAIT Connections' && c.status === 'HIGH')) {
+      recommendations.push({
+        priority: 'HIGH',
+        action: 'Tune TCP kernel parameters',
+        details: 'Adjust net.ipv4.tcp_tw_reuse and net.ipv4.tcp_fin_timeout'
+      });
+    }
+    
+    return recommendations;
+  }
+}
+
+// Sử dụng diagnostic toolkit
+const toolkit = new ChatDiagnosticToolkit();
+
+// Khi có performance issue, chạy diagnostics
+async function troubleshootIssue(issueType) {
+  let report;
+  
+  switch(issueType) {
+    case 'latency':
+      report = await toolkit.diagnoseLatency();
+      break;
+    case 'memory':
+      report = await toolkit.diagnoseMemory();
+      break;
+    case 'connections':
+      report = await toolkit.diagnoseConnections();
+      break;
+    default:
+      // Run all diagnostics
+      const [latencyReport, memoryReport, connectionReport] = await Promise.all([
+        toolkit.diagnoseLatency(),
+        toolkit.diagnoseMemory(),
+        toolkit.diagnoseConnections()
+      ]);
+      report = { latencyReport, memoryReport, connectionReport };
+  }
+  
+  console.log('🔍 Diagnostic Report:');
+  console.log(JSON.stringify(report, null, 2));
+  
+  return report;
+}
+
+module.exports = { ChatDiagnosticToolkit, troubleshootIssue };
+```
+
+#### 3.2 Performance Bottleneck Analysis
+
+```javascript
+// troubleshooting/bottleneck-analyzer.js
+const { performance, PerformanceObserver } = require('perf_hooks');
+
+class BottleneckAnalyzer {
+  constructor() {
+    this.bottlenecks = new Map();
+    this.performanceMarks = new Map();
+    this.setupPerformanceObservers();
+  }
+
+  setupPerformanceObservers() {
+    // Observer cho WebSocket operations
+    this.wsObserver = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      entries.forEach(entry => {
+        this.analyzeWebSocketOperation(entry);
+      });
+    });
+    this.wsObserver.observe({ entryTypes: ['measure'], buffered: true });
+
+    // Observer cho database operations
+    this.dbObserver = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      entries.forEach(entry => {
+        this.analyzeDatabaseOperation(entry);
+      });
+    });
+    this.dbObserver.observe({ entryTypes: ['measure'], buffered: true });
+  }
+
+  // Track WebSocket message flow
+  trackMessageFlow(messageId) {
+    const marks = {
+      received: `message_${messageId}_received`,
+      authenticated: `message_${messageId}_authenticated`,
+      processed: `message_${messageId}_processed`,
+      broadcast: `message_${messageId}_broadcast`,
+      delivered: `message_${messageId}_delivered`
+    };
+
+    return {
+      markReceived: () => performance.mark(marks.received),
+      markAuthenticated: () => performance.mark(marks.authenticated),
+      markProcessed: () => performance.mark(marks.processed),
+      markBroadcast: () => performance.mark(marks.broadcast),
+      markDelivered: () => performance.mark(marks.delivered),
+      
+      measureTotal: () => {
+        performance.measure(
+          `message_${messageId}_total`,
+          marks.received,
+          marks.delivered
+        );
+        
+        // Measure individual stages
+        performance.measure(
+          `message_${messageId}_auth`,
+          marks.received,
+          marks.authenticated
+        );
+        
+        performance.measure(
+          `message_${messageId}_processing`,
+          marks.authenticated,
+          marks.processed
+        );
+        
+        performance.measure(
+          `message_${messageId}_broadcasting`,
+          marks.processed,
+          marks.broadcast
+        );
+      }
+    };
+  }
+
+  analyzeWebSocketOperation(entry) {
+    const { name, duration } = entry;
+    
+    if (duration > 100) { // > 100ms là chậm
+      const bottleneck = {
+        type: 'websocket_operation',
+        operation: name,
+        duration,
+        timestamp: new Date().toISOString(),
+        severity: duration > 500 ? 'HIGH' : 'MEDIUM'
+      };
+      
+      this.bottlenecks.set(`${name}_${Date.now()}`, bottleneck);
+      this.notifyBottleneck(bottleneck);
+    }
+  }
+
+  analyzeDatabaseOperation(entry) {
+    const { name, duration } = entry;
+    
+    if (duration > 50) { // > 50ms là chậm
+      const bottleneck = {
+        type: 'database_operation',
+        operation: name,
+        duration,
+        timestamp: new Date().toISOString(),
+        severity: duration > 200 ? 'HIGH' : 'MEDIUM'
+      };
+      
+      this.bottlenecks.set(`${name}_${Date.now()}`, bottleneck);
+      
+      // Nếu là query chậm, log để optimization sau
+      if (name.includes('query')) {
+        console.warn(`Slow database query detected: ${name} (${duration}ms)`);
+      }
+    }
+  }
+
+  detectCommonBottlenecks() {
+    const commonPatterns = [
+      {
+        pattern: /message_.*_auth/,
+        threshold: 50,
+        issue: 'Authentication bottleneck',
+        solution: 'Cache authentication results, use JWT tokens'
+      },
+      {
+        pattern: /message_.*_broadcasting/,
+        threshold: 100,
+        issue: 'Broadcast bottleneck',
+        solution: 'Optimize room management, use efficient broadcast algorithms'
+      },
+      {
+        pattern: /database_query.*SELECT/,
+        threshold: 100,
+        issue: 'Slow database query',
+        solution: 'Add indexes, optimize query, implement caching'
+      },
+      {
+        pattern: /redis_.*/,
+        threshold: 10,
+        issue: 'Redis latency',
+        solution: 'Check Redis server load, network latency, use connection pooling'
+      }
+    ];
+
+    const detectedIssues = [];
+    
+    for (const [key, bottleneck] of this.bottlenecks) {
+      for (const pattern of commonPatterns) {
+        if (pattern.pattern.test(bottleneck.operation) && bottleneck.duration > pattern.threshold) {
+          detectedIssues.push({
+            ...bottleneck,
+            commonIssue: pattern.issue,
+            suggestedSolution: pattern.solution
+          });
+          break;
+        }
+      }
+    }
+
+    return detectedIssues;
+  }
+
+  notifyBottleneck(bottleneck) {
+    // Gửi alert qua monitoring system
+    console.warn(`🚨 Performance bottleneck detected:`, bottleneck);
+    
+    // Có thể tích hợp với Slack, PagerDuty, etc.
+    if (bottleneck.severity === 'HIGH') {
+      this.sendAlert({
+        title: `High severity bottleneck: ${bottleneck.type}`,
+        message: `${bottleneck.operation} took ${bottleneck.duration}ms`,
+        priority: 'P1'
+      });
+    }
+  }
+
+  sendAlert(alert) {
+    // Implement alert sending logic
+    console.log('Alert:', alert);
+  }
+
+  generateOptimizationReport() {
+    const issues = this.detectCommonBottlenecks();
+    
+    const report = {
+      timestamp: new Date().toISOString(),
+      summary: {
+        totalBottlenecks: this.bottlenecks.size,
+        highSeverity: Array.from(this.bottlenecks.values()).filter(b => b.severity === 'HIGH').length,
+        byType: this.groupByType(Array.from(this.bottlenecks.values()))
+      },
+      detectedIssues: issues,
+      recommendations: this.generateOptimizationRecommendations(issues),
+      nextSteps: [
+        '1. Review high severity bottlenecks first',
+        '2. Implement suggested optimizations',
+        '3. Monitor performance after changes',
+        '4. Update thresholds based on new baseline'
+      ]
+    };
+
+    return report;
+  }
+
+  groupByType(bottlenecks) {
+    const groups = {};
+    bottlenecks.forEach(b => {
+      groups[b.type] = groups[b.type] || [];
+      groups[b.type].push(b);
+    });
+    return groups;
+  }
+
+  generateOptimizationRecommendations(issues) {
+    const recommendations = [];
+    const solutionMap = new Map();
+    
+    issues.forEach(issue => {
+      if (issue.suggestedSolution) {
+        if (!solutionMap.has(issue.suggestedSolution)) {
+          solutionMap.set(issue.suggestedSolution, {
+            solution: issue.suggestedSolution,
+            relatedIssues: [],
+            priority: issue.severity === 'HIGH' ? 'P1' : 'P2'
+          });
+        }
+        solutionMap.get(issue.suggestedSolution).relatedIssues.push(issue.commonIssue);
+      }
+    });
+    
+    solutionMap.forEach((value) => {
+      recommendations.push({
+        ...value,
+        estimatedEffort: this.estimateEffort(value.priority),
+        impactedComponents: this.getImpactedComponents(value.relatedIssues)
+      });
+    });
+    
+    return recommendations.sort((a, b) => {
+      const priorityOrder = { 'P1': 1, 'P2': 2, 'P3': 3 };
+      return priorityOrder[a.priority] - priorityOrder[b.priority];
+    });
+  }
+
+  estimateEffort(priority) {
+    const efforts = {
+      'P1': '1-3 days (critical fix)',
+      'P2': '1-2 weeks (important optimization)',
+      'P3': '1 month (long-term improvement)'
+    };
+    return efforts[priority] || 'TBD';
+  }
+
+  getImpactedComponents(issues) {
+    const components = new Set();
+    
+    issues.forEach(issue => {
+      if (issue.includes('database')) components.add('Database');
+      if (issue.includes('WebSocket')) components.add('WebSocket Server');
+      if (issue.includes('Redis')) components.add('Redis Cache');
+      if (issue.includes('authentication')) components.add('Auth Service');
+      if (issue.includes('broadcast')) components.add('Message Broadcast');
+    });
+    
+    return Array.from(components);
+  }
+}
+
+// Sử dụng trong ứng dụng
+const analyzer = new BottleneckAnalyzer();
+
+// Ví dụ: Track một message flow
+const messageId = 'msg_12345';
+const tracker = analyzer.trackMessageFlow(messageId);
+
+tracker.markReceived();
+tracker.markAuthenticated();
+tracker.markProcessed();
+tracker.markBroadcast();
+tracker.markDelivered();
+tracker.measureTotal();
+
+// Generate report hàng giờ
+setInterval(() => {
+  const report = analyzer.generateOptimizationReport();
+  console.log('📊 Performance Optimization Report:');
+  console.log(JSON.stringify(report, null, 2));
+}, 3600000); // Mỗi giờ
+```
+
+#### 3.3 Real-time Debugging Tools
+
+```javascript
+// debugging/realtime-debugger.js
+const WebSocket = require('ws');
+const { EventEmitter } = require('events');
+
+class RealtimeDebugger extends EventEmitter {
+  constructor(options = {}) {
+    super();
+    this.options = {
+      port: options.port || 8081,
+      maxConnections: options.maxConnections || 100,
+      retentionPeriod: options.retentionPeriod || 3600000 // 1 hour
+    };
+    
+    this.debugConnections = new Map();
+    this.messageBuffer = [];
+    this.performanceTraces = new Map();
+    
+    this.setupDebugServer();
+    this.setupMetricsCollection();
+  }
+
+  setupDebugServer() {
+    this.debugServer = new WebSocket.Server({
+      port: this.options.port,
+      clientTracking: true
+    });
+
+    this.debugServer.on('connection', (ws, req) => {
+      const clientId = req.headers['x-client-id'] || `client_${Date.now()}`;
+      
+      this.debugConnections.set(clientId, {
+        ws,
+        connectedAt: Date.now(),
+        subscriptions: new Set()
+      });
+
+      ws.send(JSON.stringify({
+        type: 'INIT',
+        data: {
+          serverTime: Date.now(),
+          activeConnections: this.debugServer.clients.size,
+          metrics: this.getCurrentMetrics()
+        }
+      }));
+
+      ws.on('message', (data) => {
+        this.handleDebugCommand(clientId, JSON.parse(data));
+      });
+
+      ws.on('close', () => {
+        this.debugConnections.delete(clientId);
+      });
+    });
+
+    console.log(`🔍 Realtime debugger listening on port ${this.options.port}`);
+  }
+
+  setupMetricsCollection() {
+    setInterval(() => {
+      const metrics = this.getCurrentMetrics();
+      
+      this.messageBuffer.push({
+        timestamp: Date.now(),
+        metrics,
+        type: 'METRICS_SNAPSHOT'
+      });
+      
+      const cutoff = Date.now() - this.options.retentionPeriod;
+      this.messageBuffer = this.messageBuffer.filter(m => m.timestamp > cutoff);
+      
+      this.broadcastToSubscribers('metrics', metrics);
+    }, 5000);
+  }
+
+  handleDebugCommand(clientId, command) {
+    const client = this.debugConnections.get(clientId);
+    if (!client) return;
+
+    switch (command.type) {
+      case 'SUBSCRIBE':
+        command.topics.forEach(topic => client.subscriptions.add(topic));
+        break;
+      case 'UNSUBSCRIBE':
+        command.topics.forEach(topic => client.subscriptions.delete(topic));
+        break;
+      case 'GET_HISTORY':
+        this.sendHistory(clientId, command);
+        break;
+      case 'TRACE_MESSAGE':
+        this.traceMessageFlow(command.messageId);
+        break;
+    }
+  }
+
+  logEvent(type, data, severity = 'INFO') {
+    const event = {
+      timestamp: Date.now(),
+      type,
+      data,
+      severity,
+      source: 'chat-application'
+    };
+
+    this.messageBuffer.push(event);
+    this.broadcastToSubscribers(type, event);
+    this.emit('event', event);
+    
+    if (severity === 'ERROR' || severity === 'CRITICAL') {
+      console.error(`[${severity}] ${type}:`, data);
+    }
+  }
+
+  traceMessageFlow(messageId) {
+    const traceId = `trace_${messageId}`;
+    this.performanceTraces.set(traceId, {
+      messageId,
+      startTime: Date.now(),
+      stages: {},
+      completed: false
+    });
+
+    return {
+      markStage: (stageName) => {
+        const trace = this.performanceTraces.get(traceId);
+        if (trace) {
+          trace.stages[stageName] = Date.now();
+          this.logEvent('TRACE_UPDATE', {
+            traceId,
+            stage: stageName,
+            timestamp: Date.now()
+          });
+        }
+      },
+      complete: () => {
+        const trace = this.performanceTraces.get(traceId);
+        if (trace) {
+          trace.completed = true;
+          trace.endTime = Date.now();
+          trace.totalDuration = trace.endTime - trace.startTime;
+          this.logEvent('TRACE_COMPLETE', trace);
+        }
+      }
+    };
+  }
+
+  broadcastToSubscribers(topic, data) {
+    const message = JSON.stringify({
+      type: 'UPDATE',
+      topic,
+      data,
+      timestamp: Date.now()
+    });
+
+    this.debugConnections.forEach((client) => {
+      if (client.subscriptions.has(topic) || client.subscriptions.has('*')) {
+        try {
+          client.ws.send(message);
+        } catch (error) {
+          console.error('Failed to send debug message:', error);
+        }
+      }
+    });
+  }
+
+  sendHistory(clientId, command) {
+    const client = this.debugConnections.get(clientId);
+    if (!client) return;
+
+    const filtered = this.messageBuffer.filter(event => {
+      if (command.filters) {
+        if (command.filters.type && event.type !== command.filters.type) return false;
+        if (command.filters.startTime && event.timestamp < command.filters.startTime) return false;
+      }
+      return true;
+    }).slice(-command.limit || 100);
+
+    client.ws.send(JSON.stringify({
+      type: 'HISTORY_RESPONSE',
+      data: filtered,
+      count: filtered.length
+    }));
+  }
+
+  getCurrentMetrics() {
+    const memory = process.memoryUsage();
+    return {
+      timestamp: Date.now(),
+      system: {
+        memory: {
+          heapUsed: Math.round(memory.heapUsed / 1024 / 1024),
+          heapTotal: Math.round(memory.heapTotal / 1024 / 1024),
+          rss: Math.round(memory.rss / 1024 / 1024)
+        },
+        uptime: process.uptime()
+      },
+      application: {
+        debugConnections: this.debugServer.clients.size,
+        messageBufferSize: this.messageBuffer.length,
+        activeTraces: this.performanceTraces.size
+      }
+    };
+  }
+}
+
+module.exports = { RealtimeDebugger };
+```
+
+#### 3.4 Runbook cho Common Issues
+
+##### 🚨 CRITICAL ISSUE: High Message Latency (>500ms p95)
+
+**Symptoms:**
+- Users report delayed messages
+- Monitoring shows p95 latency > 500ms
+- Message queue backlog increasing
+
+**Immediate Actions (First 5 minutes):**
+
+1. **Scale Horizontally**
+   ```bash
+   # Scale up chat servers
+   kubectl scale deployment chat-server --replicas=10
+   
+   # Scale up Redis
+   kubectl scale statefulset redis --replicas=3
+   ```
+
+2. **Check Dependencies**
+   ```bash
+   # Check database health
+   kubectl exec -it postgres-0 -- pg_isready
+   
+   # Check Redis latency
+   kubectl exec -it redis-0 -- redis-cli --latency
+   ```
+
+3. **Reduce Load**
+   ```bash
+   # Temporarily disable non-essential features
+   curl -X POST http://chat-server/features/disable \
+     -d '{"features": ["typing_indicators", "read_receipts"]}'
+   ```
+
+**Investigation (5-15 minutes):**
+
+1. **Identify Bottleneck**
+   ```javascript
+   // Use diagnostic toolkit
+   const report = await diagnosticToolkit.diagnoseLatency();
+   console.log(report);
+   ```
+
+2. **Check Resource Usage**
+   ```bash
+   # CPU usage
+   kubectl top pods -l app=chat-server
+   
+   # Memory usage
+   kubectl describe pods -l app=chat-server | grep -A 5 "Limits"
+   
+   # Network connections
+   kubectl exec -it chat-server-pod -- netstat -an | grep ESTABLISHED | wc -l
+   ```
+
+**Resolution:**
+- **If CPU-bound:** Optimize algorithms, add caching, use worker threads
+- **If Memory-bound:** Increase limits, fix leaks, optimize data structures
+- **If I/O-bound:** Add indexes, implement pooling, use Redis caching
+
+##### 🟡 WARNING: High Memory Usage (>80%)
+
+**Symptoms:**
+- Memory usage > 80% sustained
+- Frequent garbage collection
+- Increased response times
+
+**Immediate Actions:**
+
+1. **Restart Pods with Highest Memory**
+   ```bash
+   kubectl top pods -l app=chat-server --sort-by=memory
+   kubectl delete pod chat-server-worst-pod
+   ```
+
+2. **Increase Memory Limits**
+   ```bash
+   kubectl patch deployment chat-server \
+     -p '{"spec":{"template":{"spec":{"containers":[{"name":"chat-server","resources":{"limits":{"memory":"2Gi"}}}]}}}}'
+   ```
+
+**Resolution:**
+- Fix memory leaks in connections
+- Optimize large message buffers
+- Implement connection cleanup
+
+##### 🔴 CRITICAL: Connection Storm (>10k connections/minute)
+
+**Symptoms:**
+- Rapid increase in connections
+- Authentication service overwhelmed
+- System resources exhausted
+
+**Immediate Actions:**
+
+1. **Enable Rate Limiting**
+   ```nginx
+   # nginx configuration
+   limit_conn_zone $binary_remote_addr zone=conn_limit_per_ip:10m;
+   limit_conn conn_limit_per_ip 10;
+   ```
+
+2. **Scale Authentication Service**
+   ```bash
+   kubectl scale deployment auth-service --replicas=5
+   ```
+
+3. **Implement Connection Queue**
+   ```javascript
+   let connectionQueue = [];
+   let processing = 0;
+   const MAX_CONCURRENT = 1000;
+
+   io.engine.on('connection', (socket) => {
+     connectionQueue.push(socket);
+     processQueue();
+   });
+
+   function processQueue() {
+     while (processing < MAX_CONCURRENT && connectionQueue.length > 0) {
+       processing++;
+       const socket = connectionQueue.shift();
+       handleConnection(socket);
+     }
+   }
+   ```
+
+---
+
+## 🎯 TỔNG KẾT
+
+Để trở thành QA/SDET chuyên sâu cho chat application, bạn cần:
+
+1. ✅ **Tích hợp Performance Test vào CI/CD** để phát hiện sớm regression
+2. ✅ **Thiết lập Monitoring Stack** để theo dõi production 24/7
+3. ✅ **Xây dựng Diagnostic Toolkit** để troubleshoot nhanh chóng
+4. ✅ **Tạo Runbook** cho các sự cố phổ biến
+
+Các công cụ và quy trình này sẽ giúp bạn đảm bảo chat application luôn hoạt động ổn định, hiệu năng cao, và có thể scale để đáp ứng nhu cầu người dùng.
+
+**Chúc bạn thành công! 🚀**
